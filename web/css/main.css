@@ -1,0 +1,161 @@
+/*
+ .x-grid3-row-alt {
+ background-color: #ffabab !important;
+ }
+ */
+.calcular {
+   background-image: url(../images/iconos/calcular.png) !important;
+}
+
+.login {
+    background-image: url(../images/iconos/login.png) !important;
+}
+
+.salir {
+    background-image: url(../images/iconos/salir.png) !important;
+}
+
+.agregar {
+    background-image: url(../images/iconos/add.png) !important;
+}
+
+.eliminar {
+    background-image: url(../images/iconos/delete.gif) !important;
+}
+
+.filtrar {
+    background-image: url(../images/iconos/filtro.png) !important;
+}
+
+.restablece {
+    background-image: url(../images/iconos/recuperar.png) !important;
+}
+
+.mantenimiento {
+    background-image: url(../images/iconos/image_add.png) !important;
+}
+
+.regresar {
+    background-image: url(../images/iconos/refresh.png) !important;
+}
+
+.guardar {
+    background-image: url(../images/iconos/save.png) !important;
+}
+
+.usuario_habilitados_icono {
+    background-image: url(../images/iconos/habilitado.png) !important;
+}
+
+.usuario_deshabilitados_icono {
+    background-image: url(../images/iconos/deshabilitado.png) !important;
+}
+
+.usuario_todos_icono {
+    background-image: url(../images/iconos/usuarios.png) !important;
+}
+
+.evento {
+    background-image: url(../images/iconos/calendar_edit.png) !important;
+}
+
+.archivo {
+    background-image: url(../images/iconos/image_add.png) !important;
+}
+
+.poner_azul {
+    background-image: url(../images/fondos/azul.png) !important;
+}
+
+.reportes {
+    background-image: url(../images/reporte/reportes.png) !important;
+}
+
+.poner_rojo {
+    background-image: url(../images/fondos/rojo.png) !important;
+}
+
+.poner_amarillo {
+    background-image: url(../images/fondos/amarillo.png) !important;
+}
+
+.poner_verde {
+    background-image: url(../images/fondos/verde.png) !important;
+}
+
+.poner_cafe {
+    background-image: url(../images/fondos/cafe.png) !important;
+}
+
+.poner_zapote {
+    background-image: url(../images/fondos/zapote.png) !important;
+}
+
+.poner_naranja {
+    background-image: url(../images/fondos/naranja.png) !important;
+}
+
+.poner_fondo {
+    background-color: #d5ca9b !important;
+}
+
+.poner_pastel_base {
+    background-image: url(../images/fondos/pastel_base.png) !important;
+    background-color: #E0E0F8;
+}
+
+.eliminados {
+    background-image: url(../images/iconos/deshabilitado.png) !important;
+}
+
+.activos {
+    background-image: url(../images/iconos/habilitado.png) !important;
+}
+
+#reporte_diario_contenido_table .x-table-layout {
+    padding: 1px;
+}
+
+#reporte_diario_contenido_table .x-table-layout td {
+    vertical-align: top;
+    padding: 1px;
+    font-size: 10px;
+}
+
+#reporte_diario_title_table .x-table-layout {
+    padding: 1px;
+}
+
+#reporte_diario_title_table .x-table-layout td {
+    vertical-align: top;
+    padding: 1px;
+    font-size: 9px;
+}
+
+.reload {
+    background-image: url(../images/iconos/reload.png) !important;
+}
+
+.certificar {
+    background-image: url(../images/certificate.png) !important;
+}
+
+.eliminar_certificado {
+    background-image: url(../images/trash_can.png) !important;
+}
+
+.exportar_excel {
+    background-image: url(../images/iconos/excel.png) !important;
+}
+
+.abrir_manual {
+    background-image: url(../images/iconos/help-book.png) !important;
+}
+
+.historial {
+    background-image: url(../images/iconos/history.png) !important;
+}
+
+.tiempo_disponible {
+    background-image: url(../images/iconos/timer.png) !important;
+}

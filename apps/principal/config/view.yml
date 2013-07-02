@@ -1,0 +1,20 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/13-View
+
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        TPM-QLABS
+    #description:  symfony project
+    #keywords:     symfony, project
+    language:     es
+    #robots:       index, follow
+
+  stylesheets:    [main.css, extjs/resources/css/ext-all.css, extjs/examples/shared/examples.css, extjs/examples/ux/css/ColumnHeaderGroup.css, extjs/examples/ux/fileuploadfield/css/fileuploadfield.css, extjs/resources/css/xtheme-blue.css]
+
+  javascripts:    [extjs/adapter/ext/ext-base.js, extjs/ext-all-debug.js, extjs/src/locale/ext-lang-es.js, extjs/examples/shared/examples.js, funcionesgenerales.js]
+
+  has_layout:     true
+  layout:         layout

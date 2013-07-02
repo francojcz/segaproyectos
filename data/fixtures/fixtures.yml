@@ -1,0 +1,35 @@
+estado:
+  Estado_1:
+    est_nombre: Bueno
+  Estado_2:
+    est_nombre: 'Dado de baja'
+metodo:
+  Metodo_1:
+    met_nombre: 'Método 1'
+  Metodo_2:
+    met_nombre: 'Método 2'
+  Metodo_3:
+    met_nombre: 'Método 3'
+  Metodo_4:
+    met_nombre: 'Método 4'
+perfil:
+  Perfil_1:
+    per_nombre: Administrador
+  Perfil_2:
+    per_nombre: Analista
+  Perfil_3:
+    per_nombre: Coordinador
+  Perfil_4:
+    per_nombre: Supervisor
+#TipoIdentificacion:
+#  TipoIdentificacion_1:
+#    tid_nombre: 'Cédula de ciudadanía'
+#  TipoIdentificacion_2:
+#    tid_nombre: 'Cédula de extranjería'
+#  TipoIdentificacion_3:
+#    tid_nombre: 'Tarjeta de identidad'
+#TipoRegistro:
+#  TipoRegistro_1:
+#    tre_nombre: Trabajo
+#  TipoRegistro_2:
+#    tre_nombre: Perdidas
