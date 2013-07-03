@@ -1076,31 +1076,7 @@ class ingreso_datosActions extends sfActions
             if ($timeStampFechaUso < $timeStampDiaAnterior && $user -> getAttribute('usu_per_codigo') == '3')
             {
                 return $this -> renderText('1');
-            }
-            //			if($request->hasParameter('id_metodo')) {
-            //				$metodo = MetodoPeer::retrieveByPK($request->getParameter('id_metodo'));
-            //				$registro->setRumTiempoCambioModelo($metodo->getMetTiempoCambioModelo());
-            //				$registro->setRumTiempoCorridaSistema($metodo->getMetTiempoCorridaSistema());
-            //				$registro->setRumNumeroInyeccionEstandar($metodo->getMetNumeroInyeccionEstandar());
-            //				$registro->setRumTiempoCorridaCurvas($metodo->getMetTiempoCorridaCurvas());
-            //				$registro->setRumTiempoCorridaMuestras($metodo->getMetTiempoCorridaMuestra());
-            //				$registro->setRumTiempoCorridaSistemaEst($metodo->getMetTiempoCorridaSistema());
-            //				$registro->setRumTiempoCorridaCurvasEsta($metodo->getMetTiempoCorridaCurvas());
-            //				$registro->setRumTiempoCorridaMuestrasEs($metodo->getMetTiempoCorridaMuestra());
-            //				$registro->setRumNumeroInyeccionEstandar1($metodo->getMetNumInyeccionEstandar1());
-            //				$registro->setRumNumeroInyeccionEstandar2($metodo->getMetNumInyeccionEstandar2());
-            //				$registro->setRumNumeroInyeccionEstandar3($metodo->getMetNumInyeccionEstandar3());
-            //				$registro->setRumNumeroInyeccionEstandar4($metodo->getMetNumInyeccionEstandar4());
-            //				$registro->setRumNumeroInyeccionEstandar5($metodo->getMetNumInyeccionEstandar5());
-            //				$registro->setRumNumeroInyeccionEstandar6($metodo->getMetNumInyeccionEstandar6());
-            //				$registro->setRumNumeroInyeccionEstandar7($metodo->getMetNumInyeccionEstandar7());
-            //				$registro->setRumNumeroInyeccionEstandar8($metodo->getMetNumInyeccionEstandar8());
-            //				$registro->setRumNumInyecXMuestraProduc($metodo->getMetNumInyecXMuProducto());
-            //				$registro->setRumNumInyecXMuestraEstabi($metodo->getMetNumInyecXMuEstabilidad());
-            //				$registro->setRumNumInyecXMuestraMateri($metodo->getMetNumInyecXMuMateriaPri());
-            //				$registro->setRumNumInyecXMuestraEstand($metodo->getMetNumInyecXMuEstandar());
-            //				$registro->setRumMetCodigo($request->getParameter('id_metodo'));
-            //			}
+            }            
 
             $user = $this -> getUser();
             $codigo_usuario = $user -> getAttribute('usu_codigo');
