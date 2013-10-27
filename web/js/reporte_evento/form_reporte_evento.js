@@ -1,4 +1,4 @@
-﻿Ext.onReady(function(){
+Ext.onReady(function(){
 
     var reporevent_analista_codigo_datastore = new Ext.data.JsonStore({
         id: 'reporevent_analista_codigo_datastore',
@@ -255,39 +255,48 @@
         columns: [{
             header: "M&aacute;quina",
             width: 110,
+            align : 'center',
             dataIndex: 'evrg_maquina'
         }, {
             header: "Analista",
             width: 110,
+            align : 'center',
             dataIndex: 'evrg_analista'
         }, {
             header: "M&eacute;todo",
             width: 100,
+            align : 'center',
             dataIndex: 'evrg_metodo'
         }, {
             header: "Fecha",
             width: 70,
+            align : 'center',
             dataIndex: 'evrg_fecha'
         }, {
             header: "Evento",
             width: 100,
+            align : 'center',
             dataIndex: 'evrg_eve_nombre'
-        }, {
+        },{
+            header: "Hora",
+            width: 70,
+            align : 'center',
+            dataIndex: 'evrg_hora_ocurrio'
+        },{
             header: "Duraci&oacute;n (min.)",
             width: 100,
+            align : 'center',
             dataIndex: 'evrg_duracion'
-        }, {
-            header: "Observaci&oacute;n",
-            width: 200,
-            dataIndex: 'evrg_observaciones'
-        }, {
-            header: "Hora ocurrio",
-            width: 70,
-            dataIndex: 'evrg_hora_ocurrio'
-        }, {
+        },{
             header: "Hora registro",
-            width: 70,
+            width: 90,
+            align : 'center',
             dataIndex: 'evrg_hora_registro'
+        },{
+            header: "Observaci&oacute;n",
+            width: 170,
+            align : 'center',
+            dataIndex: 'evrg_observaciones'
         }]
     });
     

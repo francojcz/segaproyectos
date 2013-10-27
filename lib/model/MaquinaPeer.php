@@ -25,6 +25,7 @@ class MaquinaPeer extends BaseMaquinaPeer {
 		$datos;
 		try{
 			$conexion = new Criteria();
+                        $conexion -> add(MaquinaPeer::MAQ_INDICADORES, true);
 			$conexion->add(MaquinaPeer::MAQ_ELIMINADO, false);
 			$maquinas = MaquinaPeer::doSelect($conexion);
 
@@ -62,6 +63,7 @@ class MaquinaPeer extends BaseMaquinaPeer {
 		$datos;
 		try{
 			$conexion = new Criteria();
+                        $conexion > add(MaquinaPeer::MAQ_INDICADORES, true);
 			$conexion->add(MaquinaPeer::MAQ_EST_CODIGO,1);//bueno
 			$conexion->addDescendingOrderByColumn(MaquinaPeer::MAQ_NOMBRE);
 			$maquinas = MaquinaPeer::doSelect($conexion);

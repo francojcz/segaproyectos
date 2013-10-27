@@ -11,7 +11,9 @@
 class reporte_diario_perdidasActions extends sfActions
 {
 	public function executeListarMaquinas() {
-		$maquinas = MaquinaPeer::doSelect(new Criteria());
+                $criteria = new Criteria();
+                $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+		$maquinas = MaquinaPeer::doSelect($criteria);
 
 		$result = array();
 		$data = array();

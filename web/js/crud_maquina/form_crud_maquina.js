@@ -12,31 +12,12 @@ var ayuda_maq_marca = 'Escriba la marca del equipo';
 var ayuda_maq_modelo = 'Escriba el modelo del equipo';
 var ayuda_maq_tiempo_inyeccion = 'Escriba cual es el tiempo estandar de inyección del equipo';
 var ayuda_maq_fecha_adquisicion = 'Escoja la fecha en que adquirió el equipo';
-//var ayuda_maq_tiempo_inyeccion_actual = 'Escriba cual es el tiempo de inyección actual del equipo'; 
-
+var ayuda_maq_cat_nombre = 'Seleccione el nombre del grupo del equipo';
+var ayuda_maq_indicadores = 'Seleccione si el equipo se tiene en cuenta para el cálculo de indicadores';
 var largo_panel = 500;
 
-
-var crud_maquina_estado_datastore = new Ext.data.Store({
-    id: 'crud_maquina_estado_datastore',
-    proxy: new Ext.data.HttpProxy({
-        url: getAbsoluteUrl('crud_maquina', 'listarEstado'),
-        method: 'POST'
-    }),
-    baseParams: {},
-    reader: new Ext.data.JsonReader({
-        root: 'results',
-        totalProperty: 'total',
-        id: 'id'
-    }, [{
-        name: 'est_codigo'
-    }, {
-        name: 'est_nombre'
-    }])
-});
-
-var crud_maquina_datastore = new Ext.data.Store({
-    id: 'crud_maquina_datastore',
+var datastore = new Ext.data.Store({
+    id: 'datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('crud_maquina', 'listarMaquina'),
         method: 'POST'
@@ -70,11 +51,7 @@ var crud_maquina_datastore = new Ext.data.Store({
     }, {
         name: 'maq_tiempo_inyeccion',
         type: 'float'
-    },    /*{
-     name: 'maq_tiempo_inyeccion_actual',
-     type: 'float'
-     },*/
-    {
+    }, {
         name: 'maq_fecha_adquisicion',
         type: 'string'
     }, {
@@ -101,9 +78,128 @@ var crud_maquina_datastore = new Ext.data.Store({
     }, {
         name: 'maq_eliminado',
         type: 'string'
+    }, {
+        name: 'maq_cat_codigo',
+        type: 'int'
+    }, {
+        name: 'maq_indicadores',
+        type: 'int'
     }])
 });
 
+  var registros_periodos_datastore = new Ext.data.Store(
+  {
+    proxy : new Ext.data.HttpProxy(
+    {
+      url : getAbsoluteUrl('crud_maquina', 'listarRegistrosPeriodoMaquina'),
+      method : 'POST'
+    }),
+    reader : new Ext.data.JsonReader(
+    {
+      root : 'data'
+    }, [
+    {
+      name : 'codigo',
+      type : 'integer'
+    },
+    {
+      name : 'id_periodo',
+      type : 'string'
+    },
+    {
+      name : 'fecha_inicio',
+      type : 'string'
+    },
+    {
+      name : 'usu_registra',
+      type : 'string'
+    },
+    {
+      name : 'fecha_registro',
+      type : 'string'
+    }])
+  });  
+  
+  var periodos_datastore_combo = new Ext.data.Store(
+  {
+    proxy : new Ext.data.HttpProxy(
+    {
+      url : getAbsoluteUrl('crud_maquina', 'listarPeriodos'),
+      method : 'POST'
+    }),
+    reader : new Ext.data.JsonReader(
+    {
+      root : 'data'
+    }, [
+    {
+      name : 'codigo',
+      type : 'string'
+    },
+    {
+      name : 'nombre',
+      type : 'string'
+    }])
+  });
+  
+  var periodos_datastore_renderer = new Ext.data.Store(
+  {
+    proxy : new Ext.data.HttpProxy(
+    {
+      url : getAbsoluteUrl('crud_maquina', 'listarPeriodos'),
+      method : 'POST'
+    }),
+    reader : new Ext.data.JsonReader(
+    {
+      root : 'data'
+    }, [
+    {
+      name : 'codigo',
+      type : 'string'
+    },
+    {
+      name : 'nombre',
+      type : 'string'
+    }])
+  }); 
+
+var crud_maquina_estado_datastore = new Ext.data.Store({
+    id: 'crud_maquina_estado_datastore',
+    proxy: new Ext.data.HttpProxy({
+        url: getAbsoluteUrl('crud_maquina', 'listarEstado'),
+        method: 'POST'
+    }),
+    baseParams: {},
+    reader: new Ext.data.JsonReader({
+        root: 'results',
+        totalProperty: 'total',
+        id: 'id'
+    }, [{
+        name: 'est_codigo'
+    }, {
+        name: 'est_nombre'
+    }])
+});
+
+var crud_maquina_categoria_datastore = new Ext.data.Store({
+    id: 'crud_maquina_categoria_datastore',
+    proxy: new Ext.data.HttpProxy({
+        url: getAbsoluteUrl('crud_maquina', 'listarCategoria'),
+        method: 'POST'
+    }),
+    baseParams: {},
+    reader: new Ext.data.JsonReader({
+        root: 'results',
+        totalProperty: 'total',
+        id: 'id'
+    }, [{
+        name: 'cat_codigo'
+    }, {
+        name: 'cat_nombre'
+    }])
+});
+crud_maquina_categoria_datastore.load();
+
+  
 var maq_eliminado = new Ext.form.NumberField({
     xtype: 'numberfield',
     labelStyle: 'text-align:right;',
@@ -144,14 +240,13 @@ var maq_codigo_inventario = new Ext.form.TextField({
     }
 });
 
-
 var maq_nombre = new Ext.form.TextField({
     xtype: 'textfield',
     labelStyle: 'text-align:right;',
     maxLength: 100,
     name: 'maq_nombre',
     id: 'maq_nombre',
-    fieldLabel: 'Nombre del equipo',
+    fieldLabel: 'Nombre equipo',
     allowBlank: false,
     listeners: {
         'render': function(){
@@ -181,6 +276,31 @@ var maq_est_codigo = new Ext.form.ComboBox({
         },
         focus: function(){
             crud_maquina_estado_datastore.reload();
+        }
+    }
+});
+
+var maq_cat_codigo = new Ext.form.ComboBox({
+    xtype: 'combobox',
+    labelStyle: 'text-align:right;',
+    id: 'maq_cat_nombre',
+    hiddenName: 'maq_cat_codigo',
+    name: 'maq_cat_codigo',
+    fieldLabel: 'Grupo equipo',
+    store: crud_maquina_categoria_datastore,
+    mode: 'local',
+    emptyText: 'Seleccione ...',
+    displayField: 'cat_nombre',
+    valueField: 'cat_codigo',
+    triggerAction: 'all',
+    forceSelection: true,
+    allowBlank: false,
+    listeners: {
+        'render': function(){
+            ayuda('maq_cat_nombre', ayuda_maq_cat_nombre);
+        },
+        focus: function(){
+            crud_maquina_categoria_datastore.reload();
         }
     }
 });
@@ -223,7 +343,7 @@ var maq_tiempo_inyeccion = new Ext.form.NumberField({
     labelStyle: ' text-align:right;',
     name: 'maq_tiempo_inyeccion',
     id: 'maq_tiempo_inyeccion',
-    fieldLabel: 'Tiempo inyección',
+    fieldLabel: 'Tiempo inyección (Min.)',
     allowDecimals: true,
     allowNegative: false,
     maxLength: 100,
@@ -275,13 +395,39 @@ var maq_fecha_registro_sistema = new Ext.form.TextField({
     readOnly: true
 });
 
+var maq_indicadores = new Ext.form.RadioGroup({
+    xtype: 'radiogroup',
+    fieldLabel: 'Cálculo Indicadores',
+    labelStyle: 'text-align:right;',
+    id: 'maq_indicadores',
+    allowBlank: false,
+    //columns: 1,
+    items: [{
+        boxLabel: 'Activo',
+        name: 'maq_indicadores',
+        id: 'maq_indicadores_si',
+        inputValue: 1,
+        checked: true
+    }, {
+        boxLabel: 'Inactivo',
+        name: 'maq_indicadores',
+        id: 'maq_indicadores_no',
+        inputValue: 0
+    }],
+    listeners: {
+        render: function(){
+            ayuda('maq_indicadores', ayuda_maq_indicadores);
+        }
+    }
+});
+
 var certificados_datastore = new Ext.data.Store({
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('crud_maquina', 'listarComputadores'),
         method: 'POST'
     }),
     reader: new Ext.data.JsonReader({
-        root: 'data',
+        root: 'data'
     }, [{
         name: 'certificado',
         type: 'string'
@@ -295,7 +441,7 @@ certificados_datastore.load({
     callback: function(){
         crud_maquina_estado_datastore.load({
             callback: function(){
-                crud_maquina_datastore.load();
+                datastore.load();
             }
         });
     }
@@ -320,18 +466,18 @@ var crud_maquina_formpanel = new Ext.FormPanel({
     region: 'east',
     split: true,
     collapsible: true,
-    width: 450,
+    width: 400,
     border: true,
     title: 'Equipo detalle',
-    //autoWidth: true,
     columnWidth: '0.6',
-    height: 450,
+    height: 470,
     layout: 'form',
     bodyStyle: 'padding:10px;',
+    labelWidth: 140,
     defaults: {
         anchor: '98%'
     },
-    items: [maq_eliminado, maq_codigo, maq_codigo_inventario, maq_nombre, maq_est_codigo, maq_tiempo_inyeccion, /*maq_tiempo_inyeccion_actual,*/ maq_marca, maq_modelo, maq_fecha_adquisicion, certificado_combo, maq_fecha_registro_sistema],
+    items: [maq_eliminado, maq_codigo, maq_codigo_inventario, maq_nombre, maq_est_codigo, maq_tiempo_inyeccion, maq_marca, maq_modelo, maq_fecha_adquisicion, certificado_combo, maq_cat_codigo, maq_fecha_registro_sistema, maq_indicadores],
     buttons: [{
         text: 'Guardar',
         iconCls: 'guardar',
@@ -357,8 +503,12 @@ var crud_maquina_formpanel = new Ext.FormPanel({
     }]
 });
 
-function maquinaRenderComboColumn(value, meta, record){
+function maquinaRenderComboColumn1(value, meta, record){
     return ComboRenderer(value, maq_est_codigo);
+}
+
+function maquinaRenderComboColumn2(value, meta, record){
+    return ComboRenderer(value, maq_cat_codigo);
 }
 
 var crud_maquina_colmodel = new Ext.grid.ColumnModel({
@@ -384,7 +534,7 @@ var crud_maquina_colmodel = new Ext.grid.ColumnModel({
         header: "Estado",
         width: 100,
         dataIndex: 'maq_est_codigo',
-        renderer: maquinaRenderComboColumn
+        renderer: maquinaRenderComboColumn1
     }, {
         header: "Marca",
         width: 100,
@@ -405,6 +555,23 @@ var crud_maquina_colmodel = new Ext.grid.ColumnModel({
             }
             else {
                 return '';
+            }
+        }
+    }, {
+        header: "Categoría",
+        width: 100,
+        dataIndex: 'maq_cat_codigo',
+        renderer: maquinaRenderComboColumn2
+    }, {
+        header: 'Cálc. Indicadores',
+        dataIndex: 'maq_indicadores',
+        width: 95,
+        renderer: function(val){
+            if (val == '1') {
+                return 'Activo';
+            }
+            else {
+                return 'Inactivo';
             }
         }
     }, {
@@ -434,14 +601,239 @@ var crud_maquina_colmodel = new Ext.grid.ColumnModel({
     }]
 });
 
-var crud_maquina_gridpanel = new Ext.grid.GridPanel({
-    id: 'crud_maquina_gridpanel',
+  var periodo_para_agregar_combobox = new Ext.form.ComboBox(
+  {
+    xtype: 'combobox',
+    labelStyle: 'text-align:right;',
+    fieldLabel: 'Estado',
+    store: periodos_datastore_combo,
+    mode: 'local',
+    emptyText: 'Seleccione un Periodo',
+    displayField: 'nombre',
+    valueField: 'codigo',
+    triggerAction: 'all',
+    forceSelection: true,
+    allowBlank: false   
+  });
+  
+  var fechaField = new Ext.form.DateField(
+  {    
+      xtype : 'datefield',
+      fieldLabel : 'Fecha de inicio',
+      allowBlank : false,
+      value : new Date(),
+      labelStyle: 'text-align:right;'
+  });
+  
+  var recargarDatosPeriodos = function(callback)
+  {
+    periodos_datastore_combo.load();
+    periodos_datastore_renderer.load(
+    {
+      callback : function()
+      {
+        var record = grid.getSelectionModel().getSelected();
+        registros_periodos_datastore.load(
+        {
+          params :
+          {
+            'cod_maquina' : record.get('maq_codigo')
+          }
+        });
+      }
+    });
+  }
+
+  var grillaPeriodos = new Ext.grid.GridPanel(
+  {
+    autoWidth : true,
+    height : 400,
+    store : registros_periodos_datastore,
+    stripeRows : true,
+    clicksToEdit : 1,
+    loadMask :
+    {
+      msg : 'Cargando...'
+    },
+    sm : new Ext.grid.RowSelectionModel(
+    {
+      singleSelect : true
+    }),
+    tbar : [
+    periodo_para_agregar_combobox, '-', fechaField, '-',
+    {
+      text : 'Agregar periodo',
+      iconCls : 'agregar',
+      handler : function()
+      {          
+        var record = grid.getSelectionModel().getSelected();
+        var id_periodo = periodo_para_agregar_combobox.getValue();
+        if(id_periodo == '')
+        {
+          alert('Primero debe seleccionar un periodo'); 
+          periodo_para_agregar_combobox.focus();
+        } else        
+        {            
+            Ext.Ajax.request({
+              url : getAbsoluteUrl('crud_maquina', 'registrarPeriodo'),
+              failure : function()
+              {
+                recargarDatosPeriodos();
+              },
+              success : function(result)
+              {                
+                var mensaje = null;
+                switch(result.responseText)
+                {
+                  case 'Ok': recargarDatosPeriodos();
+                    break;
+                  case '1':
+                    mensaje = 'El periodo seleccionado ya se encuentra registrado para este equipo.';
+                    break;                  
+                }
+                if(mensaje != null)
+                {
+                  Ext.Msg.show(
+                  {
+                    title : 'Información',
+                    msg : mensaje,
+                    buttons : Ext.Msg.OK,
+                    icon : Ext.MessageBox.INFO
+                  });
+                }
+              },
+              params :
+              {
+                'maq_codigo' : record.get('maq_codigo'),
+                'id_periodo' : id_periodo,
+                'fecha_inicio' : fechaField.getValue()      
+              }
+            });
+        }
+      }
+    }, '-',
+    {
+      text : 'Eliminar periodo',
+      iconCls : 'eliminar',
+      handler : function()
+      {
+          var record = grillaPeriodos.getSelectionModel().getSelected();
+          Ext.Ajax.request({
+              url : getAbsoluteUrl('crud_maquina', 'eliminarPeriodo'),
+              failure : function()
+              {
+                recargarDatosPeriodos();
+              },
+              success : function(result)
+              {
+                recargarDatosPeriodos();
+                if(result.responseText != 'Ok')
+                {
+                  alert(result.responseText);
+                }
+              },
+              params :
+              {
+                'codigo' : record.get('codigo')  
+              }
+            });
+      }
+    }]
+    ,
+    columns : [
+    {
+      dataIndex : 'id_periodo',
+      header : 'Nombre y Tipo del Periodo',
+      tooltip : 'Nombre y Tipo del Periodo',
+      width : 180,
+      align : 'center',
+      editor : new Ext.form.ComboBox(
+      {
+        store : periodos_datastore_combo,
+        displayField : 'nombre',
+        valueField : 'codigo',
+        mode : 'local',
+        triggerAction : 'all',
+        forceSelection : true,
+        allowBlank : false
+      }),
+      renderer : function(valor)
+      {
+        var index = periodos_datastore_renderer.find('codigo', valor);
+        if(index != -1)
+        {
+          var record = periodos_datastore_renderer.getAt(index);
+          return record.get('nombre');
+        } else
+        {
+          return '';
+        }
+      }
+    },
+    {
+      dataIndex : 'fecha_inicio',
+      header : 'Fecha de inicio',
+      tooltip : 'Fecha de inicio',
+      width : 150,
+      align : 'center',
+      editor :
+      { 
+          xtype : 'datefield',
+          allowBlank : false
+      }
+    },
+    {
+      dataIndex : 'usu_registra',
+      header : 'Creado por',
+      tooltip : 'Creado por',
+      width : 150,
+      align : 'center',
+      editor : new Ext.form.TextField()
+    },
+    {
+      dataIndex : 'fecha_registro',
+      header : 'Fecha de creación',
+      tooltip : 'Fecha de creación',
+      width : 150,
+      align : 'center',
+      editor : new Ext.form.TextField()
+    }]
+  });
+
+  var win = new Ext.Window(
+  {
+    layout : 'fit',
+    width : 800,
+    height : 300,
+    closeAction : 'hide',
+    plain : true,
+    title : 'Periodo Mantenimiento',
+    items : grillaPeriodos,
+    buttons : [
+    {
+      text : 'Aceptar',
+      handler : function()
+      {
+        win.hide();
+      }
+    }],
+    listeners :
+    {
+      hide : function()
+      {
+        Ext.getBody().unmask();
+      }
+    }
+  });
+  
+var grid = new Ext.grid.GridPanel({
+    id: 'grid',
     title: 'Equipos en el sistema',
     columnWidth: '.4',
     region: 'center',
     stripeRows: true,
     frame: true,
-    ds: crud_maquina_datastore,
+    ds: datastore,
     cm: crud_maquina_colmodel,
     selModel: new Ext.grid.RowSelectionModel({
         singleSelect: true,
@@ -457,7 +849,7 @@ var crud_maquina_gridpanel = new Ext.grid.GridPanel({
     height: largo_panel,
     bbar: new Ext.PagingToolbar({
         pageSize: 15,
-        store: crud_maquina_datastore,
+        store: datastore,
         displayInfo: true,
         displayMsg: 'Equipos {0} - {1} de {2}',
         emptyMsg: "No hay equipos aun"
@@ -478,8 +870,8 @@ var crud_maquina_gridpanel = new Ext.grid.GridPanel({
         iconCls: 'activos',
         tooltip: 'Equipos activos',
         handler: function(){
-            crud_maquina_datastore.baseParams.maq_eliminado = '0';
-            crud_maquina_datastore.load({
+            datastore.baseParams.maq_eliminado = '0';
+            datastore.load({
                 params: {
                     start: 0,
                     limit: 20
@@ -491,8 +883,8 @@ var crud_maquina_gridpanel = new Ext.grid.GridPanel({
         iconCls: 'eliminados',
         tooltip: 'Equipos eliminados',
         handler: function(){
-            crud_maquina_datastore.baseParams.maq_eliminado = '1';
-            crud_maquina_datastore.load({
+            datastore.baseParams.maq_eliminado = '1';
+            datastore.load({
                 params: {
                     start: 0,
                     limit: 20
@@ -504,10 +896,10 @@ var crud_maquina_gridpanel = new Ext.grid.GridPanel({
         iconCls: 'restablece',
         tooltip: 'Restablecer un equipo eliminado',
         handler: function(){
-            var cant_record = crud_maquina_gridpanel.getSelectionModel().getCount();
+            var cant_record = grid.getSelectionModel().getCount();
             
             if (cant_record > 0) {
-                var record = crud_maquina_gridpanel.getSelectionModel().getSelected();
+                var record = grid.getSelectionModel().getSelected();
                 if (record.get('maq_codigo') != '') {
                 
                     Ext.Msg.prompt('Restablecer equipo', 'Digite la causa de restablecimiento', function(btn, text){
@@ -516,7 +908,7 @@ var crud_maquina_gridpanel = new Ext.grid.GridPanel({
                                 maq_codigo: record.get('maq_codigo'),
                                 maq_causa_restablece: text
                             }, function(){
-                                crud_maquina_datastore.reload();
+                                datastore.reload();
                             }, function(){
                             });
                         }
@@ -527,13 +919,30 @@ var crud_maquina_gridpanel = new Ext.grid.GridPanel({
                 mostrarMensajeConfirmacion('Error', "Seleccione un equipo eliminado");
             }
         }
-    }    /*{
-     text: 'Consumibles',
-     tooltip: 'Consumibles de maquina',
-     iconCls: 'consumibles'//,
-     //handler:crud_maquina_mantenimiento
-     }, '-'*/
-    ]
+    }, '-',
+    {
+      text : 'Periodo Mantenimiento',
+      iconCls : 'evento',
+      handler : function()
+      {
+        var sm = grid.getSelectionModel();
+        if(sm.hasSelection())
+        {
+          recargarDatosPeriodos();
+          Ext.getBody().mask();
+          win.show();
+        } else
+        {
+          Ext.Msg.show(
+          {
+            title : 'Información',
+            msg : 'Primero debe seleccionar un equipo',
+            buttons : Ext.Msg.OK,
+            icon : Ext.MessageBox.INFO
+          });
+        }
+      }
+    }]
 });
 
 
@@ -547,7 +956,7 @@ var crud_maquina_contenedor_panel = new Ext.Panel({
     tabTip: 'Aqui puedes ver, agregar, eliminar equipos',
     monitorResize: true,
     layout: 'border',
-    items: [crud_maquina_gridpanel, crud_maquina_formpanel],
+    items: [grid, crud_maquina_formpanel],
     buttonAlign: 'left',
     renderTo: 'div_form_crud_maquina'
 });
@@ -559,17 +968,17 @@ function crud_maquina_actualizar(text){
             maq_causa_actualizacion: text
         }, function(){
             crud_maquina_formpanel.getForm().reset();
-            crud_maquina_datastore.reload();
+            datastore.reload();
         }, function(){
         });
     }
 }
 
 function crud_maquina_eliminar(){
-    var cant_record = crud_maquina_gridpanel.getSelectionModel().getCount();
+    var cant_record = grid.getSelectionModel().getCount();
     
     if (cant_record > 0) {
-        var record = crud_maquina_gridpanel.getSelectionModel().getSelected();
+        var record = grid.getSelectionModel().getSelected();
         if (record.get('maq_codigo') != '') {
         
             Ext.Msg.confirm('Eliminar equipo', "Realmente desea eliminar esta equipo?", function(btn){
@@ -581,7 +990,7 @@ function crud_maquina_eliminar(){
                                 maq_codigo: record.get('maq_codigo'),
                                 maq_causa_eliminacion: text
                             }, function(){
-                                crud_maquina_datastore.reload();
+                                datastore.reload();
                             });
                         }
                     });

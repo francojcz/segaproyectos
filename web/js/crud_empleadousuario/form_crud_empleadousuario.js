@@ -1,4 +1,3 @@
-﻿
 var emplusu_password_valor_trae = '';
 
 var ayuda_emplusu_usu_codigo = 'Id del usuario';
@@ -374,7 +373,7 @@ var emplusu_habilitado = new Ext.form.RadioGroup({
         name: 'emplusu_habilitado',
         id: 'emplusu_habilitado_si',
         inputValue: 1,
-        cheked: true
+        checked: true
     }, {
         boxLabel: 'No',
         name: 'emplusu_habilitado',
@@ -392,7 +391,6 @@ var emplusu_habilitado = new Ext.form.RadioGroup({
 var crud_empleadousuario_usu_formpanel = new Ext.FormPanel({
     columnWidth: '.48',
     width: 450,
-    url: getAbsoluteUrl('crud_empleadousuario', 'cargar'),
     labelAlign: 'left',
     title: 'Datos de usuario',
     padding: 10,

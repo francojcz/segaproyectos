@@ -564,6 +564,8 @@ class reporte_graficomensualActions extends sfActions
 					$tp_dia = RegistroUsoMaquinaPeer::calcularTPDiaEnHoras($maquina_codigo, $dia, $mes, $año, $params, 8);
 				}
 				else {
+                                        $criteria = new Criteria();                                        
+                                        $criteria->add(MaquinaPeer::MAQ_INDICADORES, true);
 					$maquinas = MaquinaPeer::doSelect(new Criteria());
 					$tpnp_dia = 0;
 					$tnp_dia = 0;
@@ -671,7 +673,9 @@ class reporte_graficomensualActions extends sfActions
 				$tp_mes = RegistroUsoMaquinaPeer::calcularTPMesEnHoras($maquina_codigo, $mes, $anio, $params, 8);
 			}
 			else {
-				$maquinas = MaquinaPeer::doSelect(new Criteria());
+                                $criteria = new Criteria();
+                                $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+				$maquinas = MaquinaPeer::doSelect($criteria);
 				$tpp_mes = 0;
 				$tnp_mes = 0;
 				$tpnp_mes = 0;
@@ -777,7 +781,9 @@ class reporte_graficomensualActions extends sfActions
 				$cantidadMaquinas = 1;
 			}
 			else {
-				$cantidadMaquinas = MaquinaPeer::doCount(new Criteria());
+                                $criteria = new Criteria();
+                                $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+				$cantidadMaquinas = MaquinaPeer::doCount($criteria);
 			}
 
 			$cantidadHoras = $cantidadMaquinas * 24;
@@ -895,7 +901,9 @@ class reporte_graficomensualActions extends sfActions
 				$cantidadMaquinas = 1;
 			}
 			else {
-				$cantidadMaquinas = MaquinaPeer::doCount(new Criteria());
+                                $criteria = new Criteria();
+                                $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+				$cantidadMaquinas = MaquinaPeer::doCount($criteria);
 			}
 
 			$cantidadDias = RegistroUsoMaquinaPeer::calcularNumeroDiasDelMes($mes, $anio);

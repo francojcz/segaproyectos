@@ -50,7 +50,7 @@
     <category>     
       <enabled>true</enabled>  	
       <inside>true</inside>
-      <rotate>true</rotate>
+      <rotate>true</rotate>      
     </category>
     <value>
         <enabled>true</enabled>
@@ -66,6 +66,25 @@
       <align>center</align>
       <text> 
         <![CDATA[<b>Eventos  /  Cantidad</b>]]>
+      </text>
+    </label>
+    <label lid="2">
+      <x>47%</x> 
+      <y>358</y>
+      <width>42</width>
+      <align>right</align> 
+      <text>
+        <![CDATA[<b>Evento</b>]]>
+      </text> 
+    </label>
+    <label lid="2">
+      <x>5</x> 
+      <y>50%</y>
+      <rotate>true</rotate> 
+      <width>100</width>
+      <align>left</align>
+      <text>
+        <![CDATA[<b>No. de veces</b>]]>
       </text> 
     </label>
   </labels> 

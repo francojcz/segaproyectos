@@ -25,7 +25,7 @@
       <width>520</width> 
       <align>center</align>
       <text>
-        <![CDATA[<b>Pérdidas (Tiempo)/Día</b>]]>
+        <![CDATA[<b>Tendencia pérdidas (tiempo) / Día</b>]]>
       </text> 
     </label>
 	<label lid='2'>

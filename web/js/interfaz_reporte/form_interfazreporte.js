@@ -12,7 +12,8 @@ var form_interfazreporte = function(){
             salida_interfaz_reporte += '</div>';
             
             
-            var interfaz_reporte_data = [['boton_reportediario', 'Reporte diario', 'Reporte diario', 'images/reporte/1.png'], ['boton_reportemensual', 'Reporte Mensual', 'Reporte Mensual', 'images/reporte/3.png'], ['boton_reporteanual', 'Reporte anual', 'Reporte Anual', 'images/reporte/4.png'], ['boton_reporteevento', 'Reporte eventos', 'Reporte Eventos', 'images/reporte/5.png'], ['boton_reporteexportar', 'Exportar datos', 'Exportar datos de corrida', 'images/reporte/xls.png']];
+            var interfaz_reporte_data = [['boton_reportediario', 'Reporte diario', 'Reporte diario', 'images/reporte/1.png'], ['boton_reportemensual', 'Reporte Mensual', 'Reporte Mensual', 'images/reporte/3.png'], ['boton_reporteanual', 'Reporte anual', 'Reporte Anual', 'images/reporte/4.png'], ['boton_reporteevento', 'Reporte eventos', 'Reporte Eventos', 'images/reporte/5.png'], ['boton_reporteexportar', 'Exportar datos', 'Exportar datos de corrida', 'images/reporte/xls.png'],
+            ['boton_seguimiento', 'Seguimiento', 'Seguimiento a Mantenimientos', 'images/reporte/seguimiento.png'], ['boton_realizados', 'Mtos. Realizados', 'Mantenimientos Realizados', 'images/reporte/realizados.png'], ['boton_proximos', 'Próximos Mtos.', 'Próximos Mantenimientos', 'images/reporte/proximos.png']];
             
             var interfaz_reporte_store = new Ext.data.ArrayStore({
                 fields: [{
@@ -89,6 +90,15 @@ var form_interfazreporte = function(){
                                 break;
                             case 4:
                                 addTab('Exportar datos', getAbsoluteUrl('exportacion_datos', 'index'));
+                                break;
+                            case 5:
+                                addTab('Seguimiento a Mantenimientos', getAbsoluteUrl('seguimiento_mantenimiento', 'index'));
+                                break;
+                            case 6:
+                                addTab('Mantenimientos Realizados', getAbsoluteUrl('mantenimientos_realizados', 'index'));
+                                break;
+                            case 7:
+                                addTab('Próximos Mantenimientos', getAbsoluteUrl('proximos_mantenimientos', 'index'));
                                 break;
                         }
                     }

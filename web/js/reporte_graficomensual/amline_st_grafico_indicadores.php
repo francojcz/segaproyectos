@@ -25,7 +25,7 @@
       <width>520</width> 
       <align>center</align>
       <text> 
-        <![CDATA[<b>Indicadores / día</b>]]>
+        <![CDATA[<b>Tendencia indicadores / día</b>]]>
       </text> 
     </label>
 	<label lid='2'>

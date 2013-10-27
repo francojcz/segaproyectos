@@ -37,6 +37,39 @@ CREATE TABLE `categoria_evento`
 );
 
 #-----------------------------------------------------------------------------
+#-- categoria_equipo
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `categoria_equipo`;
+
+
+CREATE TABLE `categoria_equipo`
+(
+	`cat_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`cat_nombre` VARCHAR(200),
+	`cat_fecha_registro_sistema` DATETIME,
+	`cat_usu_crea` INTEGER(11),
+	`cat_usu_actualiza` INTEGER(11),
+	`cat_fecha_actualizacion` DATETIME,
+	`cat_eliminado` SMALLINT(6),
+	`cat_causa_eliminacion` VARCHAR(250),
+	`cat_causa_actualizacion` VARCHAR(250),
+	PRIMARY KEY (`cat_codigo`),
+	KEY `FK_reference_31`(`cat_usu_crea`),
+	KEY `FK_reference_32`(`cat_usu_actualiza`),
+	CONSTRAINT `categoria_equipo_FK_1`
+		FOREIGN KEY (`cat_usu_crea`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+	CONSTRAINT `categoria_equipo_FK_2`
+		FOREIGN KEY (`cat_usu_actualiza`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT
+);
+
+#-----------------------------------------------------------------------------
 #-- computador
 #-----------------------------------------------------------------------------
 
@@ -200,6 +233,39 @@ CREATE TABLE `estado`
 		ON DELETE RESTRICT,
 	CONSTRAINT `estado_FK_2`
 		FOREIGN KEY (`est_usu_actualiza`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT
+);
+
+#-----------------------------------------------------------------------------
+#-- tipo_periodo
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tipo_periodo`;
+
+
+CREATE TABLE `tipo_periodo`
+(
+	`tp_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`tp_nombre` VARCHAR(200),
+	`tp_fecha_registro_sistema` DATETIME,
+	`tp_usu_crea` INTEGER(11),
+	`tp_usu_actualiza` INTEGER(11),
+	`tp_fecha_actualizacion` DATETIME,
+	`tp_eliminado` SMALLINT(6),
+	`tp_causa_eliminacion` VARCHAR(250),
+	`tp_causa_actualizacion` VARCHAR(250),
+	PRIMARY KEY (`tp_codigo`),
+	KEY `FK_reference_41`(`tp_usu_crea`),
+	KEY `FK_reference_42`(`tp_usu_actualiza`),
+	CONSTRAINT `tipo_periodo_FK_1`
+		FOREIGN KEY (`tp_usu_crea`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+	CONSTRAINT `tipo_periodo_FK_2`
+		FOREIGN KEY (`tp_usu_actualiza`)
 		REFERENCES `usuario` (`usu_codigo`)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT
@@ -382,11 +448,14 @@ CREATE TABLE `maquina`
 	`maq_eliminado` SMALLINT(6),
 	`maq_causa_eliminacion` VARCHAR(250),
 	`maq_causa_actualizacion` VARCHAR(250),
+        `maq_cat_codigo` INTEGER(11),
+        `maq_indicadores` SMALLINT(6),
 	PRIMARY KEY (`maq_codigo`),
 	KEY `FK_reference_21`(`maq_com_certificado`),
 	KEY `FK_reference_43`(`maq_usu_crea`),
 	KEY `FK_reference_44`(`maq_usu_actualiza`),
 	KEY `FK_reference_10`(`maq_est_codigo`),
+        KEY `FK_reference_11`(`maq_cat_codigo`),
 	CONSTRAINT `maquina_FK_1`
 		FOREIGN KEY (`maq_est_codigo`)
 		REFERENCES `estado` (`est_codigo`)
@@ -404,6 +473,177 @@ CREATE TABLE `maquina`
 		ON DELETE RESTRICT,
 	CONSTRAINT `maquina_FK_4`
 		FOREIGN KEY (`maq_usu_actualiza`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+        CONSTRAINT `maquina_FK_5`
+		FOREIGN KEY (`maq_cat_codigo`)
+		REFERENCES `categoria_equipo` (`cat_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT
+);
+
+#-----------------------------------------------------------------------------
+#-- repuesto
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `repuesto`;
+
+
+CREATE TABLE `repuesto`
+(
+	`rep_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`rep_numero` VARCHAR(20),
+	`rep_nombre` VARCHAR(200),
+	`rep_cantidad` INTEGER(11),
+        `rep_periodicidad` INTEGER(11),
+	`rep_fecha_registro_sistema` DATETIME,
+	`rep_usu_crea` INTEGER(11),
+	`rep_usu_actualiza` INTEGER(11),
+	`rep_fecha_actualizacion` DATETIME,
+	`rep_eliminado` SMALLINT(6),
+	`rep_causa_eliminacion` VARCHAR(250),
+	`rep_causa_actualizacion` VARCHAR(250),
+        `rep_cat_codigo` INTEGER(11),
+	PRIMARY KEY (`rep_codigo`),
+	KEY `FK_reference_43`(`rep_usu_crea`),
+	KEY `FK_reference_44`(`rep_usu_actualiza`),
+        KEY `FK_reference_11`(`rep_cat_codigo`),
+	CONSTRAINT `repuesto_FK_3`
+		FOREIGN KEY (`rep_usu_crea`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+	CONSTRAINT `repuesto_FK_4`
+		FOREIGN KEY (`rep_usu_actualiza`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+        CONSTRAINT `repuesto_FK_5`
+		FOREIGN KEY (`rep_cat_codigo`)
+		REFERENCES `categoria_equipo` (`cat_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT
+);
+
+#-----------------------------------------------------------------------------
+#-- periodo_mantenimiento
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `periodo_mantenimiento`;
+
+
+CREATE TABLE `periodo_mantenimiento`
+(
+	`pmto_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`pmto_periodo` INTEGER(11),
+	`pmto_tipo` INTEGER(11),	
+	`pmto_fecha_registro_sistema` DATETIME,
+	`pmto_usu_crea` INTEGER(11),
+	`pmto_usu_actualiza` INTEGER(11),
+	`pmto_fecha_actualizacion` DATETIME,
+	`pmto_eliminado` SMALLINT(6),
+	`pmto_causa_eliminacion` VARCHAR(250),
+	`pmto_causa_actualizacion` VARCHAR(250),        
+	PRIMARY KEY (`pmto_codigo`),
+	KEY `FK_reference_43`(`pmto_usu_crea`),
+	KEY `FK_reference_44`(`pmto_usu_actualiza`),
+        KEY `FK_reference_49`(`pmto_tipo`),
+	CONSTRAINT `periodo_mantenimiento_FK_1`
+		FOREIGN KEY (`pmto_usu_crea`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+	CONSTRAINT `periodo_mantenimiento_FK_2`
+		FOREIGN KEY (`pmto_usu_actualiza`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+        CONSTRAINT `periodo_mantenimiento_FK_3`
+		FOREIGN KEY (`pmto_tipo`)
+		REFERENCES `tipo_periodo` (`tp_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT
+);
+
+#-----------------------------------------------------------------------------
+#-- registro_rep_maquina
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `registro_rep_maquina`;
+
+
+CREATE TABLE `registro_rep_maquina`
+(
+	`rrm_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`rrm_maq_codigo` INTEGER(11),
+	`rrm_rep_codigo` INTEGER(11),
+	`rrm_consumo` INTEGER(11),
+	`rrm_fecha_cambio` DATE,
+	`rrm_fecha_prox_cambio` DATE,
+	`rrm_observaciones` VARCHAR(300),
+        `rrm_usu_registra` INTEGER(11),
+        `rrm_fecha_registro` DATE,
+	`rrm_usu_actualiza` INTEGER(11),
+        `rrm_fecha_actualizacion` DATE,
+	PRIMARY KEY (`rrm_codigo`),
+        KEY `FK_reference_29`(`rrm_usu_actualiza`),
+	KEY `FK_reference_21`(`rrm_usu_registra`),
+	KEY `FK_reference_44`(`rrm_rep_codigo`),
+	KEY `FK_reference_10`(`rrm_maq_codigo`),
+	CONSTRAINT `registro_rep_maquina_FK_1`
+		FOREIGN KEY (`rrm_maq_codigo`)
+		REFERENCES `maquina` (`maq_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+	CONSTRAINT `registro_rep_maquina_FK_2`
+		FOREIGN KEY (`rrm_rep_codigo`)
+		REFERENCES `repuesto` (`rep_codigo`)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL,
+        CONSTRAINT `registro_rep_maquina_FK_3`
+		FOREIGN KEY (`rrm_usu_registra`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+	CONSTRAINT `registro_rep_maquina_FK_4`
+		FOREIGN KEY (`rrm_usu_actualiza`)
+		REFERENCES `usuario` (`usu_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT
+);
+
+#-----------------------------------------------------------------------------
+#-- registro_pmto_maquina
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `registro_pmto_maquina`;
+
+
+CREATE TABLE `registro_pmto_maquina`
+(
+	`rpm_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`rpm_maq_codigo` INTEGER(11),
+	`rpm_pmto_codigo` INTEGER(11),
+	`rpm_fecha_inicio` DATE,        
+        `rpm_usu_registra` INTEGER(11),
+        `rpm_fecha_registro` DATE,
+	PRIMARY KEY (`rpm_codigo`),        
+        KEY `FK_reference_55`(`rpm_usu_registra`),
+	KEY `FK_reference_44`(`rpm_pmto_codigo`),
+	KEY `FK_reference_10`(`rpm_maq_codigo`),
+	CONSTRAINT `registro_pmto_maquina_FK_1`
+		FOREIGN KEY (`rpm_maq_codigo`)
+		REFERENCES `maquina` (`maq_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+	CONSTRAINT `registro_pmto_maquina_FK_2`
+		FOREIGN KEY (`rpm_pmto_codigo`)
+		REFERENCES `periodo_mantenimiento` (`pmto_codigo`)
+		ON UPDATE SET NULL
+		ON DELETE SET NULL,
+        CONSTRAINT `registro_pmto_maquina_FK_3`
+		FOREIGN KEY (`rpm_usu_registra`)
 		REFERENCES `usuario` (`usu_codigo`)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT

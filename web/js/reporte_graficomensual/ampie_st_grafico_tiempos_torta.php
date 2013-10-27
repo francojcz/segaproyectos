@@ -71,7 +71,7 @@
       <align>center</align>
       <text_size>12</text_size> 
       <text>
-        <![CDATA[<b>Porcentaje de tiempos para cálculo OEE / día</b>]]>
+        <![CDATA[<b>Consolidado mes de tiempos para cálculo OEE</b>]]>
       </text> 
     </label>
   </labels>

@@ -135,7 +135,7 @@ Ext.onReady(function(){
             return '0' + (reporgrafmens_fecha.getMonth() + 1)
         }
         else {
-            reporgrafmens_fecha.getMonth() + 1
+            return (reporgrafmens_fecha.getMonth() + 1);
         }
     }
     var reporgrafmens_mes_combobox = new Ext.form.ComboBox({

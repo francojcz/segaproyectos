@@ -1,10 +1,11 @@
 Ext.onReady(function(){
     Ext.BLANK_IMAGE_URL = urlPrefix + '../css/extjs/resources/images/default/s.gif';
     
-    fields = [{
-		type:'string',
-		name:'fecha_metodo'
-	}, {
+fields = [
+    {
+        type:'string',
+        name:'fecha_metodo'
+    }, {
         type: 'string',
         name: 'nombre_metodo'
     }, {
@@ -139,6 +140,10 @@ Ext.onReady(function(){
             header: '',
             colspan: 1,
             align: 'center'
+        }, {
+            header: '',
+            colspan: 1,
+            align: 'center'
         }]]
     });
     
@@ -192,7 +197,7 @@ Ext.onReady(function(){
             method: 'POST'
         }),
         reader: new Ext.data.JsonReader({
-            root: 'data',
+            root: 'data'
         }, [{
             name: 'codigo',
             type: 'string'
@@ -238,7 +243,7 @@ Ext.onReady(function(){
             method: 'POST'
         }),
         reader: new Ext.data.JsonReader({
-            root: 'data',
+            root: 'data'
         }, [{
             name: 'codigo',
             type: 'string'
@@ -253,7 +258,7 @@ Ext.onReady(function(){
             maquinas_datastore.loadData({
                 data: [{
                     'codigo': '-1',
-                    'nombre': 'TODAS'
+                    'nombre': 'TODOS'
                 }]
             }, true);
             maquinas_combobox.setValue('-1');
@@ -340,7 +345,7 @@ Ext.onReady(function(){
             method: 'POST'
         }),
         reader: new Ext.data.JsonReader({
-            root: 'data',
+            root: 'data'
         }, [{
             name: 'codigo',
             type: 'string'
@@ -356,7 +361,7 @@ Ext.onReady(function(){
             method: 'POST'
         }),
         reader: new Ext.data.JsonReader({
-            root: 'data',
+            root: 'data'
         }, [{
             name: 'codigo',
             type: 'string'
@@ -372,7 +377,7 @@ Ext.onReady(function(){
             method: 'POST'
         }),
         reader: new Ext.data.JsonReader({
-            root: 'data',
+            root: 'data'
         }, [{
             name: 'codigo',
             type: 'string'

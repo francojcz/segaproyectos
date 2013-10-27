@@ -607,7 +607,7 @@ var met_tiempo_corrida_sistema = new Ext.form.NumberField({
     labelStyle: ' text-align:right;',
     name: 'met_tiempo_corrida_sistema',
     id: 'met_tiempo_corrida_sistema',
-    fieldLabel: 'Tiempo corrida sln. Test (Min.)',
+    fieldLabel: 'Tiempo an&aacute;lisis sln. Test (Min.)',
     allowDecimals: true,
     allowNegative: false,
     maxValue: '10000000',
@@ -626,7 +626,7 @@ var met_tiempo_corrida_curvas = new Ext.form.NumberField({
     labelStyle: ' text-align:right;',
     name: 'met_tiempo_corrida_curvas',
     id: 'met_tiempo_corrida_curvas',
-    fieldLabel: 'Tiempo corrida est&aacute;n. de calibraci&oacute;n (Min.)',
+    fieldLabel: 'Tiempo an&aacute;lisis est&aacute;n. calibraci&oacute;n (Min.)',
     allowDecimals: true,
     allowNegative: false,
     maxValue: '99999999',
@@ -955,7 +955,7 @@ var met_num_inyec_x_mu_producto = new Ext.form.NumberField({
     labelStyle: 'text-align:right;',
     name: 'met_num_inyec_x_mu_producto',
     id: 'met_num_inyec_x_mu_producto',
-    fieldLabel: 'N&deg;. inyecciones producto terminado',
+    fieldLabel: 'Producto terminado',
     allowDecimals: false,
     allowNegative: false,
     maxValue: '1000000000',
@@ -973,7 +973,7 @@ var met_num_inyec_x_mu_estabilidad = new Ext.form.NumberField({
     labelStyle: 'text-align:right;',
     name: 'met_num_inyec_x_mu_estabilidad',
     id: 'met_num_inyec_x_mu_estabilidad',
-    fieldLabel: 'N&deg;. inyecciones muestra estabilidad',
+    fieldLabel: 'Muestra estabilidad',
     allowDecimals: false,
     allowNegative: false,
     maxValue: '1000000000',
@@ -991,7 +991,7 @@ var met_num_inyec_x_mu_materi_pri = new Ext.form.NumberField({
     labelStyle: 'text-align:right;',
     name: 'met_num_inyec_x_mu_materi_pri',
     id: 'met_num_inyec_x_mu_materi_pri',
-    fieldLabel: 'N&deg;. inyecciones muestra materia prima',
+    fieldLabel: 'Muestra materia prima',
     allowDecimals: false,
     allowNegative: false,
     maxValue: '1000000000',
@@ -1010,7 +1010,7 @@ var met_num_inyec_x_mu_pureza = new Ext.form.NumberField({
     labelStyle: 'text-align:right;',
     name: 'met_num_inyec_x_mu_pureza',
     id: 'met_num_inyec_x_mu_pureza',
-    fieldLabel: 'N&deg;. inyecciones muestra pureza',
+    fieldLabel: 'Muestra pureza',
     allowDecimals: false,
     allowNegative: false,
     maxValue: '1000000000',
@@ -1029,7 +1029,7 @@ var met_num_inyec_x_mu_disolucion = new Ext.form.NumberField({
     labelStyle: 'text-align:right;',
     name: 'met_num_inyec_x_mu_disolucion',
     id: 'met_num_inyec_x_mu_disolucion',
-    fieldLabel: 'N&deg;. inyecciones muestra disolución',
+    fieldLabel: 'Muestra disolución',
     allowDecimals: false,
     allowNegative: false,
     maxValue: '1000000000',
@@ -1048,7 +1048,7 @@ var met_num_inyec_x_mu_uniformidad = new Ext.form.NumberField({
     labelStyle: 'text-align:right;',
     name: 'met_num_inyec_x_mu_uniformidad',
     id: 'met_num_inyec_x_mu_uniformidad',
-    fieldLabel: 'N&deg;. inyecciones muestra uniformidad',
+    fieldLabel: 'Muestra uniformidad',
     allowDecimals: false,
     allowNegative: false,
     maxValue: '1000000000',
@@ -1104,7 +1104,7 @@ var crud_metodo_formpanel_info_analisis = new Ext.form.FormPanel({
  });
  */
 var crud_metodo_formpanel_info_inyec = new Ext.form.FormPanel({
-    title: 'N&deg;. inyec. de est&aacute;ndares',//est&aacute;ndares
+    title: 'Informaci&oacute;n de est&aacute;ndares',//est&aacute;ndares
     id: 'crud_metodo_formpanel_info_inyec',
     layout: 'form',
     labelWidth: 240,
@@ -1132,7 +1132,7 @@ var crud_metodo_formpanel_info_inyec = new Ext.form.FormPanel({
 
 
 var crud_metodo_formpanel_info_inyec_x_mu = new Ext.form.FormPanel({
-    title: 'N&deg;. inyec. de muestras',
+    title: 'Información de muestras',
     id: 'crud_metodo_formpanel_info_inyec_x_mu',
     layout: 'form',
     labelWidth: 250,
@@ -1159,7 +1159,7 @@ var crud_metodo_formpanel_info_inyec_x_mu = new Ext.form.FormPanel({
         },
         items: [{
             xtype: 'label',
-            html: '<div style="text-align:right;"><b>No. inyeciones - </b></div>'
+            html: '<div style="text-align:right;"><b>No. inyeciones -</b></div>'
         }, met_num_inyec_x_mu_producto, met_num_inyec_x_mu_estabilidad, met_num_inyec_x_mu_materi_pri, met_num_inyec_x_mu_pureza, met_num_inyec_x_mu_disolucion, met_num_inyec_x_mu_uniformidad]
     }, {
         xtype: 'panel',
@@ -1172,7 +1172,7 @@ var crud_metodo_formpanel_info_inyec_x_mu = new Ext.form.FormPanel({
         },
         items: [{
             xtype: 'label',
-            html: '<b>Tiempo de corrida</b>'
+            html: '<b> Tiempo an&aacute;lisis (min)</b>'
         }, met_tc_producto_terminado, met_tc_estabilidad, met_tc_materia_prima, met_tc_pureza, met_tc_disolucion, met_tc_uniformidad]
     }]
 });
@@ -1185,7 +1185,7 @@ var crud_metodo_formpanel = new Ext.Panel({
     collapsible: true,
     width: 530,
     border: true,
-    title: 'M&eacute;todo detalle',
+    title: 'Informaci&oacute;n del m&eacute;todo',
     //autoWidth: true,
     columnWidth: '0.6',
     height: 500,
@@ -1200,7 +1200,7 @@ var crud_metodo_formpanel = new Ext.Panel({
         html: '<br/>'
     }, {
         xtype: 'label',
-        html: '<b>DETERMINACIÓN  DE TIEMPOS ESTÁNDAR DE PROCESO</b><br/>'
+        html: '<b>DEFINICIÓN DE TIEMPOS ESTÁNDAR DE PROCESO</b><br/>'
     }, {
         xtype: 'label',
         html: '<br/>'
@@ -1446,7 +1446,7 @@ var crud_metodo_colmodel = new Ext.grid.ColumnModel({
 });
 
 var crud_metodo_gridpanel = new Ext.grid.GridPanel({
-    title: 'M&eacute;todos en el sistema',
+    title: 'M&eacute;todos de an&aacute;lisis',
     columnWidth: '.4',
     region: 'center',
     stripeRows: true,

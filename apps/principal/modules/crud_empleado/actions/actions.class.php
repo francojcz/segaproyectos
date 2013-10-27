@@ -76,7 +76,7 @@ class crud_empleadoActions extends sfActions
 			$empleado=EmpleadoPeer::doSelectOne($conexion);
 			
 			if($empleado){
-				$salida = "({success: false, errors: { reason: 'Ya existe un empleado con ese mismo número de identificación,cambielo e intente denuevo'}})";
+				$salida = "({success: false, errors: { reason: 'Ya existe un empleado con ese mismo nï¿½mero de identificaciï¿½n,cambielo e intente denuevo'}})";
 			}
 			else{
 				$conexion=new Criteria();
@@ -144,7 +144,7 @@ class crud_empleadoActions extends sfActions
 					$this->guardarFoto($empleado);
 					$salida = "({success: true, mensaje:'El empleado fue actualizado exitosamente'})";
 			} else {
-				$salida = "({success: false, errors: { reason: 'No se a actualizado el empleado corecctamente'}})";
+				$salida = "({success: false, errors: { reason: 'No se ha actualizado el empleado correctamente'}})";
 			}
 		
 			return $salida;
@@ -207,7 +207,7 @@ class crud_empleadoActions extends sfActions
 	/**
   *@author:maryit sanchez
   *@date:22 de diciembre de 2010
-  *Este metodo permite obtener el nombre un tipo de identificación
+  *Este metodo permite obtener el nombre un tipo de identificaciï¿½n
   */	  
 	protected function obtenerNombreTipoIndetificacion($tid_codigo)
 	{

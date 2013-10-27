@@ -79,7 +79,7 @@
       <align>center</align>
       <text_size>12</text_size> 
       <text>
-        <![CDATA[<b>Discriminación de pérdidas TPNP</b>]]>
+        <![CDATA[<b>Consolidado pérdidas por mes (TPNP)</b>]]>
       </text> 
     </label>
   </labels>

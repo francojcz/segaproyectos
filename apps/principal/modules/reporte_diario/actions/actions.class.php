@@ -168,7 +168,9 @@ class reporte_diarioActions extends sfActions
             $tp_dia = RegistroUsoMaquinaPeer::calcularTPDiaEnHoras($maquina_codigo, $dia, $mes, $año, $params, 8);
         } else
         {
-            $maquinas = MaquinaPeer::doSelect(new Criteria());
+            $criteria = new Criteria();
+            $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+            $maquinas = MaquinaPeer::doSelect($criteria);
             $tpnp_dia = 0;
             $tnp_dia = 0;
             $tpp_dia = 0;
@@ -296,7 +298,9 @@ class reporte_diarioActions extends sfActions
             $cantidadMaquinas = 1;
         } else
         {
-            $maquinas = MaquinaPeer::doSelect(new Criteria());
+            $criteria = new Criteria();
+            $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+            $maquinas = MaquinaPeer::doSelect($criteria);
             $tpp_dia = 0;
             $tf_dia = 0;
             $tp_dia = 0;
@@ -474,6 +478,7 @@ class reporte_diarioActions extends sfActions
     public function executeListarEquiposActivos()
     {
         $criteria = new Criteria();
+        $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
         $criteria -> add(MaquinaPeer::MAQ_ELIMINADO, false);
         $maquinas = MaquinaPeer::doSelect($criteria);
 
@@ -496,7 +501,9 @@ class reporte_diarioActions extends sfActions
 
     public function executeListarMaquinas()
     {
-        $maquinas = MaquinaPeer::doSelect(new Criteria());
+        $criteria = new Criteria();
+        $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+        $maquinas = MaquinaPeer::doSelect($criteria);
 
         $result = array();
         $data = array();

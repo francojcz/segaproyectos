@@ -34,9 +34,9 @@ INSERT INTO `metodo` (`met_codigo`, `met_nombre`,met_tiempo_alistamiento,met_tie
 
 
 INSERT INTO `maquina` (`maq_codigo`, `maq_est_codigo`, `maq_nombre`, `maq_marca`, `maq_modelo`, `maq_fecha_adquisicion`, `maq_foto_url`, `maq_tiempo_inyeccion`, `maq_fecha_registro_sistema`, `maq_codigo_inventario`, `maq_usu_crea`, `maq_usu_actualiza`, `maq_fecha_actualizacion`, `maq_eliminado`, `maq_causa_eliminacion`) VALUES
-(1,1, 'HPLC Q-EL-004', 'HEWLLET PACKARD', 'Rop-34AGILENT 1100', '2011-01-27', NULL, '0.5800', '2011-01-27 12:35:38', 'Q-EL-004',1,2, '2011-01-27 21:49:06',0, NULL),
-(2,1, 'HPLC Q-EL-005', 'SHIMADZU', 'LC2010-AHT', '2011-01-27', NULL, '0.5800', '2011-01-27 12:35:38', 'Q-EL-005',1,2, '2011-01-27 21:50:00',0, NULL),
-(3,1, 'HPLC Q-EL-006', 'SHIMADZU', 'LC2010-AHT', '2011-01-20', NULL, '0.5800', '2011-01-27 18:32:03', 'Q-EL-006',2,2, '2011-01-27 21:50:12',0, NULL);
+(1,1, 'HPLC Q-EL-004', 'HEWLLET PACKARD', 'Rop-34AGILENT 1100', '2011-01-27', NULL, '0.5800', '2011-01-27 12:35:38', 'Q-EL-004',1,1, '2011-01-27 21:49:06',0, NULL),
+(2,1, 'HPLC Q-EL-005', 'SHIMADZU', 'LC2010-AHT', '2011-01-27', NULL, '0.5800', '2011-01-27 12:35:38', 'Q-EL-005',1,1, '2011-01-27 21:50:00',0, NULL),
+(3,1, 'HPLC Q-EL-006', 'SHIMADZU', 'LC2010-AHT', '2011-01-20', NULL, '0.5800', '2011-01-27 18:32:03', 'Q-EL-006',1,1, '2011-01-27 21:50:12',0, NULL);
 
 
 

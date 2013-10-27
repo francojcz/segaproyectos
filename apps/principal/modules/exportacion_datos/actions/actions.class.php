@@ -317,6 +317,7 @@ class exportacion_datosActions extends sfActions
 	public function executeListarEquiposActivos() {
 		$criteria = new Criteria();
 		$criteria->add(MaquinaPeer::MAQ_ELIMINADO, false);
+                $criteria->add(MaquinaPeer::MAQ_INDICADORES, true);
 		$maquinas = MaquinaPeer::doSelect($criteria);
 
 		$result = array();
@@ -337,7 +338,9 @@ class exportacion_datosActions extends sfActions
 		return $this->renderText(json_encode($result));
 	}
 	public function executeListarMaquinas() {
-		$maquinas = MaquinaPeer::doSelect(new Criteria());
+                $criteria = new Criteria();
+                $criteria -> add(MaquinaPeer::MAQ_INDICADORES, true);
+		$maquinas = MaquinaPeer::doSelect($criteria);
 
 		$result = array();
 		$data = array();

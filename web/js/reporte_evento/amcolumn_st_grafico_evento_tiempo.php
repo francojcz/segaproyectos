@@ -68,6 +68,25 @@
         <![CDATA[<b>Eventos  /  Tiempo</b>]]>
       </text> 
     </label>
+    <label lid='2'>
+      <x>47%</x> 
+      <y>358</y>
+      <width>42</width>
+      <align>right</align> 
+      <text>
+        <![CDATA[<b>Evento</b>]]>
+      </text> 
+    </label>
+    <label lid='2'>
+      <x>5</x> 
+      <y>60%</y>
+      <rotate>true</rotate> 
+      <width>100</width>
+      <align>left</align>
+      <text>
+        <![CDATA[<b>Tiempo (minutos)</b>]]>
+      </text> 
+    </label>
   </labels> 
   
   <legend> 

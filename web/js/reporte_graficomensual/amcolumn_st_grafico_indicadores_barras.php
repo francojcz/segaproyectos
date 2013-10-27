@@ -58,7 +58,7 @@
       <width>520</width> 
       <align>center</align>
       <text> 
-        <![CDATA[<b>Indicadores  Vs Metas</b>]]>
+        <![CDATA[<b>Comparativo<br>Indicadores Vs Metas</b>]]>
       </text> 
     </label>
   </labels> 

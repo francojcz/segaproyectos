@@ -25,7 +25,7 @@
       <width>520</width> 
       <align>center</align>
       <text> 
-        <![CDATA[<b>Tiempos para cálculo OEE / día</b>]]>
+        <![CDATA[<b>Tendencia tiempos para cálculo OEE / día</b>]]>
       </text> 
     </label>
 	<label lid='2'>

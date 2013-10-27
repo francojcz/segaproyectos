@@ -142,7 +142,7 @@ class crud_empleadousuarioActions extends sfActions
 					
 				$salida = "({success: true, mensaje:'El usuario fue actualizado exitosamente'})";
 			} else {
-				$salida = "({success: false, errors: { reason: 'No se a actualizado el usuario corecctamente'}})";
+				$salida = "({success: false, errors: { reason: 'No se ha actualizado el usuario correctamente'}})";
 			}
 		}
 		catch (Exception $excepcion)

@@ -1,10 +1,8 @@
-﻿/*
+/*
 manejo Eventos - tpm labs
 Desarrollado maryit sanchez
 2010
 */
-	
-	
 	//ayudas
 	var ayuda_maestra_eve_codigo='C&oacute;digo identificador en el sistema';
 	var ayuda_maestra_eve_nombre='Nombre evento';
@@ -36,10 +34,11 @@ Desarrollado maryit sanchez
 
 	var maestra_eve_codigo=new Ext.form.NumberField({
 	   xtype: 'numberfield',
+           labelStyle: 'text-align:right;',
 	   maxLength : 100,
 	   name: 'maestra_eve_codigo',
 	   id: 'maestra_eve_codigo',
-	   fieldLabel: 'C&ooacute;digo evento',
+	   fieldLabel: 'C&ooacute;digo evento',           
 	   listeners:
 	   {
 			'render': function() {
@@ -51,11 +50,12 @@ Desarrollado maryit sanchez
 
 	var maestra_eve_nombre=new Ext.form.TextField({
 	   xtype: 'textfield',
+           labelStyle: 'text-align:right;',
 	   maxLength : 100,
 	   name: 'maestra_eve_nombre',
 	   id: 'maestra_eve_nombre',
 	   fieldLabel: 'Nombre evento',
-	   allowBlank: false,
+           allowBlank: false,
 	   listeners:
 	   {
 			'render': function() {
@@ -315,8 +315,7 @@ Desarrollado maryit sanchez
 		height: 280,
 		tbar:[maestra_eventoporcategoria_cat_codigo,
 			{text:'Agregar a categor&iacute;a',iconCls:'agregar',
-				handler:function(){
-				
+				handler:function(){				
 					if(maestra_eventoporcategoria_cat_codigo.getValue()!='' && maestra_evca_eve_codigo.getValue()!='' ){
 						subirDatosAjax(
 							getAbsoluteUrl('maestra_evento', 'guardarEventoPorCategoria'),
@@ -363,6 +362,7 @@ Desarrollado maryit sanchez
 	
 	var maestra_evca_eve_codigo=new Ext.form.NumberField({
 	   xtype: 'numberfield',
+           labelStyle: 'text-align:right;',
 	   readOnly:true,
 	   anchor:'100%',
 	   name: 'maestra_evca_eve_codigo',
@@ -373,6 +373,7 @@ Desarrollado maryit sanchez
 
 	var maestra_evca_eve_nombre=new Ext.form.TextField({
 	   xtype: 'textfield',
+           labelStyle: 'text-align:right;',
 	   readOnly:true,
 	   anchor:'100%',
 	   name: 'maestra_evca_eve_nombre',

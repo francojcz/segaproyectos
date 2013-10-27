@@ -2,10 +2,8 @@
 manejo Eventos - tpm labs
 Desarrollado maryit sanchez
 2010
-*/
-	
-	
-	//ayudas
+*/	
+    //ayudas
 	var ayuda_maestra_cat_codigo='C&oacute;digo identificador en el sistema';
 	var ayuda_maestra_cat_nombre='Nombre categor&iacute;a evento';
 	
@@ -107,8 +105,7 @@ Desarrollado maryit sanchez
 		}
 	});
 
-    //CREACION DE LA GRILLA
-
+//CREACION DE LA GRILLA
 	var maestra_categoriaevento_gridpanel = new Ext.grid.GridPanel({
 		id: 'maestra_categoriaevento_gridpanel',
 		title:'Categor&iacute;as de Eventos',

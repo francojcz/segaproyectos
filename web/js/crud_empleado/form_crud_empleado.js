@@ -1,4 +1,4 @@
-﻿//maryit
+//maryit
 var ayuda_empl_codigo = 'Id del empleado';
 
 

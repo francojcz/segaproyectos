@@ -54,6 +54,34 @@ var form_interfazdministrador = function(){
                                 }
                             }]
                         }, {
+                           title: 'Grupo equipo',
+                            tabTip: 'Grupo equipo, utilice esto para categorizar los equipos',
+                            border: false,
+                            style: 'padding: 10px;',
+                            iconCls: 'x-icon-maestra',
+                            items: [{
+                                frame: true,
+                                autoLoad: {
+                                    url: getAbsoluteUrl('maestra_categoriaequipo', 'index'),
+                                    scripts: true,
+                                    scope: this
+                                }
+                            }]
+                        }, {
+                            title: 'Periodo Mantenimiento',
+                            tabTip: 'Manejo de periodos de mantenimiento',
+                            border: false,
+                            style: 'padding: 10px;',
+                            iconCls: 'x-icon-maestra',
+                            items: [{
+                                frame: true,
+                                autoLoad: {
+                                    url: getAbsoluteUrl('crud_periodomantenimiento', 'index'),
+                                    scripts: true,
+                                    scope: this
+                                }
+                            }]
+                        }, {
                             title: 'Equipos',
                             tabTip: 'Manejo de equipos &oacute; m&aacute;quinas',
                             border: false,
@@ -68,8 +96,36 @@ var form_interfazdministrador = function(){
                                 }
                             }]
                         }, {
-                            title: 'Maestra categor&iacute;a evento',
-                            tabTip: ' Maestra categor&iacute;a evento, utilice esto para crear categorizar de los eventos',
+                            title: 'Repuestos / Consumibles',
+                            tabTip: 'Manejo de repuestos y consumibles',
+                            border: false,
+                            style: 'padding: 10px;',
+                            iconCls: 'x-icon-maestra',
+                            items: [{
+                                frame: true,
+                                autoLoad: {
+                                    url: getAbsoluteUrl('crud_repuesto', 'index'),
+                                    scripts: true,
+                                    scope: this
+                                }
+                            }]
+                        }, {
+                           title: 'Mantenimiento',
+                            tabTip: 'Mantenimiento Autónomo, utilice esto para realiar el mantenimiento',
+                            border: false,
+                            style: 'padding: 10px;',
+                            iconCls: 'x-icon-maestra',
+                            items: [{
+                                frame: true,
+                                autoLoad: {
+                                    url: getAbsoluteUrl('mantenimiento_autonomo', 'index'),
+                                    scripts: true,
+                                    scope: this
+                                }
+                            }]
+                        },{
+                            title: 'Categor&iacute;a evento',
+                            tabTip: 'Categor&iacute;a evento, utilice esto para categorizar los eventos',
                             border: false,
                             style: 'padding: 10px;',
                             iconCls: 'x-icon-maestra',
@@ -82,8 +138,8 @@ var form_interfazdministrador = function(){
                                 }
                             }]
                         }, {
-                            title: 'Maestra evento',
-                            tabTip: ' Maestra evento, utilice esto para registrar los eventos que pueden causar perdidas',
+                            title: 'Evento',
+                            tabTip: 'Evento, utilice esto para registrar los eventos que pueden causar perdidas',
                             border: false,
                             style: 'padding: 10px;',
                             iconCls: 'x-icon-maestra',
@@ -127,7 +183,7 @@ var form_interfazdministrador = function(){
                     }, {
                         expanded: true,
                         items: [{
-                            title: 'Maestra tipo de <br/>identificaci&oacute;n',
+                            title: 'Tipo de <br/>identificaci&oacute;n',
                             style: 'padding: 10px;',
                             iconCls: 'x-icon-maestra',
                             border: false,

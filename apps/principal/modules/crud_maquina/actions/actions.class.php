@@ -84,7 +84,8 @@ class crud_maquinaActions extends sfActions
 				$maquina->setMaqFechaActualizacion(time());
 				$maquina->setMaqUsuActualiza($this->getUser()->getAttribute('usu_codigo'));
 				$maquina->setMaqCausaActualizacion($this->getRequestParameter('maq_causa_actualizacion'));
-
+                                $maquina->setMaqCatCodigo($this->getRequestParameter('maq_cat_codigo'));
+                                $maquina->setMaqIndicadores($this->getRequestParameter('maq_indicadores'));
 
 				$maquina->save();
 
@@ -139,27 +140,25 @@ class crud_maquinaActions extends sfActions
 				$datos[$fila]['maq_codigo']=$temporal->getMaqCodigo();
 				$datos[$fila]['maq_codigo_inventario'] = $temporal->getMaqCodigoInventario();
 				$datos[$fila]['maq_nombre'] = $temporal->getMaqNombre();
-
 				$datos[$fila]['maq_est_codigo'] = $temporal->getMaqEstCodigo();
-
 				$datos[$fila]['maq_modelo'] = $temporal->getMaqModelo();
 				$datos[$fila]['maq_marca'] = $temporal->getMaqMarca();
 				$datos[$fila]['maq_tiempo_inyeccion'] = $temporal->getMaqTiempoInyeccion();
 				//--$datos[$fila]['maq_tiempo_inyeccion_actual'] = $temporal->getMaqTiempoInyeccionActual();
 				$datos[$fila]['maq_fecha_adquisicion'] = $temporal->getMaqFechaAdquisicion();
-
 				$datos[$fila]['certificado'] = $temporal->getMaqComCertificado();
-
 				$datos[$fila]['maq_fecha_registro_sistema'] = $temporal->getMaqFechaRegistroSistema();
 				$datos[$fila]['maq_fecha_actualizacion'] = $temporal->getMaqFechaActualizacion();
 				//$datos[$fila]['maq_usu_crea'] = $temporal->getMaqUsuCrea();
 				//$datos[$fila]['maq_usu_actualiza'] = $temporal->getMaqUsuActualiza();
-
 				$datos[$fila]['maq_usu_crea_nombre'] = UsuarioPeer::obtenerNombreUsuario($temporal->getMaqUsuCrea());
 				$datos[$fila]['maq_usu_actualiza_nombre'] = UsuarioPeer::obtenerNombreUsuario($temporal->getMaqUsuActualiza());
 				$datos[$fila]['maq_eliminado'] = $temporal->getMaqEliminado();
 				$datos[$fila]['maq_causa_eliminacion'] = $temporal->getMaqCausaEliminacion();
 				$datos[$fila]['maq_causa_actualizacion'] = $temporal->getMaqCausaActualizacion();
+                                $datos[$fila]['maq_cat_codigo'] = $temporal->getMaqCatCodigo();
+                                $datos[$fila]['maq_indicadores'] = $temporal->getMaqIndicadores();                                
+                                                                
 				$fila++;
 			}
 			if($fila>0){
@@ -236,9 +235,7 @@ class crud_maquinaActions extends sfActions
 		$salida='({"total":"0", "results":""})';
 		$fila=0;
 		$datos;
-
 		try{
-
 			$conexion = new Criteria();
 			$estados = EstadoPeer::doSelect($conexion);
 
@@ -291,6 +288,125 @@ class crud_maquinaActions extends sfActions
 		}
 		return $this->renderText($salida);
 	}
+        
+        
+        public function executeListarCategoria(sfWebRequest $request)
+	{
+		$salida='({"total":"0", "results":""})';
+		$fila=0;
+		$datos;
+		try{
+			$conexion = new Criteria();
+			$categorias = CategoriaEquipoPeer::doSelect($conexion);
+			foreach($categorias As $temporal) {
+				$datos[$fila]['cat_codigo'] = $temporal->getCatCodigo();
+				$datos[$fila]['cat_nombre'] = $temporal->getCatNombre();
+				$fila++;
+			}
 
+			if($fila>0){
+				$jsonresult = json_encode($datos);
+				$salida= '({"total":"'.$fila.'","results":'.$jsonresult.'})';
+			}
+		}catch (Exception $excepcion)
+		{
+			$salida='exception en listar Categorias';
+		}
+		return $this->renderText($salida);
+	}
 
+        public function executeListarPeriodos()
+        {
+            $criteria = new Criteria();
+            $criteria -> addAscendingOrderByColumn(PeriodoMantenimientoPeer::PMTO_PERIODO);
+            $periodos = PeriodoMantenimientoPeer::doSelect($criteria);
+            $result = array();
+            $data = array();
+
+            foreach ($periodos as $periodo)
+            {
+                $fields = array();
+                $fields['codigo'] = $periodo -> getPmtoCodigo();
+                
+                //Tipo de Periodo
+                $criteria = new Criteria();                
+                $criteria -> add(TipoPeriodoPeer::TP_CODIGO, $periodo->getPmtoTipo());
+                $tipo = TipoPeriodoPeer::doSelectOne($criteria);
+                
+                if($periodo->getPmtoPeriodo()==1 && $tipo->getTpNombre()=='Día')
+                    $fields['nombre'] = $periodo->getPmtoPeriodo().' '.$tipo->getTpNombre();
+                if($periodo->getPmtoPeriodo()>1 && $tipo->getTpNombre()=='Día')
+                    $fields['nombre'] = $periodo->getPmtoPeriodo().' '.$tipo->getTpNombre().'s';
+                if($periodo->getPmtoPeriodo()==1 && $tipo->getTpNombre()=='Mes')
+                    $fields['nombre'] = $periodo->getPmtoPeriodo().' '.$tipo->getTpNombre();
+                if($periodo->getPmtoPeriodo()>1 && $tipo->getTpNombre()=='Mes')
+                    $fields['nombre'] = $periodo->getPmtoPeriodo().' '.$tipo->getTpNombre().'es';
+
+                $data[] = $fields;
+            }
+
+            $result['data'] =  $data;
+            return $this -> renderText(json_encode($result));
+        }
+        
+        
+        public function executeListarRegistrosPeriodoMaquina(sfWebRequest $request)
+        {
+            $criteria = new Criteria();
+            if ($request -> hasParameter('cod_maquina'))
+                $criteria -> add(RegistroPmtoMaquinaPeer::RPM_MAQ_CODIGO, $request -> getParameter('cod_maquina'));
+            
+            $registrosPeriodos = RegistroPmtoMaquinaPeer::doSelect($criteria);
+
+            $result = array();
+            $data = array();
+            foreach ($registrosPeriodos as $registrosPeriodo)
+            {
+                $fields = array();
+                $fields['codigo'] = $registrosPeriodo -> getRpmCodigo();
+                $fields['id_periodo'] = $registrosPeriodo -> getRpmPmtoCodigo();
+                $fields['fecha_inicio'] = $registrosPeriodo -> getRpmFechaInicio();
+                $fields['usu_registra'] = UsuarioPeer::obtenerNombreUsuario($registrosPeriodo -> getRpmUsuRegistra());
+                $fields['fecha_registro'] = $registrosPeriodo -> getRpmFechaRegistro();
+                $data[] = $fields;
+            }
+            $result['data'] = $data;
+            return $this -> renderText(json_encode($result));
+        }
+        
+        public function executeRegistrarPeriodo(sfWebRequest $request)
+        {
+            $user = $this -> getUser();           
+            $codigo_usuario = $user -> getAttribute('usu_codigo');
+            
+            $registro_rpm = '';
+            $criteria = new Criteria();
+            $criteria -> add(RegistroPmtoMaquinaPeer::RPM_PMTO_CODIGO, $request->getParameter('id_periodo'));
+            $criteria -> add(RegistroPmtoMaquinaPeer::RPM_MAQ_CODIGO, $request->getParameter('maq_codigo'));
+            $registro_rpm += RegistroPmtoMaquinaPeer::doSelectOne($criteria);
+            
+            if($registro_rpm == ''){
+                $registro = new RegistroPmtoMaquina();
+                $registro -> setRpmMaqCodigo($request->getParameter('maq_codigo'));
+                $registro -> setRpmPmtoCodigo($request->getParameter('id_periodo'));
+                $registro -> setRpmFechaInicio($request->getParameter('fecha_inicio'));
+                $registro -> setRpmUsuRegistra($codigo_usuario);
+                $registro -> setRpmFechaRegistro(date('Y-m-d H:i:s'));
+                $registro -> save();
+                return $this -> renderText('Ok');
+            }
+            else
+                return $this -> renderText('1');
+            
+        }
+        
+        public function executeEliminarPeriodo(sfWebRequest $request)
+        {        
+            if ($request -> hasParameter('codigo'))
+            {
+                $registro = RegistroPmtoMaquinaPeer::retrieveByPK($request -> getParameter('codigo'));
+                $registro ->delete();
+            }
+            return $this -> renderText('Ok');
+        }
 }

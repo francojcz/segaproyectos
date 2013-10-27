@@ -1,4 +1,4 @@
-    var usu_password_valor_trae = '';
+var usu_password_valor_trae = '';
 
 var ayuda_usu_codigo = 'Id del usuario';
 var ayuda_usu_login = 'Login del usuario digitos ';
