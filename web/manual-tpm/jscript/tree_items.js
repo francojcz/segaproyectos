@@ -7,13 +7,13 @@
 var TREE_ITEMS = [
 	['TPM-QLabs', 'html/bienvenida.html', /*Raíz del Árbol*/
 		['Uso de la Ayuda', 'html/ayuda_uso.html'],
-		['Inicio sessi&oacute;n', 'html/iniciar/IniciarSesion.html'], 
+		['Inicio sesi&oacute;n', 'html/iniciar/IniciarSesion.html'], 
 		['Administrador', 'html/interfaz_admin/InterfazAdministrador.html',
 			['Usuarios', 'html/interfaz_admin/ManejoEmpleados.html'],
-			['Equipos', 'html/interfaz_admin/ManejoMaquina.html'],		
-			['M&eacute;todos', 'html/interfaz_admin/ManejoMetodo.html'],		
-			['Categor&iacute;a de evento', 'html/interfaz_admin/MaestraCategoria.html'],
+			['Equipos', 'html/interfaz_admin/ManejoMaquina.html'],
+			['Categor&iacute;a evento', 'html/interfaz_admin/MaestraCategoria.html'],
 			['Evento', 'html/interfaz_admin/MaestraEvento.html'],
+			['M&eacute;todos', 'html/interfaz_admin/ManejoMetodo.html'],
 			['Metas', 'html/interfaz_admin/GestionMetas.html'],
 			['Tipo de identificaci&oacute;n', 'html/interfaz_admin/MaestraTipoIdentificacion.html'],
 			['Salir', 'html/interfaz_admin/Salir.html']

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1215px; height: 69px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Ingreso datos</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs - INGRESO
+          DATOS</span></big><br>
+      <div style="text-align: left;">
+        <div style="text-align: center; width: 1218px;"><big><br>
+            <br>
+          </big></div>
+        <big><span style="font-weight: bold;">Ingreso de corridas analíticas</span><br>
+          Para ingresar los tiempos de corrida es necesario seguir los pasos.<br>
+        </big>
+        <ul>
+          <li><big><a href="#Seleccionar_el_equipo">Seleccionar el equipo</a>.</big></li>
+          <li><big><a href="#Agregar_m%C3%A9todo">Agregar método</a>.</big></li>
+          <li><big><a href="#Ingresar_datos_de_la_corrida.">Ingresar los datos
+                de la corrida</a>.</big></li>
+        </ul>
+        <big style="font-weight: bold;"><br>
+        </big><big><span style="font-weight: bold;"><a name="Seleccionar_el_equipo"></a>Seleccionar
+            el equipo<br>
+            <br>
+          </span></big>
+        <div style="text-align: justify;"><big><span style="font-weight: bold;">
+            </span>Ubique en la interfaz, una list</big><big>a </big><big>desplegable
+            </big><big>de los equipos de la empresa registrados en el sistema y
+            seleccione el equipo en el cual va a trabajar, tal y como se muestra
+            en la </big><big>Figura 1.</big></div>
+        <big><br>
+        </big> <big> </big> </div>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><img title="Equipo" alt="Equipo" src="../imagenes/analista/4-1_ingreso_selec_equipo.png"><br>
+          Figura 1. Selección del equipo.<br>
+          <br>
+          <br>
+          <div style="text-align: left;"><big><span style="font-weight: bold;"><a
+                  name="Agregar_método"></a>Agregar método<br>
+                <br>
+              </span>Ubique en la pantalla la lista que despleg los métodos
+              registrados en el sistema (1), seleccione el método con el cual va
+              a trabajar y pulse el botón <span style="font-weight: bold;">Agregar
+                Registro</span> (2), tal y como se muestra en la </big><big>Figura
+              2.<br>
+              <br>
+            </big> </div>
+        </div>
+        <div style="text-align: center;"><img title="Método" alt="Método" src="../imagenes/analista/4-2_ingreso_selec_metodo.png"><br>
+          <div style="text-align: left;">
+            <div style="text-align: center;"> Figura 2.Selección del método y
+              agregar registro.<br>
+              <br>
+              <br>
+            </div>
+            <div style="text-align: center;">
+              <div style="text-align: justify;"><big>Una vez se haya seleccionado
+                  y registrado el método, en la pantalla se despliega el método
+                  con su respectiva información.&nbsp; Tenga en cuenta que si el
+                  primer registro corresponde a una continuación de una corrida
+                  del día anterior resultante de una división de registro, el <span
+                    style="font-weight: bold;">Tiempo entre cambio de método </span>(1)
+                  se </big><big>registrará en cero (0)</big><big> pues la
+                  máquina viene trabajando en este método desde el día anterior
+                  pero si el registro no corresponde a una continuación de
+                  corrida, se registrará el tiempo entre el cambio de método,
+                  tal y como se muestra en la Figura 3.</big></div>
+              <big><br>
+              </big><img title="Comportamiento del Sistema" alt="Comportamiento del Sistema"
+                src="../imagenes/analista/4-4_corrida_dia_anterior_no.png"><br>
+              Figura 3. Comportamiento del sistema cuando se ha registrado un
+              método.<br>
+            </div>
+            <big><br>
+            </big><big><span style="font-weight: bold;"><br>
+                <a name="Ingresar_datos_de_la_corrida."></a> Ingresar datos de
+                la corrida</span><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Debe dar doble click sobre
+                la celda que desea modificar, digite el número o seleccione la
+                hora de acuerdo al campo y de un click por fuera para que la
+                modificación sea guardada en el sistema. Ingrese en la fila
+                superior los datos estándar o programados según el método y en
+                la fila inferior ingrese las pérdidas.&nbsp; En la Figura 4 se
+                muestra el resultado de la edición de varias celdas. Observe que
+                en la parte inferior de la pantalla hay dos gráficos que le
+                indicarán la productividad del día en término de minutos y
+                horas.&nbsp; Debe estar atento a que en las gráficas no aparezcan
+                valores negativos, ya que esto puede ser un indicador de datos
+                mal ingresados. Recuerde utilizarla barra de desplazamiento (1)
+                para registrar todos los datos de la corrida.</big></div>
+            <div style="text-align: center;"><big> <small><br>
+                  <br>
+                  Figura 4. Ingreso de corridas analiticas<br>
+                  <br>
+                </small></big> <big> </big><big style="font-weight: bold;"> </big></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

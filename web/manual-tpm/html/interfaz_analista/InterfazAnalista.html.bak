@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div style="width: 1282px;" align="center">
+      <table style="width: 1256px; height: 69px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Interfaz Analista</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          INTERFAZ ANALISTA</span></big><br>
+      <div style="text-align: left; width: 1266px;">
+        <div style="text-align: center;"><big><br>
+            <br>
+          </big></div>
+        <div style="text-align: justify;"><big>Una vez hayamos digitado
+            correctamente la clave y la contraseña, el usuario analista
+            ingresará a una pantalla como se muestra en la Figura 1.</big></div>
+        <big> </big><big>La interfaz del analista está compuesta de los
+          siguientes elementos.</big><big><br>
+          <br>
+        </big><big>(1) </big><big><span style="font-weight: bold;">Cabecera</span>:
+          Nombre y logo de la empresa.</big><big><br>
+        </big><big>(2) <span style="font-weight: bold;">Barra informativa y de
+            utilidades</span>: Muestra los datos del operario, la máquina
+          seleccionada, la fecha, el enlace para acceso a reportes, entre otros.</big><big><br>
+          (3) <span style="font-weight: bold;">Barra de botones</span>:
+          Contiene los botones para registrar nuevas corridas y manejar eventos.<br>
+          (4)&nbsp;</big><big><span style="font-weight: bold;">Área de trabajo</span>:
+          Área de trabajo para ingresar los datos de las corridas analíticas.</big><big><br>
+        </big><big>(5) <span style="font-weight: bold;">Ayudas</span>: Ayudas
+          conceptuales sobre los indicadores.</big><big><br>
+        </big><big>(6) <span style="font-weight: bold;">Gráfica de tiempos</span>:
+          Gráficos.</big>
+        <ol>
+        </ol>
+        <br>
+        <big> </big> </div>
+      <div style="text-align: left; width: 1239px;"> <img title="Analista" alt="Analista"
+          src="../imagenes/analista/1_partes.png">
+        <div style="text-align: center;"> Figura 1. Pantalla principal del
+          analista.</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1386px; height: 32px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Editar&nbsp; eventos</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          EDITAR EVENTO</span></big><br>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><big><br>
+            <br>
+          </big>
+          <div style="text-align: left;"><big style="font-weight: bold;">Agregar
+              registro de evento<br>
+              <br>
+            </big></div>
+          <big> </big></div>
+        <div style="text-align: justify;"><big>Para registrar los eventos que
+            ocurran durante la corrida el usuario debe seleccionar la corrida
+            analítica (1) en la cual ocurrió el evento y pulsar el botón <span
+              style="font-weight: bold;">Editar eventos</span> (2), tal y como
+            se muestra en la Figura 1.</big></div>
+        <big> <br>
+        </big>
+        <div style="text-align: center;"><big> </big><img title="Editar evento"
+            alt="Editar evento" src="../imagenes/analista/3_1-boton_editar_evento.png"></div>
+        <div style="text-align: center;">Figura 1.&nbsp; Pantalla del listado de
+          corridas analiticas del día por equipo.<small><br>
+          </small></div>
+        <big><br>
+          <br>
+          Cuando el usuario selecciona un método y pulsa el botón editar
+          eventos, el sistema despliega una ventana como la que se muestra en la
+          Figura 2, en donde debe seleccionar en la primera lista la categoría
+          de eventos que desea ingresar.</big><big><br>
+          <br>
+        </big> </div>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><img title="Seleccionar Categoría" alt="Seleccionar Categoría"
+            src="../imagenes/analista/3_2-agregar_evento_selec_cate.png"></div>
+        <div style="text-align: center;"> Figura 2. Pantalla para seleccionar la
+          categoría del evento.<br>
+        </div>
+        <div style="text-align: center;"><big style="font-weight: bold;"><br>
+            <br>
+          </big>
+          <div style="text-align: left;"><big>Una vez seleccionada la categoría,
+              seleccione de la segunda lista el evento que desea ingresar (1) y
+              pulse el botón Agregar evento (2), tal y como se muestra en Figura
+              3.<br>
+              <br>
+            </big>
+            <div style="text-align: center;"><img title="Agregar evento" alt="Agregar evento"
+                src="../imagenes/analista/3_3-agregar_evento_selec_evento.png"><br>
+              Figura 3. Pantalla para seleccionar y agregar un evento.<br>
+            </div>
+            <big><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Luego de que el usuario
+                agrega el evento, debe registrar la hora en la que ocurrió el
+                evento (1), el tiempo en minutos de la duración del evento (2),
+                una observación </big><big>corta </big><big>que describa lo
+                que ocurrió (3) y dar click en el botón Guardar (4), tal y como
+                se muestra en la&nbsp;Figura 4. Además, para una misma corrida
+                se pueden registrar varios eventos de la misma manera.</big><br>
+              <br>
+              <big> </big></div>
+            <div style="text-align: center;"><img title="Editar Evento" alt="Editar Evento"
+                src="../imagenes/analista/3_4-editar_evento.png"><br>
+              Figura 4. Pantalla de edición del detalle del evento.<small><small><br>
+                </small></small></div>
+            <big><small><br>
+              </small><br>
+            </big><big></big></div>
+          <div style="text-align: left;"><big><span style="font-weight: bold;"></span></big><big><span
+                style="font-weight: bold;">Eliminar registros de eventos<br>
+                <br>
+              </span></big>
+            <div style="text-align: justify;"><big><span style="font-weight: bold;">
+                </span> </big><big>Para eliminar </big><big>un </big><big>evento</big><big>,
+                seleccione de la lista de </big><big>eventos</big><big> el
+                evento que desea eliminar</big><big> (1) y pulse el botón Eliminar
+                evento (2), tal y como se muestra en la Figura 5. &nbsp;El
+                usuario debe ser consciente de que esta información una vez
+                eliminada <span style="font-weight: bold;">no se podrá
+                  recuperar</span>.<br>
+              </big><br>
+              <div style="text-align: center;"><br>
+              </div>
+              <div style="text-align: center;">Figura 5. Pantalla para la
+                eliminación de un evento.<span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 12px; text-align: left;"></span></span><span
+                  class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 12px; text-align: left;"></span></span></div>
+            </div>
+            <big> </big><big><br>
+              <br>
+            </big><big style="font-weight: bold;"> </big></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

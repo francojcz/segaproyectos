@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1386px; height: 32px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Reporte mensual</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          REPORTE MENSUAL</span></big><br>
+      <br>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><big><br>
+          </big></div>
+        <big><span style="font-weight: bold;">Reporte mensual</span><br>
+          <br>
+        </big>
+        <div style="text-align: justify;"><big> El reporte mensual mediante la
+            opción multireporte, le muestra información de tiempos, indicadores,
+            pérdidas y muestras e inyecciones en gráficos de torta, barras y de
+            dispersión para un mes especifico, tal y como se evidencia en las
+            Figuras 1, 2, 3 y 4.</big></div>
+        <big> <br>
+        </big>
+        <div style="text-align: justify;"><big> Los gráficos inicialmente le
+            mostrarán la información a partir de los criterios de <span style="font-style: italic;">Año
+              </span>y <span style="font-style: italic;">Mes</span> pero es
+            posible configurar el reporte generado a partir de otros criterios
+            adicionales tales como el equipo, el método y/o el analista.&nbsp;
+            Una vez seleccionado alguno de estos criterios adicionales, debe dar
+            click en el botón <span style="font-weight: bold;">Generar gráficos</span>.</big></div>
+        <big> <br>
+        </big><br>
+        <big><span style="font-weight: bold;">Reporte mensual de tiempos<br>
+            <br>
+          </span></big> </div>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><img title="Tiempos" alt="Tiempos" src="../imagenes/reportes/4_reporte_mensual.png"></div>
+        <div style="text-align: center;">Figura 1.&nbsp; Pantalla de reporte
+          mensual de tiempos.<br>
+        </div>
+        <div style="text-align: center;"><br>
+          <br>
+          <div style="text-align: left;"><big><span style="font-weight: bold;">Reporte
+                mensual de indicadores</span></big></div>
+          <big>
+          </big><br>
+          <big style="font-weight: bold;"><img title="Indicadores" alt="Indicadores"
+              src="../imagenes/reportes/4_reporte_mensual_indicadores.png"><br>
+          </big>Figura 2.&nbsp; Pantalla de reporte mensual indicadores.<br>
+          <br>
+          <br>
+          <div style="text-align: left;"><big><span style="font-weight: bold;">Reporte
+                mensual de pérdidas</span></big></div>
+          <br>
+          <img title="Pérdidas" alt="Pérdidas" src="../imagenes/reportes/4_reporte_mensual_perdidas.png"><br>
+          Figura 3.&nbsp; Pantalla de reporte diario de pérdidas.<br>
+          <br>
+          <br>
+          <div style="text-align: left;"><big><span style="font-weight: bold;">Reporte
+                mensual de muestras e inyecciones<br>
+                <br>
+              </span></big></div>
+          <img title="Muestras e Inyecciones" alt="Muestras e Inyecciones" src="../imagenes/reportes/4_reporte_mensual_muin.png"><br>
+          Figura 4. Pantalla reporte mensual de muestras e inyecciones
+          detalladas por día.<br>
+          <br>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

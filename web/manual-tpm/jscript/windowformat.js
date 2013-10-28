@@ -9,7 +9,7 @@ function drawtabstrip(index) {
 	var uno;
 	var dos;
 	uno = "#2C317F";
-	dos = "#65CC0D"; /* 	"#FFC166"; */
+	dos = "#5E5E5E"; /* 	"#FFC166"; */
 	
 	if (index ==1) {
 //		imgDosLeft.backgroundImage="html/estilos/dos_tabizquierda.gif";

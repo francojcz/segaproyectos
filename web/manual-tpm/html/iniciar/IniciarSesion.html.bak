@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1386px; height: 32px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Iniciar Sesión</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          INICIAR SESIÓN</span></big><br>
+      <br>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><big><br>
+          </big></div>
+        <div style="text-align: justify;"><big>Al iniciar la aplicación aparece
+            una pantalla como la que se muestra en la Figura 1.&nbsp; Para
+            iniciar una sesión se deberá introducir el Usuario y el Password y a
+            continuación dar click en el botón&nbsp;<span style="font-weight: bold;">Ingresar</span>
+            ó en su defecto presionar la tecla <span style="font-weight: bold;">Enter.&nbsp;
+              </span>El inicio de sesión es igual para todos los roles de la
+            aplicación. </big><br>
+        </div>
+        <big> <br>
+        </big> </div>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><br>
+        </div>
+        <div style="text-align: center;"> Figura 1. Pantalla de ingreso al
+          sistema.<br>
+        </div>
+        <br>
+        <div style="text-align: center;"><big style="font-weight: bold;"><br>
+            <br>
+          </big></div>
+      </div>
+    </div>
+  </body>
+</html>

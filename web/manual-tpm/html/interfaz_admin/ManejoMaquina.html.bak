@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1386px; height: 32px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Manejo de equipos ó máquinas</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          MANEJO EQUIPOS</span></big><br>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><big><br>
+            <br>
+          </big></div>
+        <div style="text-align: justify;"><big>Cuando el usuario selecciona del
+            menú la opción <span style="font-weight: bold;">Equipos</span>, el
+            sistema le desplegara una pantalla como la que se muestra en la Figura
+            1.&nbsp; En esta pantalla el usuario podrá </big><big>crear, </big><big>actualizar,
+            eliminar, visualizar y restablecer un equipo.</big></div>
+        <big> <br>
+        </big> </div>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><img title="Maquinas" alt="Maquinas" src="../imagenes/admin/4_maquinas.png"></div>
+        <div style="text-align: center;"> Figura 1. Pantalla de manejo de
+          equipos.<br>
+        </div>
+        <div style="text-align: center;"><big style="font-weight: bold;"><br>
+            <br>
+          </big>
+          <div style="text-align: left;"><big><span style="font-weight: bold;">Agregar</span></big><big
+              style="font-weight: bold;"> equipo</big><big><span style="font-weight: bold;"></span><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Para agregar un equipo</big><big>
+              </big><big> pulse el botón <span style="font-weight: bold;">Agregar</span>,
+                diligencie el formulario que se muestra al lado derecho de la
+                pantalla y</big><big> pulse el botón <span style="font-weight: bold;">Guardar</span>.&nbsp;
+                La información que se debe ingresar es la siguiente:</big><br>
+              <big> </big></div>
+            <ul>
+              <li><big>Código de inventario:&nbsp; Digite el código con el que
+                  se identificará el </big><big>equipo</big><big> en su
+                  inventario&nbsp; </big><span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+              <li><big>Nombre equipo:&nbsp; Digite el nombre del equipo</big><big>&nbsp;
+                  </big><span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+              <li><big>Estado:&nbsp; Seleccione el estado del equipo</big><big>&nbsp;
+                  </big><span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+              <li><big>Tiempo inyección (Min.):&nbsp; Digite el tiempo de
+                  inyección estándar del </big><big>equipo</big><big>&nbsp; </big><span
+                  class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(no es un campo
+                    obligario, por defecto es 0)</span></span><big>. Este campo
+                  se tiene en cuenta para el calculo de algunos indicadores en
+                  los reportes, por tanto es necesario que sea diligenciado con
+                  información veridica y precisa.<br>
+                </big></li>
+              <li><big>Marca:&nbsp; Digite la marca del equipo (e</big><span class="Apple-style-span"
+                  style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;">s
+                    un campo obligatorio)</span></span><big>.</big></li>
+              <li><big>Modelo:&nbsp; Digite el modelo del </big><big>equipo</big>
+                <span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;">(es
+                    un campo obligatorio)</span></span><big>.</big></li>
+              <li><big>Fecha de adquisición:&nbsp; Seleccione o digite en
+                  formato (AAAA-MM-DD) la fecha de adquisión del </big><big>equipo</big><big>&nbsp;
+                  </big><span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>. <br>
+                </big></li>
+              <li><big>Computador:&nbsp; Seleccione el nombre del computador(</big><big>nombre
+                  de certificado del computador</big><big>) en el cual se
+                  registrarán los datos&nbsp; </big><span class="Apple-style-span"
+                  style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+            </ul>
+            <ul>
+            </ul>
+            <big><br>
+              <span style="font-weight: bold;">Actualizar</span><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Para actualizar un </big><big>equipo,</big><big>
+                seleccione de la lista el equipo que</big><big> desea
+                actualizar,
+                ingrese la información en el formulario ubicado al lado derecho
+                y pulse el botón <span style="font-weight: bold;">Actualizar</span>.
+                El sistema desplegara una pequeña ventana donde le preguntara
+                la razón por la cual desea actualizar el equipo,</big><big>
+                digite la razón y pulse el botón <span style="font-weight: bold;">Aceptar</span>.
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                del éxito del cambio.</big><br>
+              <big> </big><br>
+              <big> </big><br>
+              <big> <span style="font-weight: bold;">Eliminar</span></big><br>
+              <big><span style="font-weight: bold;"> </span></big><br>
+              <big><span style="font-weight: bold;"> </span> </big><big>Para
+                eliminar un </big><big>equipo,</big><big> seleccione el </big><big>equipo</big><big>
+                que desea eliminar de la lista y pulse el botón <span style="font-weight: bold;">Eliminar</span>.&nbsp;
+                El sistema desplegará una pequeña ventana donde le preguntará si
+                realmente desea eliminar la </big><big>máquina</big><big> y
+                porque razón desea eliminarla, digite la razón y pulse el botón
+                <span style="font-weight: bold;">Aceptar</span>. Luego el
+                sistema le mostrará un breve mensaje en el que informa del éxito
+                de la eliminación.</big><br>
+              <big> </big><br>
+              <big> </big><br>
+              <big> <span style="font-weight: bold;">Restablecer</span></big><br>
+              <big><span style="font-weight: bold;"> </span></big><br>
+              <big><span style="font-weight: bold;"> </span>Si usted ha
+                eliminado un </big><big>equipo</big><big>, tiene la posibilidad
+                de recuperar la información.&nbsp; Para reestablecer un equipo,
+                seleccione la opción para ver los </big><big>equipos</big><big>
+                eliminados (estrella blanca), seleccione de la lista el </big><big>equipo</big><big>
+                que desea recuperar y pulse el botón <span style="font-weight: bold;">Restablecer</span>,
+                luego el sistema le preguntará la razón de porqué usted desea
+                restablecerlo, digite la razón y pulse el botón <span style="font-weight: bold;">Aceptar</span>.</big><big>
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                si se ha restablecido con éxito.</big></div>
+            <big><br>
+            </big><br>
+            <big> <br>
+            </big><big style="font-weight: bold;"> </big></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

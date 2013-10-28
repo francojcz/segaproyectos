@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<title>Guia de Usuario</title>
+
+	     
+        <link rel="stylesheet" href="../estilos/estilos.css" type="text/css"></head><body>
+		
+              <div align="center">
+                <table borderdark="#000000" bordercolorlight="#FFFFFF" border="0" cellpadding="5" cellspacing="0" width="100%">
+                 <tbody><tr bordercolor="" bgcolor="">
+                  <td class="barra" height="">
+                    
+      <p class="blanco"><a name="inicio"></a><big><big><span style="font-weight: bold;">Bienvenida al sistema</span></big></big></p>
+      
+
+        	  </td>
+                 </tr>
+                </tbody></table>
+
+                <table align="center" border="0" width="85%">
+                <tbody>
+		<tr></tr>
+		<tr>
+			<td width="62%"> <div align="center">
+			<font color="#4e79b2" face="arial" size="6"><br>
+<br>
+Bienvenido a TPM-QLabs<br></font>
+			<font color="#4e79b2" face="arial" size="6"><small>El sistema clave para incrementar la eficiencia de su laboratorio de análisis.</small>&nbsp; &nbsp;&nbsp;  </font><font color="#4e79b2" face="arial" size="3"><br>
+      <br>
+<br>
+      <br>
+      </font><font color="#4e79b2" face="arial" size="3"><img style="width: 501px; height: 157px;" alt="colaboradores del proyecto" src="imagenes/logo-quantar-color-horizontal.jpg"><br>
+      <br>
+      <br>
+      <br>
+</font>
+      QUANTAR S.A.S. <br>
+
+  Teléfono:(572) 370 27 99 Carrera 2 A # 57 – 79, Los Andes, Cali, Colombia<br>
+
+  <a href="http://www.quantarlabs.com/">www.quantarlabs.com</a><font color="#4e79b2" face="arial" size="3"></font><br>
+      <br>
+      <font color="#4e79b2" face="arial" size="3">
+      <br>
+      </font>
+			</div></td>
+		</tr>
+                </tbody>
+		</table>
+              </div>
+</body></html>

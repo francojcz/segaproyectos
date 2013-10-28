@@ -5,12 +5,12 @@
 /* Estilo Cuerpo de Html */
 
 body,li		{
-			background					: #2C317F; /* white url(img_fondo.jpg);*/
+			background					: #4e78b1; /* white url(img_fondo.jpg);*/
 			font-family					: Arial, Helvetica, sans-serif;
 			font-weight					: normal;
 			text-align					: justify;
 			font-size					: 12pt;
-			color						: #000000;
+			color						: #FFFFFF;
 			margin-top					: 10px;
 			margin-left					: 10px;
 			margin-right				: 10px;
@@ -34,12 +34,12 @@ A:visited	{
 A:hover		{
 			font-family		: Arial, Helvetica, sans-serif;
 			font-size		: 12px;
-			color			: #FFFF00;
+			color			: #FFFFFF;
 			text-decoration	: none;
 			}
 a:active	{
 			font-family		: Arial, Helvetica, sans-serif;
 			font-size		: 12px;
-			color			: #FFFF00;
+			color			: #FFFFFF;
 			text-decoration	: none;
 			}
