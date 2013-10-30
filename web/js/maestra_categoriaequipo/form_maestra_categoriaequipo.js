@@ -1,6 +1,6 @@
 //ayudas
     var ayuda_maestra_cat_codigo='C&oacute;digo identificador en el sistema';
-    var ayuda_maestra_cat_nombre='Nombre grupo de equipos';
+    var ayuda_maestra_cat_nombre='Nombre grupo de equipos (Marca Modelo)';
 
     var maestra_categoriaequipo_datastore = new Ext.data.Store({
     id: 'maestra_categoriaequipo_datastore',
