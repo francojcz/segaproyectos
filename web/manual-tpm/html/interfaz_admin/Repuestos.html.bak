@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1386px; height: 32px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Manejo de repuestos</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          MANEJO DE REPUESTOS</span></big><br>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><big><br>
+            <br>
+          </big></div>
+        <div style="text-align: justify;"><big>Cuando el usuario selecciona del
+            menú la opción<span style="font-weight: bold;"> Repuestos /
+              Consumibles</span>, el sistema le desplegará una pantalla como la
+            que se muestra en la Figura 1.&nbsp; En esta pantalla el usuario
+            podrá </big><big>crear, </big><big>actualizar, eliminar,
+            visualizar y restablecer un repuesto o consumible.</big></div>
+        <big> <br>
+        </big> </div>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><br>
+        </div>
+        <div style="text-align: center;"> Figura 1. Pantalla de manejo de
+          repuestos.<br>
+        </div>
+        <div style="text-align: center;"><big style="font-weight: bold;"><br>
+            <br>
+          </big>
+          <div style="text-align: left;"><big><span style="font-weight: bold;">Agregar</span></big><big
+              style="font-weight: bold;"> repuesto</big><big><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Para agregar un repuesto </big><big>pulse
+                el botón <span style="font-weight: bold;">Agregar</span>,
+                diligencie el formulario que se muestra al lado derecho de la
+                pantalla y</big><big> pulse el botón <span style="font-weight: bold;">Guardar</span>.&nbsp;
+                La información que se debe ingresar es la siguiente:</big><br>
+              <big> </big></div>
+            <ul>
+              <li><big>Número parte: Digite el número con el que se identificará
+                  el repuesto o parte en su inventario </big><span class="Apple-style-span"
+                  style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+              <li><big>Nombre parte: Digite el nombre del repuesto o parte </big><span
+                  class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+              <li><big>Cantidad (existencia): Digite la cantidad disponible del
+                  respuesto o parte (es un campo obligatorio).</big></li>
+              <li><big>Periodicidad de cambio (meses): Digite el periodo de
+                  cambio en término de meses del repuesto o parte (es un campo
+                  obligatorio).</big></li>
+              <li><big>Grupo equipo: Seleccione el grupo al cual pertenece el
+                  repuesto o parte (es un campo obligatorio).</big></li>
+            </ul>
+            <big><br>
+              <span style="font-weight: bold;">Actualizar repuesto</span><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Para actualizar un repuesto,</big><big>
+                seleccione de la lista de repuestos registrados en el sistema el
+                repuesto que</big><big> desea actualizar, ingrese la información
+                en el formulario ubicado al lado derecho y pulse el botón <span
+                  style="font-weight: bold;">Actualizar</span>.&nbsp; El sistema
+                desplegará una pequeña ventana donde le preguntará la razón por
+                la cual desea actualizar el repuesto,</big><big> digite la razón
+                y pulse el botón <span style="font-weight: bold;">Aceptar</span>.&nbsp;
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                del éxito del cambio.</big><br>
+              <big> </big><br>
+              <br>
+              <big> </big><big><span style="font-weight: bold;">Eliminar
+                  repuesto</span></big><br>
+              <big><span style="font-weight: bold;"> </span></big><br>
+              <big><span style="font-weight: bold;"> </span> </big><big>Para
+                eliminar un </big><big>repuesto,</big><big> seleccione el
+                repuesto</big><big> </big><big>que desea eliminar de la lista y
+                pulse el botón <span style="font-weight: bold;">Eliminar</span>.&nbsp;
+                El sistema desplegará una pequeña ventana donde le preguntará si
+                realmente desea eliminar el repuesto y</big><big> porque razón
+                desea eliminarlo, digite la razón y pulse el botón <span style="font-weight: bold;">Aceptar</span>.&nbsp;
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                del éxito de la eliminación.</big><br>
+              <big> </big><br>
+              <big> </big><br>
+              <big> <span style="font-weight: bold;">Restablecer repuesto</span></big><br>
+              <big><span style="font-weight: bold;"> </span></big><br>
+              <big><span style="font-weight: bold;"> </span>Si usted ha
+                eliminado un repuesto</big><big>, tiene la posibilidad de
+                recuperar la información.&nbsp; Para restablecer un repuesto,
+                seleccione la opción para ver los repuestos eliminados</big><big>
+                (estrella blanca), seleccione de la lista el repuesto&nbsp;</big><big>que
+                desea recuperar y pulse el botón <span style="font-weight: bold;">Restablecer</span>,
+                luego el sistema le preguntará la razón de porqué usted desea
+                restablecerlo, digite la razón y pulse el botón <span style="font-weight: bold;">Aceptar</span>.</big><big>
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                si se ha restablecido con éxito.</big></div>
+            <big><br>
+            </big><big style="font-weight: bold;"> </big></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

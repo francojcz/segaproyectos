@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1386px; height: 32px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Manejo de periodos</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          MANEJO DE PERIODOS</span></big><br>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><big><br>
+            <br>
+          </big></div>
+        <div style="text-align: justify;"><big>Cuando el usuario selecciona del
+            menú la opción <span style="font-weight: bold;">Periodo
+              Mantenimiento</span>, el sistema le desplegara una pantalla como
+            la que se muestra en la Figura 1.&nbsp; En esta pantalla el usuario
+            podrá </big><big>crear, </big><big>actualizar, eliminar,
+            visualizar y restablecer un periodo de mantenimiento.</big></div>
+        <big> <br>
+        </big> </div>
+      <div style="text-align: left;">
+        <div style="text-align: center;"><img title="Periodo Mantenimiento" alt="Periodo Mantenimiento"
+            src="../imagenes/admin/11_periodo.png"></div>
+        <div style="text-align: center;"> Figura 1. Pantalla de manejo de
+          periodos de mantenimiento.<br>
+        </div>
+        <div style="text-align: center;"><big style="font-weight: bold;"><br>
+            <br>
+          </big>
+          <div style="text-align: left;"><big><span style="font-weight: bold;">Agregar</span></big><big
+              style="font-weight: bold;"> periodo</big><big><span style="font-weight: bold;"></span><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Para agregar un periodo </big><big>pulse
+                el botón <span style="font-weight: bold;">Agregar</span>,
+                diligencie el formulario que se muestra al lado derecho de la
+                pantalla y</big><big> pulse el botón <span style="font-weight: bold;">Guardar</span>.&nbsp;
+                La información que se debe ingresar es la siguiente:</big><br>
+              <big> </big></div>
+            <ul>
+              <li><big>Periodo: Digite el número correspondiente al periodo de
+                  mantenimiento </big><big></big><span class="Apple-style-span"
+                  style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+              <li><big>Tipo: Seleccione el tipo del periodo de mantenimiento.&nbsp;
+                  Los tipos de periodos disponibles son: Día y Mes </big><big></big><span
+                  class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span
+                    class="Apple-style-span" style="color: rgb(51, 51, 51); font-family: Arial,Helvetica,sans-serif; font-size: 14px; text-align: justify;"><span
+                      class="Apple-converted-space"></span>(es un campo
+                    obligatorio)</span></span><big>.</big></li>
+            </ul>
+            <ul>
+            </ul>
+            <big><br>
+              <br>
+              <span style="font-weight: bold;">Actualizar</span><br>
+              <br>
+            </big>
+            <div style="text-align: justify;"><big> Para actualizar un periodo,</big><big></big><big>
+                seleccione de la lista el periodo que</big><big> desea
+                actualizar, ingrese la información en el formulario ubicado al
+                lado derecho y pulse el botón <span style="font-weight: bold;">Actualizar</span>.
+                El sistema desplegará una pequeña ventana donde le preguntara la
+                razón por la cual desea actualizar el periodo,</big><big> digite
+                la razón y pulse el botón <span style="font-weight: bold;">Aceptar</span>.
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                del éxito del cambio.</big><br>
+              <big> </big><br>
+              <br>
+              <big> </big><big><span style="font-weight: bold;">Eliminar</span></big><br>
+              <big><span style="font-weight: bold;"> </span></big><br>
+              <big><span style="font-weight: bold;"> </span> </big><big>Para
+                eliminar un </big><big>periodo,</big><big> seleccione el </big><big>periodo
+                </big><big>que desea eliminar de la lista y pulse el botón <span
+                  style="font-weight: bold;">Eliminar</span>.&nbsp; El sistema
+                desplegará una pequeña ventana donde le preguntará si realmente
+                desea eliminar el periodo y</big><big> porque razón desea
+                eliminarlo, digite la razón y pulse el botón <span style="font-weight: bold;">Aceptar</span>.
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                del éxito de la eliminación.</big><br>
+              <big> </big><br>
+              <big> </big><br>
+              <big> <span style="font-weight: bold;">Restablecer</span></big><br>
+              <big><span style="font-weight: bold;"> </span></big><br>
+              <big><span style="font-weight: bold;"> </span>Si usted ha
+                eliminado un periodo</big><big>, tiene la posibilidad de
+                recuperar la información.&nbsp; Para restablecer un periodo,
+                seleccione la opción para ver los periodos </big><big>eliminados
+                (estrella blanca), seleccione de la lista el periodo </big><big>que
+                desea recuperar y pulse el botón <span style="font-weight: bold;">Restablecer</span>,
+                luego el sistema le preguntará la razón de porqué usted desea
+                restablecerlo, digite la razón y pulse el botón <span style="font-weight: bold;">Aceptar</span>.</big><big>
+                Luego el sistema le mostrará un breve mensaje en el que informa
+                si se ha restablecido con éxito.</big></div>
+            <big><br>
+            </big><big style="font-weight: bold;"> </big></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

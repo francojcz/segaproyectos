@@ -455,9 +455,7 @@ var certificado_combo = new Ext.form.ComboBox({
     displayField: 'nombre',
     valueField: 'certificado',
     mode: 'local',
-    triggerAction: 'all',
-    forceSelection: true,
-    allowBlank: false
+    triggerAction: 'all'
 });
 
 var crud_maquina_formpanel = new Ext.FormPanel({
@@ -477,7 +475,7 @@ var crud_maquina_formpanel = new Ext.FormPanel({
     defaults: {
         anchor: '98%'
     },
-    items: [maq_eliminado, maq_codigo, maq_codigo_inventario, maq_nombre, maq_est_codigo, maq_tiempo_inyeccion, maq_marca, maq_modelo, maq_fecha_adquisicion, certificado_combo, maq_cat_codigo, maq_fecha_registro_sistema, maq_indicadores],
+    items: [maq_eliminado, maq_codigo, maq_codigo_inventario, maq_nombre, maq_est_codigo, maq_tiempo_inyeccion, maq_marca, maq_modelo, maq_fecha_adquisicion, certificado_combo, maq_cat_codigo, maq_indicadores, maq_fecha_registro_sistema],
     buttons: [{
         text: 'Guardar',
         iconCls: 'guardar',
@@ -922,6 +920,7 @@ var grid = new Ext.grid.GridPanel({
     }, '-',
     {
       text : 'Periodo Mantenimiento',
+      tooltip: 'Asignar Periodo de Mantenimiento',
       iconCls : 'evento',
       handler : function()
       {

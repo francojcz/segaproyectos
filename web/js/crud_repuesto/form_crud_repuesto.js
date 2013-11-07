@@ -186,7 +186,7 @@ var rep_periodicidad = new Ext.form.NumberField({
     labelStyle: ' text-align:right;',
     name: 'rep_periodicidad',
     id: 'rep_periodicidad',
-    fieldLabel: 'Periocidad de Cambio (meses)',
+    fieldLabel: 'Periodicidad de Cambio (meses)',
     allowDecimals: false,
     allowNegative: false,
     allowBlank: false,
@@ -222,7 +222,7 @@ var crud_repuesto_formpanel = new Ext.FormPanel({
     height: 470,
     layout: 'form',
     bodyStyle: 'padding:10px;',
-    labelWidth: 170,
+    labelWidth: 190,
     defaults: {
         anchor: '98%'
     },
@@ -269,19 +269,19 @@ var crud_repuesto_colmodel = new Ext.grid.ColumnModel({
         dataIndex: 'rep_codigo'
     }, {
         header: "Nombre",
-        width: 100,
+        width: 170,
         dataIndex: 'rep_nombre'
     }, {
         header: "Número",
-        width: 100,
+        width: 70,
         dataIndex: 'rep_numero'
     }, {
         header: "Cantidad",
-        width: 100,
+        width: 70,
         dataIndex: 'rep_cantidad'
     }, {
         header: "Frecuencia",
-        width: 100,
+        width: 70,
         dataIndex: 'rep_periodicidad'
     }, {
         header: "Categoría",
