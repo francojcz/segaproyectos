@@ -14,6 +14,7 @@ var TREE_ITEMS = [
 			['Periodo Mantenimiento', 'html/interfaz_admin/PeriodoMantenimiento.html'],
 			['Equipos', 'html/interfaz_admin/ManejoMaquina.html'],
 			['Repuestos / Consumibles', 'html/interfaz_admin/Repuestos.html'],
+			['Mantenimiento', 'html/interfaz_admin/Mantenimiento.html'],
 			['Categor&iacute;a evento', 'html/interfaz_admin/MaestraCategoria.html'],
 			['Evento', 'html/interfaz_admin/MaestraEvento.html'],
 			['M&eacute;todos', 'html/interfaz_admin/ManejoMetodo.html'],
@@ -33,8 +34,10 @@ var TREE_ITEMS = [
 			['Reporte mensual', 'html/interfaz_reporte/ReporteMensual.html'],
 			['Reporte anual', 'html/interfaz_reporte/ReporteAnual.html'],
 			['Reporte de eventos ocurridos', 'html/interfaz_reporte/ReporteEventos.html'],
-			['Exportar datos', 'html/interfaz_reporte/ExportarCorridas.html'],
-			
+			['Exportar datos', 'html/interfaz_reporte/ExportarCorridas.html'],			
+			['Seguimiento a Mantenimientos', 'html/interfaz_reporte/Seguimiento.html'],
+			['Mantenimientos Realizados', 'html/interfaz_reporte/Realizados.html'],
+			['Pr&oacute;ximos Mantenimientos', 'html/interfaz_reporte/Proximos.html'],
 			['Salir', 'html/interfaz_reporte/Salir.html']
 		]
 		,

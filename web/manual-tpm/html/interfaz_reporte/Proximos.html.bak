@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Guia de Usuario</title>
+    <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css">
+  </head>
+  <body>
+    <div align="center">
+      <table style="width: 1386px; height: 32px;" borderdark="#000000" bordercolorlight="#FFFFFF"
+        border="0" cellpadding="5" cellspacing="0">
+        <tbody>
+          <tr bordercolor="" bgcolor="">
+            <td class="barra" height="">
+              <p class="blanco"><big><br>
+                  <big><a name="inicio"></a> Próximos Mantenimientos</big><br>
+                  <br>
+                </big> </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <big><span style="font-weight: bold;"><br>
+          MANUAL DE USUARIO<br>
+        </span></big> <big><span style="font-weight: bold;">TPM-QLabs&nbsp; -
+          PRÓXIMOS MANTENIMIENTOS</span></big><br>
+      <div style="text-align: center;">
+        <div style="text-align: center;"><big><br>
+          </big><br>
+          <div style="text-align: justify;"><big> </big></div>
+        </div>
+        <div style="text-align: justify;"><big><span style="font-weight: bold;">Reporte
+              de Próximos Mantenimientos</span></big><br>
+          <br>
+          <big> El reporte de próximos mantenimientos es un reporte el cual
+            permite acceder a información de los cambios de partes o repuestos
+            que se deben realizar por equipo teniendo en cuenta un mes y un año
+            específico, tal y como se muestra en la Figura 1.&nbsp; La
+            información que se muestra en el reporte de próximos mantenimientos
+            se genera a partir de los datos ingresados en Mantenimiento Autónomo.&nbsp;
+            Además, es posible exportar a excel la información que se muestra en
+            formato web una vez sea pulsado el botón <span style="font-weight: bold;">Guardar
+              en formato Excel.<br>
+              <br>
+            </span></big>
+          <div style="text-align: center;"><big><big>&nbsp;</big> </big><img title="Proximos"
+              alt="Proximos" src="../imagenes/reportes/10_proximos.png"></div>
+        </div>
+        <big> <small>Figura 1.&nbsp; Pantalla reporte próximos mantenimientos.</small></big><br>
+        <br>
+      </div>
+      <div style="text-align: left;"> </div>
+    </div>
+  </body>
+</html>
