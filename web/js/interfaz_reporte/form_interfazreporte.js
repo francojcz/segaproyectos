@@ -11,9 +11,8 @@ var form_interfazreporte = function(){
             salida_interfaz_reporte += '<img   height=90%  src="' + urlPrefix + '../images/logo-quantar-color-horizontal.jpg" alt="logo Quantar"/>';
             salida_interfaz_reporte += '</div>';
             
-            
-            var interfaz_reporte_data = [['boton_reportediario', 'Reporte diario', 'Reporte diario', 'images/reporte/1.png'], ['boton_reportemensual', 'Reporte Mensual', 'Reporte Mensual', 'images/reporte/3.png'], ['boton_reporteanual', 'Reporte anual', 'Reporte Anual', 'images/reporte/4.png'], ['boton_reporteevento', 'Reporte eventos', 'Reporte Eventos', 'images/reporte/5.png'], ['boton_reporteexportar', 'Exportar datos', 'Exportar datos de corrida', 'images/reporte/xls.png'],
-            ['boton_seguimiento', 'Seguimiento', 'Seguimiento a Mantenimientos', 'images/reporte/seguimiento.png'], ['boton_realizados', 'Mtos. Realizados', 'Mantenimientos Realizados', 'images/reporte/realizados.png'], ['boton_proximos', 'Próximos Mtos.', 'Próximos Mantenimientos', 'images/reporte/proximos.png']];
+            var interfaz_reporte_data = [['boton_reportediario', 'Reporte diario indicadores', 'Reporte diario indicadores', 'images/reporte/1.png'], ['boton_reportemensual', 'Reporte mensual indicadores', 'Reporte mensual indicadores', 'images/reporte/3.png'], ['boton_reporteanual', 'Reporte anual indicadores', 'Reporte anual indicadores', 'images/reporte/4.png'], ['boton_reporteevento', 'Reporte eventos indicadores', 'Reporte eventos indicadores', 'images/reporte/5.png'], ['boton_reporteexportar', 'Exportar datos indicadores', 'Exportar datos indicadores', 'images/reporte/xls.png'],
+            ['boton_seguimiento', 'Seguimiento a Mantenimientos', 'Seguimiento a Mantenimientos', 'images/reporte/seguimiento.png'], ['boton_realizados', 'Mantenimientos Realizados', 'Mantenimientos Realizados', 'images/reporte/realizados.png'], ['boton_proximos', 'Próximos Mantenimientos', 'Próximos Mantenimientos', 'images/reporte/proximos.png']];
             
             var interfaz_reporte_store = new Ext.data.ArrayStore({
                 fields: [{
@@ -30,7 +29,7 @@ var form_interfazreporte = function(){
             });
             interfaz_reporte_store.loadData(interfaz_reporte_data);
             
-            var interfaz_reporte_tpl = new Ext.XTemplate('<tpl for=".">', '<div class="thumb-wrap" id="{nombre}">', '<div class="thumb"><img src="' + urlPrefix + '../' + '{url}" title="{descripcion_larga}"></div>', '<span >{descripcion_titulo}</span></div>', '</tpl>', '<div class="x-clear"></div>');
+            var interfaz_reporte_tpl = new Ext.XTemplate('<tpl for=".">', '<div class="thumb-wrap" id="{nombre}">', '<div class="thumb" align="center"><img src="' + urlPrefix + '../' + '{url}" title="{descripcion_larga}"></div>', '<span >{descripcion_titulo}</span></div>', '</tpl>', '<div class="x-clear"></div>');
             
             function addTab(tabTitle, targetUrl){
                 var tabactivo = Ext.getCmp('intefaz_reporte_panel_central').getItem(tabTitle);

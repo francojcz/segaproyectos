@@ -227,16 +227,16 @@ for (var i=1;i<=cantidadDias;i++)
             tooltip: 'D&iacute;a ' + i,
             width: 57,
             align: 'center',
-            editor: {
-                xtype: 'numberfield',
-                allowNegative: false,
-                maxValue: 100000
-            },            
+//            editor: {
+//                xtype: 'numberfield',
+//                allowNegative: false,
+//                maxValue: 100000
+//            },            
             renderer : generarRenderer('#ffdc44', '#000000', '#ffdc44', '#000000')
         });
     }
 
-    var grid = new Ext.grid.GridPanel({
+    var grid = new Ext.grid.EditorGridPanel({
         autoWidth: true,
         height: 400,
         //autoHeight: true,
@@ -250,7 +250,7 @@ for (var i=1;i<=cantidadDias;i++)
             msg: 'Cargando...'
         },
 //        plugins: columnHeaderGroup,
-        columns: columns        
+        columns: columns
     });
     
     var panelPrincipal = new Ext.FormPanel({
