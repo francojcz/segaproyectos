@@ -263,34 +263,67 @@ for (var i=1;i<=cantidadDias;i++)
         items: [{
             border: true,
             frame: true,
-            height: 70,
+            height: 40,
             items: [{
-                height: 60,
+                height: 40,
                 layout: 'column',
                 items: [{
-                    width: '225',
-                    layout: 'form',
-                    labelWidth: 50,
-                    footer: false,
-                    items: [meses_combobox, maquinas_combobox]
-                }, {
                     width: '220',
                     layout: 'form',
-                    labelWidth: 45,
+                    labelWidth: 40,
+                    footer: false,
+                    items: [meses_combobox]
+                    },{
+                    width: '220',
+                    layout: 'form',
+                    labelWidth: 40,
+                    footer: false,
                     items: [anos_combobox]
-                }, {
-                    xtype: 'button',
-                    iconCls: 'exportar_excel',
-                    text: 'Guardar en formato Excel',
-                    handler: function(){
-                        redirigirSiSesionExpiro();
-                        
-                        if (maquinas_combobox.isValid()) {
-                            var params = 'codigo_maquina=' + maquinas_combobox.getValue() + '&codigo_ano=' + anos_combobox.getValue() + '&codigo_mes=' + meses_combobox.getValue();
-                            window.location = getAbsoluteUrl('seguimiento_mantenimiento', 'exportar') + '?' + params;
-                        }                       
+                    },{
+                    width: '220',
+                    layout: 'form',
+                    labelWidth: 40,
+                    footer: false,
+                    items: [maquinas_combobox]
+                    }, {
+                        xtype: 'button',
+                        text : 'Editar estado',
+                        tooltip: 'Editar estado de Mantenimiento',
+                        iconCls : 'evento',
+                        style: 'padding: 0px 25px 0px 0px',
+                        handler : function()      
+                        {           
+                            redirigirSiSesionExpiro();
+                            var sm = grid.getSelectionModel();
+                            if(sm.hasSelection())
+                            {
+    //                              recargarDatosPeriodos();
+    //                              Ext.getBody().mask();
+    //                              win.show();
+                            } else
+                            {
+                              Ext.Msg.show(
+                              {
+                                title : 'Información',
+                                msg : 'Primero debe seleccionar un día',
+                                buttons : Ext.Msg.OK,
+                                icon : Ext.MessageBox.INFO
+                              });
+                            }
+                          }
+                    }, {
+                        xtype: 'button',
+                        iconCls: 'exportar_excel',
+                        text: 'Guardar en formato Excel',
+                        handler: function(){
+                            redirigirSiSesionExpiro();
+                            if (maquinas_combobox.isValid()) {
+                                var params = 'codigo_maquina=' + maquinas_combobox.getValue() + '&codigo_ano=' + anos_combobox.getValue() + '&codigo_mes=' + meses_combobox.getValue();
+                                window.location = getAbsoluteUrl('seguimiento_mantenimiento', 'exportar') + '?' + params;
+                            }                       
+                        }
                     }
-                }]
+                ]
             }]
         }, grid]
     });

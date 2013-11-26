@@ -955,6 +955,22 @@ CREATE TABLE `tipo_identificacion`
 );
 
 #-----------------------------------------------------------------------------
+#-- seguimiento
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `seguimiento`;
+
+
+CREATE TABLE `seguimiento`
+(
+	`seg_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`seg_fecha` DATE,
+        `seg_estado` VARCHAR(50),
+        `seg_observacion` VARCHAR(200),
+	PRIMARY KEY (`seg_codigo`)
+);
+
+#-----------------------------------------------------------------------------
 #-- usuario
 #-----------------------------------------------------------------------------
 
