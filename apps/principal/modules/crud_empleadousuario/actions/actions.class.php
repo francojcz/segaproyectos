@@ -27,72 +27,70 @@ class crud_empleadousuarioActions extends sfActions
 	 *Este metodo permite la creacion de usuarios del sistema
 	 */
 	public function executeCrearUsuario()
-	{
-		$salida	='';
-		try{
+        {
+                $salida        ='';
+                try{
 
-			$emplusu_login = $this->getRequestParameter('emplusu_login');
-			$conexion=new Criteria();
-			$conexion->add(UsuarioPeer::USU_LOGIN, $emplusu_login);
-			$usuario=UsuarioPeer::doSelectOne($conexion);
+                        $emplusu_login = $this->getRequestParameter('emplusu_login');
+                        $conexion=new Criteria();
+                        $conexion->add(UsuarioPeer::USU_LOGIN, $emplusu_login);
+                        $usuario1=UsuarioPeer::doSelectOne($conexion);
 
-			if(!$usuario)
-			{
-				$perfil=$this->getRequestParameter('per_codigo');
+                        if(!$usuario1)
+                        {
+                                $perfil=$this->getRequestParameter('per_codigo');                                                   
 
-				$usuario = new Usuario();
-				$usuario->setUsuLogin($emplusu_login);
-				$usuario->setUsuPassword(md5($this->getRequestParameter('emplusu_password')));
-				$usuario->setUsuHabilitado($this->getRequestParameter('emplusu_habilitado'));
-				$usuario->setUsuPerCodigo($perfil);
-				$usuario->setUsuFechaRegistroSistema(time());
-				$usuario->setUsuCrea($this->getUser()->getAttribute('usu_codigo'));
+                                if($perfil!='1')//no es un usuario superadmin entonces crear empleado
+                                {
+                                        $salida ="({success: false, errors: { reason: 'No se ha podido crear el empleado'}})";
+                                        $emplusu_numero_identificacion = $this->getRequestParameter('emplusu_numero_identificacion');
 
-				if($perfil!='1')//no es un usuario superadmin entonces crear empleado
-				{
-					$salida ="({success: false, errors: { reason: 'No se ha podido crear el empleado'}})";
-					$emplusu_numero_identificacion = $this->getRequestParameter('emplusu_numero_identificacion');
+                                        $conexion2=new Criteria();
+                                        $conexion2->add(EmpleadoPeer::EMPL_NUMERO_IDENTIFICACION, $emplusu_numero_identificacion);
+                                        $empleado=EmpleadoPeer::doSelectOne($conexion2);
 
-					$conexion2=new Criteria();
-					$conexion2->add(EmpleadoPeer::EMPL_NUMERO_IDENTIFICACION, $emplusu_numero_identificacion);
-					$empleado=EmpleadoPeer::doSelectOne($conexion2);
+                                        if($empleado){
+                                                $salida = "({success: false, errors: { reason: 'Ya existe un empleado con el mismo número de identificación. Modifiquelo e intente nuevamente.'}})";
+                                        }
+                                        else{
+                                                $usuario = new Usuario();
+                                                $usuario->setUsuLogin($emplusu_login);
+                                                $usuario->setUsuPassword(md5($this->getRequestParameter('emplusu_password')));
+                                                $usuario->setUsuHabilitado($this->getRequestParameter('emplusu_habilitado'));
+                                                $usuario->setUsuPerCodigo($perfil);
+                                                $usuario->setUsuFechaRegistroSistema(time());
+                                                $usuario->setUsuCrea($this->getUser()->getAttribute('usu_codigo'));      
+                                                $usuario->save();
+                                
+                                                $empleado = new Empleado();
+                                                $empleado->setEmplNombres($this->getRequestParameter('emplusu_nombres'));
+                                                $empleado->setEmplApellidos($this->getRequestParameter('emplusu_apellidos'));
+                                                $empleado->setEmplNumeroIdentificacion($this->getRequestParameter('emplusu_numero_identificacion'));
+                                                $empleado->setEmplTidCodigo($this->getRequestParameter('tid_codigo'));
+                                                $empleado->setEmplEmpCodigo($this->getRequestParameter('emp_codigo'));
+                                                $empleado->setEmplFechaRegistroSistema(time());
+                                                $empleado->setEmplFechaActualizacion(time());
+                                                $empleado->setEmplUsuCrea($this->getUser()->getAttribute('usu_codigo'));
+                                                $empleado->setEmplUsuActualiza($this->getUser()->getAttribute('usu_codigo'));
+                                                $empleado->setEmplEliminado(0);                                                
+                                                $empleado->setEmplUsuCodigo($usuario->getUsuCodigo());                                                        
+                                                $empleado->save();
+                                                $this->guardarFoto($empleado);
+                                                $salida = "({success: true, mensaje:'El usuario fue creado exitosamente'})";
+                                        }
+                                }
 
-					if($empleado){
-						$salida = "({success: false, errors: { reason: 'Ya existe un empleado con el mismo número de identificación. Modifiquelo e intente nuevamente.'}})";
-					}
-					else{
-						$empleado = new Empleado();
-
-						$empleado->setEmplNombres($this->getRequestParameter('emplusu_nombres'));
-						$empleado->setEmplApellidos($this->getRequestParameter('emplusu_apellidos'));
-						$empleado->setEmplNumeroIdentificacion($this->getRequestParameter('emplusu_numero_identificacion'));
-						$empleado->setEmplTidCodigo($this->getRequestParameter('tid_codigo'));
-						$empleado->setEmplEmpCodigo($this->getRequestParameter('emp_codigo'));
-						$empleado->setEmplFechaRegistroSistema(time());
-						$empleado->setEmplFechaActualizacion(time());
-						$empleado->setEmplUsuCrea($this->getUser()->getAttribute('usu_codigo'));
-						$empleado->setEmplUsuActualiza($this->getUser()->getAttribute('usu_codigo'));
-						$empleado->setEmplEliminado(0);
-
-						$empleado->setUsuarioRelatedByEmplUsuCodigo($usuario);
-							
-						$empleado->save();
-						$this->guardarFoto($empleado);
-						$salida = "({success: true, mensaje:'El usuario fue creado exitosamente'})";
-					}
-				}
-
-			}
-			else {
-				$salida = "({success: false, errors: { reason: 'Ya existe una cuenta con el mismo nombre de usuario. Modifiquelo e intente nuevamente.'}})";
-			}
-		}
-		catch (Exception $excepcion)
-		{
-			$salida= "({success: false, errors: { reason: 'Hubo una excepci&oacute;n',error:'".$excepcion->getMessage()."'}})";
-		}
-		return $this->renderText($salida);
-	}
+                        }
+                        else {
+                                $salida = "({success: false, errors: { reason: 'Ya existe una cuenta con el mismo nombre de usuario. Modifiquelo e intente nuevamente.'}})";
+                        }
+                }
+                catch (Exception $excepcion)
+                {
+                        $salida= "({success: false, errors: { reason: 'Hubo una excepci&oacute;n',error:'".$excepcion->getMessage()."'}})";
+                }
+                return $this->renderText($salida);
+        }
 
 
 	/**

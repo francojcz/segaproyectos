@@ -368,6 +368,12 @@ propel:
     rep_causa_actualizacion: { phpName: RepCausaActualizacion, type: VARCHAR, size: '250', required: false }
     rep_cat_codigo: { phpName: RepCatCodigo, type: INTEGER, size: '11', required: false }
     _indexes: { FK_reference_43: [rep_usu_crea], FK_reference_44: [rep_usu_actualiza], FK_reference_11: [rep_cat_codigo] }
+  seguimiento:
+    _attributes: { phpName: Seguimiento }
+    seg_codigo: { phpName: SegCodigo, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    seg_fecha: { phpName: SegFecha, type: DATE, required: false }
+    seg_estado: { phpName: SegEstado, type: VARCHAR, size: '50', required: false }
+    seg_observacion: { phpName: SegObservacion, type: VARCHAR, size: '200', required: false }
   tipo_identificacion:
     _attributes: { phpName: TipoIdentificacion }
     tid_codigo: { phpName: TidCodigo, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
