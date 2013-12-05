@@ -964,10 +964,17 @@ DROP TABLE IF EXISTS `seguimiento`;
 CREATE TABLE `seguimiento`
 (
 	`seg_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+        `seg_maq_codigo` INTEGER(11),
 	`seg_fecha` DATE,
         `seg_estado` VARCHAR(50),
         `seg_observacion` VARCHAR(200),
-	PRIMARY KEY (`seg_codigo`)
+	PRIMARY KEY (`seg_codigo`),
+        KEY `FK_reference_1`(`seg_maq_codigo`),
+        CONSTRAINT `seg_maquina_FK_1`
+		FOREIGN KEY (`seg_maq_codigo`)
+		REFERENCES `maquina` (`maq_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT
 );
 
 #-----------------------------------------------------------------------------

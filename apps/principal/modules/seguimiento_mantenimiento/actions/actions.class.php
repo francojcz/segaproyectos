@@ -887,6 +887,7 @@ class seguimiento_mantenimientoActions extends sfActions
                     
                     //Obtener el nombre del equipo
                     $maquina = MaquinaPeer::retrieveByPK($request->getParameter('codigo_maquina'));
+                    $fields['codigo_equipo'] = $maquina->getMaqCodigo();
                     $fields['nombre_equipo'] = $maquina->getMaqNombre();
 
                     foreach($registros as $registro) {
@@ -1073,6 +1074,7 @@ class seguimiento_mantenimientoActions extends sfActions
                         
                         //Obtener el nombre del equipo
                         $maquina = MaquinaPeer::retrieveByPK($maquina->getMaqCodigo());
+                        $fields['codigo_equipo'] = $maquina->getMaqCodigo();
                         $fields['nombre_equipo'] = $maquina->getMaqNombre();
 
                         foreach($registros as $registro) {
@@ -1261,6 +1263,51 @@ class seguimiento_mantenimientoActions extends sfActions
 		$this->nombreEmpresa = $empresa->getEmpNombre();
 		$this->urlLogo = $empresa->getEmpLogoUrl();
 		$this->inyeccionesEstandarPromedio = $empresa->getEmpInyectEstandarPromedio();
+	}
+        
+        public function executeListarEstadosSeguimiento(sfWebRequest $request)
+        {
+            $criteria = new Criteria();
+            if (($request -> hasParameter('fecha_seg')) && ($request -> hasParameter('codigo_maq'))) {
+                $criteria -> add(SeguimientoPeer::SEG_FECHA, $request -> getParameter('fecha_seg'));
+                $criteria -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $request -> getParameter('codigo_maq'));
+            }
+            
+            $registrosSeguimiento = SeguimientoPeer::doSelect($criteria);
+
+            $result = array();
+            $data = array();
+            foreach ($registrosSeguimiento as $registroSeguimiento)
+            {
+                $fields = array();
+                $fields['codigo'] = $registroSeguimiento -> getSegCodigo();
+                $fields['codigo_maq'] = $registroSeguimiento -> getSegMaqCodigo();
+                $fields['fecha'] = $registroSeguimiento -> getSegFecha();
+                $fields['estado'] = $registroSeguimiento -> getSegEstado();
+                $fields['observacion'] = $registroSeguimiento -> getSegObservacion();
+                $data[] = $fields;
+            }
+            $result['data'] = $data;
+            return $this -> renderText(json_encode($result));
+        }
+        
+        public function executeListarEstados() {
+		$result = array();
+		$data = array();
+                
+                $estado = array('Vencido', 'Pendiente', 'Realizado');
+
+		for($i=0;$i<3;$i++) {
+                    $fields = array();
+                    
+                    $fields['codigo'] = ($i+1);
+                    $fields['nombre'] = $estado[$i];
+                    
+                    $data[] = $fields;
+		}
+
+		$result['data'] = $data;
+		return $this->renderText(json_encode($result));
 	}
 }
 

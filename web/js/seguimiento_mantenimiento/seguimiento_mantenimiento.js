@@ -11,6 +11,9 @@ fields = [
     {
         type: 'string',
         name: 'nombre_equipo'
+    }, {
+        type: 'string',
+        name: 'codigo_equipo'
     }];
 
 for (var i=1;i<=cantidadDias;i++)
@@ -62,6 +65,40 @@ for (var i=1;i<=cantidadDias;i++)
             recargarDatosMetodos();
         }
     });
+    
+    var registros_estadosseguimiento_datastore = new Ext.data.Store(
+    {
+        proxy : new Ext.data.HttpProxy(
+        {
+          url : getAbsoluteUrl('seguimiento_mantenimiento', 'listarEstadosSeguimiento'),
+          method : 'POST'
+        }),
+        reader : new Ext.data.JsonReader(
+        {
+          root : 'data'
+        }, [
+        {
+          name : 'codigo',
+          type : 'integer'
+        },
+        {
+          name : 'codigo_maq',
+          type : 'integer'
+        },
+        {
+          name : 'fecha',
+          type : 'string'
+        },
+        {
+          name : 'estado',
+          type : 'string'
+        },
+        {
+          name : 'observacion',
+          type : 'string'
+        }
+        ])
+    }); 
     
     var meses_combobox = new Ext.form.ComboBox({
         fieldLabel: 'Mes',
@@ -118,6 +155,38 @@ for (var i=1;i<=cantidadDias;i++)
                 recargarDatosMetodos();
             }
         }
+    });
+    
+    var estados_datastore_combo = new Ext.data.Store({
+        proxy: new Ext.data.HttpProxy({
+            url: getAbsoluteUrl('seguimiento_mantenimiento', 'listarEstados'),
+            method: 'POST'
+        }),
+        reader: new Ext.data.JsonReader({
+            root: 'data'
+        }, [{
+            name: 'codigo',
+            type: 'string'
+        }, {
+            name: 'nombre',
+            type: 'string'
+        }])
+    });
+    estados_datastore_combo.load();
+    
+    var estado_para_agregar_combobox = new Ext.form.ComboBox(
+    {
+        xtype: 'combobox',
+        labelStyle: 'text-align:right;',
+        fieldLabel: 'Periodo',
+        store: estados_datastore_combo,
+        mode: 'local',
+        emptyText: 'Seleccione un Estado',
+        displayField: 'nombre',
+        valueField: 'codigo',
+        triggerAction: 'all',
+        forceSelection: true,
+        allowBlank: false
     });
     
     var maquinas_datastore = new Ext.data.Store({
@@ -221,7 +290,7 @@ for (var i=1;i<=cantidadDias;i++)
     }];    
     
     for (var i = 1; i <= cantidadDias; i++) {
-        columns.push({
+        columns.push({            
             dataIndex: 'dia ' + i,
             header: 'D&iacute;a ' + i,
             tooltip: 'D&iacute;a ' + i,
@@ -252,6 +321,183 @@ for (var i=1;i<=cantidadDias;i++)
 //        plugins: columnHeaderGroup,
         columns: columns
     });
+    
+    var grillaSeguimientos= new Ext.grid.GridPanel(
+    {
+        autoWidth : true,
+        height : 400,
+        store : registros_estadosseguimiento_datastore,
+        stripeRows : true,
+        clicksToEdit : 1,
+        loadMask :
+        {
+          msg : 'Cargando...'
+        },
+        sm : new Ext.grid.RowSelectionModel(
+        {
+          singleSelect : true
+        }),
+        tbar : [
+        estado_para_agregar_combobox
+//        '-',
+//        {
+//          text : 'Agregar estado',
+//          iconCls : 'agregar',
+//          handler : function()
+//          {          
+//            var record = grid.getSelectionModel().getSelected();
+//            var id_periodo = periodo_para_agregar_combobox.getValue();
+//            if(id_periodo == '')
+//            {
+//              alert('Primero debe seleccionar un periodo'); 
+//              periodo_para_agregar_combobox.focus();
+//            } else        
+//            {            
+//                Ext.Ajax.request({
+//                  url : getAbsoluteUrl('crud_maquina', 'registrarPeriodo'),
+//                  failure : function()
+//                  {
+//                    recargarDatosPeriodos();
+//                  },
+//                  success : function(result)
+//                  {                
+//                    var mensaje = null;
+//                    switch(result.responseText)
+//                    {
+//                      case 'Ok': recargarDatosPeriodos();
+//                        break;
+//                      case '1':
+//                        mensaje = 'El periodo seleccionado ya se encuentra registrado para este equipo.';
+//                        break;                  
+//                    }
+//                    if(mensaje != null)
+//                    {
+//                      Ext.Msg.show(
+//                      {
+//                        title : 'Información',
+//                        msg : mensaje,
+//                        buttons : Ext.Msg.OK,
+//                        icon : Ext.MessageBox.INFO
+//                      });
+//                    }
+//                  },
+//                  params :
+//                  {
+//                    'maq_codigo' : record.get('maq_codigo'),
+//                    'id_periodo' : id_periodo,
+//                    'fecha_inicio' : fechaField.getValue()      
+//                  }
+//                });
+//            }
+//          }
+//        }, '-',
+//        {
+//          text : 'Eliminar estado',
+//          iconCls : 'eliminar',
+//          handler : function()
+//          {
+//              var record = grillaPeriodos.getSelectionModel().getSelected();
+//              Ext.Ajax.request({
+//                  url : getAbsoluteUrl('crud_maquina', 'eliminarPeriodo'),
+//                  failure : function()
+//                  {
+//                    recargarDatosPeriodos();
+//                  },
+//                  success : function(result)
+//                  {
+//                    recargarDatosPeriodos();
+//                    if(result.responseText != 'Ok')
+//                    {
+//                      alert(result.responseText);
+//                    }
+//                  },
+//                  params :
+//                  {
+//                    'codigo' : record.get('codigo')  
+//                  }
+//                });
+//          }
+//        }
+        ]
+        ,
+        columns : [
+        {
+          dataIndex : 'fecha',
+          header : 'Fecha',
+          tooltip : 'Fecha',
+          width : 100,
+          align : 'center',
+          editor :
+          { 
+              xtype : 'datefield',
+              allowBlank : false
+          }
+        },
+        {
+          dataIndex : 'estado',
+          header : 'Estado',
+          tooltip : 'Estado',
+          width : 150,
+          align : 'center',
+          editor : new Ext.form.TextField()
+        },
+        {
+          dataIndex : 'observacion',
+          header : 'Observacion',
+          tooltip : 'Observacion',
+          width : 350,
+          align : 'center',
+          editor : new Ext.form.TextField()
+        }]
+      });
+      
+    var win = new Ext.Window(
+    {
+        layout : 'fit',
+        width : 800,
+        height : 300,
+        closeAction : 'hide',
+        plain : true,
+        title : 'Estados',
+        items : grillaSeguimientos,
+        buttons : [
+        {
+          text : 'Aceptar',
+          handler : function()
+          {
+            win.hide();
+            recargarDatosMetodos();
+          }
+        }],
+        listeners :
+        {
+          hide : function()
+          {
+            Ext.getBody().unmask();
+          }
+        }
+    });    
+    
+    var recargarDatosEstadosSeguimiento = function(callback)
+    {
+        var sm = grid.getSelectionModel();
+        var cell = sm.getSelectedCell();
+        var column = cell[1];
+        var row = cell[0];
+        var dia = grid.getColumnModel().getColumnId(column);
+        var mes = meses_combobox.getValue();
+        var ano = getAno(anos_combobox.getValue()) - 1;
+        var registro = datastore.getAt(row);
+        var equipo = registro.get('codigo_equipo');
+        registros_estadosseguimiento_datastore.load(
+        {
+          params :
+          {
+            'fecha_seg' : ano+'-'+mes+'-'+dia,
+            'codigo_maq' : equipo
+          }
+        });
+    }
     
     var panelPrincipal = new Ext.FormPanel({
         title: 'Seguimiento a Mantenimientos',
@@ -297,9 +543,9 @@ for (var i=1;i<=cantidadDias;i++)
                             var sm = grid.getSelectionModel();
                             if(sm.hasSelection())
                             {
-    //                              recargarDatosPeriodos();
-    //                              Ext.getBody().mask();
-    //                              win.show();
+                                  recargarDatosEstadosSeguimiento();
+                                  Ext.getBody().mask();
+                                  win.show();
                             } else
                             {
                               Ext.Msg.show(
@@ -363,4 +609,25 @@ function randomColor() {
         str += randNum;
     }
     return str;
+}
+
+function getAno(id) {
+    var anos = new Array();
+    anos[0] = "2013";
+    anos[1] = "2014";
+    anos[2] = "2015";
+    anos[3] = "2016";
+    anos[4] = "2017";
+    anos[5] = "2018";
+    anos[6] = "2019";
+    anos[7] = "2020";
+    anos[8] = "2021";
+    anos[9] = "2022";
+    anos[10] = "2023";
+    
+    for(var i=0;i<anos.length;i++){
+        if(i == id){
+            return anos[i];
+        }
+    }  
 }
