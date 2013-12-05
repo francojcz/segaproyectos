@@ -375,7 +375,8 @@ propel:
     seg_fecha: { phpName: SegFecha, type: DATE, required: false }
     seg_estado: { phpName: SegEstado, type: VARCHAR, size: '50', required: false }
     seg_observacion: { phpName: SegObservacion, type: VARCHAR, size: '200', required: false }
-    _indexes: { FK_reference_1: [seg_maq_codigo] }
+    seg_usu_registra: { phpName: SegUsuRegistra, type: INTEGER, size: '11', required: false }
+    _indexes: { FK_reference_57: [seg_usu_registra], FK_reference_1: [seg_maq_codigo] }
   tipo_identificacion:
     _attributes: { phpName: TipoIdentificacion }
     tid_codigo: { phpName: TidCodigo, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }

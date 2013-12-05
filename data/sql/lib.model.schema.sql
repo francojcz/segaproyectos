@@ -968,11 +968,18 @@ CREATE TABLE `seguimiento`
 	`seg_fecha` DATE,
         `seg_estado` VARCHAR(50),
         `seg_observacion` VARCHAR(200),
+        `seg_usu_registra` INTEGER(11),
 	PRIMARY KEY (`seg_codigo`),
+        KEY `FK_reference_57`(`seg_usu_registra`),
         KEY `FK_reference_1`(`seg_maq_codigo`),
         CONSTRAINT `seg_maquina_FK_1`
 		FOREIGN KEY (`seg_maq_codigo`)
 		REFERENCES `maquina` (`maq_codigo`)
+		ON UPDATE RESTRICT
+		ON DELETE RESTRICT,
+        CONSTRAINT `seg_maquina_FK_2`
+		FOREIGN KEY (`seg_usu_registra`)
+		REFERENCES `usuario` (`usu_codigo`)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT
 );

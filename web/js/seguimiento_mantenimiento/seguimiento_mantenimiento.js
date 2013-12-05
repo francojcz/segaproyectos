@@ -96,6 +96,10 @@ for (var i=1;i<=cantidadDias;i++)
         {
           name : 'observacion',
           type : 'string'
+        },
+        {
+          name : 'usu_registra',
+          type : 'string'
         }
         ])
     }); 
@@ -178,7 +182,7 @@ for (var i=1;i<=cantidadDias;i++)
     {
         xtype: 'combobox',
         labelStyle: 'text-align:right;',
-        fieldLabel: 'Periodo',
+        fieldLabel: 'Estado',
         store: estados_datastore_combo,
         mode: 'local',
         emptyText: 'Seleccione un Estado',
@@ -187,6 +191,13 @@ for (var i=1;i<=cantidadDias;i++)
         triggerAction: 'all',
         forceSelection: true,
         allowBlank: false
+    });
+    
+    var observacion_campo_texto = new Ext.form.TextField(
+    {
+        emptyText: 'Ingrese una observación',
+        allowBlank: true,
+        width: 200
     });
     
     var maquinas_datastore = new Ext.data.Store({
@@ -322,7 +333,7 @@ for (var i=1;i<=cantidadDias;i++)
         columns: columns
     });
     
-    var grillaSeguimientos= new Ext.grid.GridPanel(
+    var grillaEstados = new Ext.grid.GridPanel(
     {
         autoWidth : true,
         height : 400,
@@ -338,86 +349,95 @@ for (var i=1;i<=cantidadDias;i++)
           singleSelect : true
         }),
         tbar : [
-        estado_para_agregar_combobox
-//        '-',
-//        {
-//          text : 'Agregar estado',
-//          iconCls : 'agregar',
-//          handler : function()
-//          {          
-//            var record = grid.getSelectionModel().getSelected();
-//            var id_periodo = periodo_para_agregar_combobox.getValue();
-//            if(id_periodo == '')
-//            {
-//              alert('Primero debe seleccionar un periodo'); 
-//              periodo_para_agregar_combobox.focus();
-//            } else        
-//            {            
-//                Ext.Ajax.request({
-//                  url : getAbsoluteUrl('crud_maquina', 'registrarPeriodo'),
-//                  failure : function()
-//                  {
-//                    recargarDatosPeriodos();
-//                  },
-//                  success : function(result)
-//                  {                
-//                    var mensaje = null;
-//                    switch(result.responseText)
-//                    {
-//                      case 'Ok': recargarDatosPeriodos();
-//                        break;
-//                      case '1':
-//                        mensaje = 'El periodo seleccionado ya se encuentra registrado para este equipo.';
-//                        break;                  
-//                    }
-//                    if(mensaje != null)
-//                    {
-//                      Ext.Msg.show(
-//                      {
-//                        title : 'Información',
-//                        msg : mensaje,
-//                        buttons : Ext.Msg.OK,
-//                        icon : Ext.MessageBox.INFO
-//                      });
-//                    }
-//                  },
-//                  params :
-//                  {
-//                    'maq_codigo' : record.get('maq_codigo'),
-//                    'id_periodo' : id_periodo,
-//                    'fecha_inicio' : fechaField.getValue()      
-//                  }
-//                });
-//            }
-//          }
-//        }, '-',
-//        {
-//          text : 'Eliminar estado',
-//          iconCls : 'eliminar',
-//          handler : function()
-//          {
-//              var record = grillaPeriodos.getSelectionModel().getSelected();
-//              Ext.Ajax.request({
-//                  url : getAbsoluteUrl('crud_maquina', 'eliminarPeriodo'),
-//                  failure : function()
-//                  {
-//                    recargarDatosPeriodos();
-//                  },
-//                  success : function(result)
-//                  {
-//                    recargarDatosPeriodos();
-//                    if(result.responseText != 'Ok')
-//                    {
-//                      alert(result.responseText);
-//                    }
-//                  },
-//                  params :
-//                  {
-//                    'codigo' : record.get('codigo')  
-//                  }
-//                });
-//          }
-//        }
+        estado_para_agregar_combobox, '-', observacion_campo_texto, '-',
+        {
+          text : 'Agregar estado',
+          iconCls : 'agregar',
+          handler : function()
+          {          
+            var sm = grid.getSelectionModel();
+            var cell = sm.getSelectedCell();
+            var column = cell[1];
+            var row = cell[0];
+            var dia = grid.getColumnModel().getColumnId(column);
+            var mes = meses_combobox.getValue();
+            var ano = getAno(anos_combobox.getValue()) - 1;
+            var registro = datastore.getAt(row);
+            var equipo = registro.get('codigo_equipo');            
+            
+            var id_estado = estado_para_agregar_combobox.getValue();
+            if(id_estado === '')
+            {
+              alert('Primero debe seleccionar un estado'); 
+              estado_para_agregar_combobox.focus();
+            }
+            else { 
+                Ext.Ajax.request({
+                  url : getAbsoluteUrl('seguimiento_mantenimiento', 'registrarEstado'),
+                  failure : function()
+                  {
+                    recargarDatosEstados();
+                  },
+                  success : function(result)
+                  {                
+                    var mensaje = null;
+                    switch(result.responseText)
+                    {
+                      case 'Ok': recargarDatosEstados();
+                        break;
+                      case '1':
+                        mensaje = 'Solo puede registrar un estado por día.';
+                        break;                  
+                    }
+                    if(mensaje != null)
+                    {
+                      Ext.Msg.show(
+                      {
+                        title : 'Información',
+                        msg : mensaje,
+                        buttons : Ext.Msg.OK,
+                        icon : Ext.MessageBox.INFO
+                      });
+                    }
+                  },
+                  params :
+                  {
+                    'maq_codigo' : equipo,
+                    'fecha_seg' : ano+"-"+mes+"-"+dia,
+                    'estado_seg' : estado_para_agregar_combobox.getValue(),
+                    'observacion_seg' : observacion_campo_texto.getValue()
+                  }
+                });
+            }
+          }
+        }, '-',
+        {
+          text : 'Eliminar estado',
+          iconCls : 'eliminar',
+          handler : function()
+          {
+              var record = grillaEstados.getSelectionModel().getSelected();
+              Ext.Ajax.request({
+                  url : getAbsoluteUrl('seguimiento_mantenimiento', 'eliminarEstado'),
+                  failure : function()
+                  {
+                    recargarDatosEstados();
+                  },
+                  success : function(result)
+                  {
+                    recargarDatosEstados();
+                    if(result.responseText != 'Ok')
+                    {
+                      alert(result.responseText);
+                    }
+                  },
+                  params :
+                  {
+                    'codigo' : record.get('codigo')  
+                  }
+                });
+          }
+        }
         ]
         ,
         columns : [
@@ -445,7 +465,15 @@ for (var i=1;i<=cantidadDias;i++)
           dataIndex : 'observacion',
           header : 'Observacion',
           tooltip : 'Observacion',
-          width : 350,
+          width : 200,
+          align : 'center',
+          editor : new Ext.form.TextField()
+        },
+        {
+          dataIndex : 'usu_registra',
+          header : 'Creado por',
+          tooltip : 'Creado por',
+          width : 180,
           align : 'center',
           editor : new Ext.form.TextField()
         }]
@@ -459,7 +487,7 @@ for (var i=1;i<=cantidadDias;i++)
         closeAction : 'hide',
         plain : true,
         title : 'Estados',
-        items : grillaSeguimientos,
+        items : grillaEstados,
         buttons : [
         {
           text : 'Aceptar',
@@ -478,7 +506,7 @@ for (var i=1;i<=cantidadDias;i++)
         }
     });    
     
-    var recargarDatosEstadosSeguimiento = function(callback)
+    var recargarDatosEstados = function(callback)
     {
         var sm = grid.getSelectionModel();
         var cell = sm.getSelectedCell();
@@ -541,17 +569,34 @@ for (var i=1;i<=cantidadDias;i++)
                         {           
                             redirigirSiSesionExpiro();
                             var sm = grid.getSelectionModel();
+                            var cell = sm.getSelectedCell();
+                            var column = cell[1];
+                            var row = cell[0];
+                            var dia = grid.getColumnModel().getColumnId(column);
+                            var registro = datastore.getAt(row);
+                            var valor = registro.get('dia '+dia);
+                            
                             if(sm.hasSelection())
                             {
-                                  recargarDatosEstadosSeguimiento();
-                                  Ext.getBody().mask();
-                                  win.show();
+                                if(valor != '') {
+                                    recargarDatosEstados();
+                                    Ext.getBody().mask();
+                                    win.show();
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title : 'Información',
+                                        msg : 'No se ha asignado ningún mantenimiento para el día seleccionado.',
+                                        buttons : Ext.Msg.OK,
+                                        icon : Ext.MessageBox.INFO
+                                    });
+                                }
                             } else
                             {
                               Ext.Msg.show(
                               {
                                 title : 'Información',
-                                msg : 'Primero debe seleccionar un día',
+                                msg : 'Primero debe seleccionar una día.',
                                 buttons : Ext.Msg.OK,
                                 icon : Ext.MessageBox.INFO
                               });

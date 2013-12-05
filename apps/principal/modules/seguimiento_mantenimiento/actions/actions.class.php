@@ -1285,6 +1285,7 @@ class seguimiento_mantenimientoActions extends sfActions
                 $fields['fecha'] = $registroSeguimiento -> getSegFecha();
                 $fields['estado'] = $registroSeguimiento -> getSegEstado();
                 $fields['observacion'] = $registroSeguimiento -> getSegObservacion();
+                $fields['usu_registra'] = UsuarioPeer::obtenerNombreUsuario($registroSeguimiento -> getSegUsuRegistra());
                 $data[] = $fields;
             }
             $result['data'] = $data;
@@ -1295,9 +1296,9 @@ class seguimiento_mantenimientoActions extends sfActions
 		$result = array();
 		$data = array();
                 
-                $estado = array('Vencido', 'Pendiente', 'Realizado');
+                $estado = array('Realizado', 'Pendiente');
 
-		for($i=0;$i<3;$i++) {
+		for($i=0;$i<2;$i++) {
                     $fields = array();
                     
                     $fields['codigo'] = ($i+1);
@@ -1309,6 +1310,44 @@ class seguimiento_mantenimientoActions extends sfActions
 		$result['data'] = $data;
 		return $this->renderText(json_encode($result));
 	}
+        
+        public function executeRegistrarEstado(sfWebRequest $request)
+        {           
+            $user = $this -> getUser();           
+            $codigo_usuario = $user -> getAttribute('usu_codigo');
+            
+            $registro_seg = '';
+            $criteria = new Criteria();
+            $criteria -> add(SeguimientoPeer::SEG_FECHA, $request->getParameter('fecha_seg'));
+            $criteria -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $request->getParameter('maq_codigo'));
+            $registro_seg += SeguimientoPeer::doSelectOne($criteria);
+            
+            $estado = array('','Realizado', 'Pendiente');
+            
+            if($registro_seg == ''){
+                $registro = new Seguimiento();
+                $registro -> setSegMaqCodigo($request->getParameter('maq_codigo'));
+                $registro -> setSegFecha($request->getParameter('fecha_seg'));
+                $registro -> setSegEstado($estado[$request->getParameter('estado_seg')]);
+                $registro -> setSegObservacion($request->getParameter('observacion_seg'));
+                $registro -> setSegUsuRegistra($codigo_usuario);
+                $registro -> save();
+                return $this -> renderText('Ok');
+            }
+            else
+                return $this -> renderText('1');
+            
+        }
+        
+        public function executeEliminarEstado(sfWebRequest $request)
+        {        
+            if ($request -> hasParameter('codigo'))
+            {
+                $registro = SeguimientoPeer::retrieveByPK($request -> getParameter('codigo'));
+                $registro -> delete();
+            }
+            return $this -> renderText('Ok');
+        }
 }
 
 function randomColor() {
