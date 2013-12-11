@@ -319,7 +319,7 @@ class seguimiento_mantenimientoActions extends sfActions
                         }
                     }
 
-                    for($j=0;$j<=31;$j++){
+                    for($j=1;$j<=31;$j++){
                         if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
                             if($temp['dia '.$j]['Mes']==1)
                                 $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
@@ -692,7 +692,7 @@ class seguimiento_mantenimientoActions extends sfActions
                             }
                         }
 
-                        for($j=0;$j<=31;$j++){
+                        for($j=1;$j<=31;$j++){
                             if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
                                 if($temp['dia '.$j]['Mes']==1)
                                     $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
@@ -1032,28 +1032,45 @@ class seguimiento_mantenimientoActions extends sfActions
                                 }  
                             }                        
                         }
-                    }
+                        
+                        for($j=1;$j<=31;$j++){
+                            $estado = 'Pendiente';
+                            $criteria = new Criteria();
+                            $criteria -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $request->getParameter('codigo_maquina'));
+                            $criteria -> add(SeguimientoPeer::SEG_FECHA, $ano_fin."-".$mes_fin."-".$j);                        
+                            $valor_estado = SeguimientoPeer::doSelectOne($criteria);
+                            if($valor_estado != '') {
+                                $estado = $valor_estado->getSegEstado();                        
+                            }
 
-                    for($j=0;$j<=31;$j++){
-                        if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
-                            if($temp['dia '.$j]['Mes']==1)
-                                $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                            if($temp['dia '.$j]['Mes']>1)
-                                $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
+                            $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+                            $FechaActual = $dateTimeFechaActual -> getTimestamp();
+                            $dateTimeFechaRegistro = new DateTime($ano_fin."-".$mes_fin."-".$j);
+                            $FechaRegistro = $dateTimeFechaRegistro -> getTimestamp();
+                            if(($FechaActual > $FechaRegistro) && ($valor_estado == '')) {
+                                $estado = 'Vencido';
+                            }
+
+                            if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
+                                if($temp['dia '.$j]['Mes']==1)
+                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes '.$estado;
+                                if($temp['dia '.$j]['Mes']>1)
+                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses '.$estado;                            
+                            }
+                            if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']==''){
+                                if($temp['dia '.$j]['Dia']==1)
+                                    $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Día '.$estado;
+                                if($temp['dia '.$j]['Dia']>1)
+                                    $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Días '.$estado;
+                            }
+                            if($temp['dia '.$j]['Dia']=='' && $temp['dia '.$j]['Mes']!=''){
+                                if($temp['dia '.$j]['Mes']==1)
+                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes '.$estado;
+                                if($temp['dia '.$j]['Mes']>1)
+                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses '.$estado;
+                            }                                               
                         }
-                        if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']==''){
-                            if($temp['dia '.$j]['Dia']==1)
-                                $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Día';
-                            if($temp['dia '.$j]['Dia']>1)
-                                $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Días';
-                        }
-                        if($temp['dia '.$j]['Dia']=='' && $temp['dia '.$j]['Mes']!=''){
-                            if($temp['dia '.$j]['Mes']==1)
-                                $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                            if($temp['dia '.$j]['Mes']>1)
-                                $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
-                        }
-                    }
+                    } 
 
                     $data[] = $fields;
                 }
@@ -1065,8 +1082,7 @@ class seguimiento_mantenimientoActions extends sfActions
                     $result = array();
                     $data = array();
                     
-                    foreach($maquinas as $maquina) {
-                        
+                    foreach($maquinas as $maquina) {                        
                         $fields = array();
                         $temp = array();
                         $criteria -> add(RegistroPmtoMaquinaPeer::RPM_MAQ_CODIGO, $maquina->getMaqCodigo());
@@ -1218,29 +1234,45 @@ class seguimiento_mantenimientoActions extends sfActions
                                     }  
                                 }                        
                             }
-                        }
+                            
+                            for($j=1;$j<=31;$j++){
+                                $estado = 'Pendiente';
+                                $criterio = new Criteria();
+                                $criterio -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $maquina->getMaqCodigo());
+                                $criterio -> add(SeguimientoPeer::SEG_FECHA, $ano_fin."-".$mes_fin."-".$j);                        
+                                $valor_estado = SeguimientoPeer::doSelectOne($criterio);
+                                if($valor_estado != '') {
+                                    $estado = $valor_estado->getSegEstado();                        
+                                }
+//
+                                $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+                                $FechaActual = $dateTimeFechaActual -> getTimestamp();
+                                $dateTimeFechaRegistro = new DateTime($ano_fin."-".$mes_fin."-".$j);
+                                $FechaRegistro = $dateTimeFechaRegistro -> getTimestamp();
+                                if(($FechaActual > $FechaRegistro) && ($valor_estado == '')) {
+                                    $estado = 'Vencido';
+                                }
 
-                        for($j=0;$j<=31;$j++){
-                            if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
-                                if($temp['dia '.$j]['Mes']==1)
-                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                                if($temp['dia '.$j]['Mes']>1)
-                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
-                            }
-                            if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']==''){
-                                if($temp['dia '.$j]['Dia']==1)
-                                    $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Día';
-                                if($temp['dia '.$j]['Dia']>1)
-                                    $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Días';
-                            }
-                            if($temp['dia '.$j]['Dia']=='' && $temp['dia '.$j]['Mes']!=''){
-                                if($temp['dia '.$j]['Mes']==1)
-                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                                if($temp['dia '.$j]['Mes']>1)
-                                    $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
-                            }
-                        }
-
+                                if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
+                                    if($temp['dia '.$j]['Mes']==1)
+                                        $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes '.$estado;
+                                    if($temp['dia '.$j]['Mes']>1)
+                                        $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses '.$estado;                            
+                                }
+                                if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']==''){
+                                    if($temp['dia '.$j]['Dia']==1)
+                                        $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Día '.$estado;
+                                    if($temp['dia '.$j]['Dia']>1)
+                                        $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Días '.$estado;
+                                }
+                                if($temp['dia '.$j]['Dia']=='' && $temp['dia '.$j]['Mes']!=''){
+                                    if($temp['dia '.$j]['Mes']==1)
+                                        $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes '.$estado;
+                                    if($temp['dia '.$j]['Mes']>1)
+                                        $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses '.$estado;
+                                }                                               
+                            }                        
+                        } 
                         $data[] = $fields;
                     }
                 }
@@ -1296,9 +1328,9 @@ class seguimiento_mantenimientoActions extends sfActions
 		$result = array();
 		$data = array();
                 
-                $estado = array('Realizado', 'Pendiente');
+                $estado = array('Realizado');
 
-		for($i=0;$i<2;$i++) {
+		for($i=0;$i<1;$i++) {
                     $fields = array();
                     
                     $fields['codigo'] = ($i+1);
@@ -1312,9 +1344,20 @@ class seguimiento_mantenimientoActions extends sfActions
 	}
         
         public function executeRegistrarEstado(sfWebRequest $request)
-        {           
+        {          
             $user = $this -> getUser();           
             $codigo_usuario = $user -> getAttribute('usu_codigo');
+            $codigo_perfil_usuario = $user -> getAttribute('usu_per_codigo');
+            
+            $dateTimeFechaUso = new DateTime($request->getParameter('fecha_seg'));
+            $timeStampFechaUso = $dateTimeFechaUso -> getTimestamp();
+            $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+            $timeStampFechaActual = $dateTimeFechaActual -> getTimestamp();
+
+            if (($timeStampFechaUso < $timeStampFechaActual) && ($codigo_perfil_usuario!='2'))
+            {
+                return $this -> renderText('1');
+            }
             
             $registro_seg = '';
             $criteria = new Criteria();
@@ -1322,7 +1365,7 @@ class seguimiento_mantenimientoActions extends sfActions
             $criteria -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $request->getParameter('maq_codigo'));
             $registro_seg += SeguimientoPeer::doSelectOne($criteria);
             
-            $estado = array('','Realizado', 'Pendiente');
+            $estado = array('','Realizado');
             
             if($registro_seg == ''){
                 $registro = new Seguimiento();
@@ -1335,12 +1378,25 @@ class seguimiento_mantenimientoActions extends sfActions
                 return $this -> renderText('Ok');
             }
             else
-                return $this -> renderText('1');
+                return $this -> renderText('2');
             
         }
         
         public function executeEliminarEstado(sfWebRequest $request)
-        {        
+        {      
+            $user = $this -> getUser();           
+            $codigo_perfil_usuario = $user -> getAttribute('usu_per_codigo');
+            
+            $dateTimeFechaUso = new DateTime($request->getParameter('fecha_seg'));
+            $timeStampFechaUso = $dateTimeFechaUso -> getTimestamp();
+            $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+            $timeStampFechaActual = $dateTimeFechaActual -> getTimestamp();
+
+            if (($timeStampFechaUso < $timeStampFechaActual) && ($codigo_perfil_usuario!='2'))
+            {
+                return $this -> renderText('1');
+            }
+            
             if ($request -> hasParameter('codigo'))
             {
                 $registro = SeguimientoPeer::retrieveByPK($request -> getParameter('codigo'));

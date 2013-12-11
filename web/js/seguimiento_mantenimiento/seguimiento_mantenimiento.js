@@ -62,7 +62,7 @@ for (var i=1;i<=cantidadDias;i++)
     meses_datastore.load({
         callback: function(){            
             meses_combobox.setValue(mesActual+1);
-            recargarDatosMetodos();
+            recargarDatosMantenimientos();
         }
     });
     
@@ -116,7 +116,7 @@ for (var i=1;i<=cantidadDias;i++)
         width: 130,
         listeners: {
             select: function(){
-                recargarDatosMetodos();
+                recargarDatosMantenimientos();
             }
         }
     });
@@ -140,7 +140,7 @@ for (var i=1;i<=cantidadDias;i++)
     anos_datastore.load({
         callback: function(){            
             anos_combobox.setValue((anoActual-113)+1);
-            recargarDatosMetodos();
+            recargarDatosMantenimientos();
         }
     });
     
@@ -156,7 +156,7 @@ for (var i=1;i<=cantidadDias;i++)
         width: 130,
         listeners: {
             select: function(){
-                recargarDatosMetodos();
+                recargarDatosMantenimientos();
             }
         }
     });
@@ -225,7 +225,7 @@ for (var i=1;i<=cantidadDias;i++)
                 }]
             }, true);
             maquinas_combobox.setValue('1');
-            recargarDatosMetodos();
+            recargarDatosMantenimientos();
         }
     });
     
@@ -241,12 +241,12 @@ for (var i=1;i<=cantidadDias;i++)
         width: 130,
         listeners: {
             select: function(){
-                recargarDatosMetodos();
+                recargarDatosMantenimientos();
             }
         }
     });
     
-    var recargarDatosMetodos = function(callback){
+    var recargarDatosMantenimientos = function(callback){
         redirigirSiSesionExpiro();
         if (meses_combobox.isValid() && maquinas_combobox.isValid()) {
             datastore.load({
@@ -259,34 +259,62 @@ for (var i=1;i<=cantidadDias;i++)
             });
         }
     }    
-    recargarDatosMetodos();
+    recargarDatosMantenimientos();
        
     var coloresDia = [];
-    coloresDia['1 Día'] = randomColor();
+    var color1d = randomColor();
+    coloresDia['1 Día Vencido'] = color1d;
+    coloresDia['1 Día Realizado'] = color1d;
+    coloresDia['1 Día Pendiente'] = color1d;
     for(var j=2; j<=31; j++) {
-        coloresDia[j+' Días'] = randomColor();
+        var colordv = randomColor();
+        coloresDia[j+' Días Vencido'] = colordv;
+        coloresDia[j+' Días Realizado'] = colordv;
+        coloresDia[j+' Días Pendiente'] = colordv;
     }
     var coloresMes = [];
-    coloresMes['1 Mes'] = randomColor();
+    var color1m = randomColor();
+    coloresMes['1 Mes Vencido'] = color1m;
+    coloresMes['1 Mes Realizado'] = color1m;
+    coloresMes['1 Mes Pendiente'] = color1m;
     for(var k=2; k<=60; k++) {
-        coloresMes[k+' Meses'] = randomColor();
+        var colormv = randomColor();
+        coloresMes[k+' Meses Vencido'] = colormv;
+        coloresMes[k+' Meses Realizado'] = colormv;
+        coloresMes[k+' Meses Pendiente'] = colormv;
     }
     
-    var generarRenderer = function(colorFondoPar, colorFuentePar, colorFondoImpar, colorFuenteImpar)
+    var generarRenderer = function(colorFondoPar, colorPendiente, colorFondoImpar, colorVencido)
     {
         return function(valor, metaData, record, rowIndex, colIndex, store)
         {
-            if(valor == '1 Día')
-                return '<div style="background-color: ' + coloresDia['1 Día'] + '; color: ' + colorFuentePar + '">' + valor + '</div>';
-            if(valor == '1 Mes')
-                return '<div style="background-color: ' + coloresMes['1 Mes'] + '; color: ' + colorFuentePar + '">' + valor + '</div>';
+            if(valor == '1 Día Vencido')
+                return '<div style="background-color: ' + coloresDia['1 Día Vencido'] + '; color: ' + colorVencido + '">' + '1 Día' + '</div>';
+            if(valor == '1 Día Realizado')
+                return '<div style="background-color: ' + coloresDia['1 Día Realizado'] + '; color: ' + coloresDia['1 Día Realizado'] + '">' + '1 Día' + '</div>';
+            if(valor == '1 Día Pendiente')
+                return '<div style="background-color: ' + coloresDia['1 Día Pendiente'] + '; color: ' + colorPendiente + '">' + '1 Día' + '</div>';
+            if(valor == '1 Mes Vencido')
+                return '<div style="background-color: ' + coloresMes['1 Mes Vencido'] + '; color: ' + colorVencido + '">' + '1 Mes' + '</div>';
+            if(valor == '1 Mes Realizado')
+                return '<div style="background-color: ' + coloresMes['1 Mes Realizado'] + '; color: ' + coloresMes['1 Mes Realizado'] + '">' + '1 Mes' + '</div>';
+            if(valor == '1 Mes Pendiente')
+                return '<div style="background-color: ' + coloresMes['1 Mes Pendiente'] + '; color: ' + colorPendiente + '">' + '1 Mes' + '</div>';
             for(var j=2; j<=31; j++) {                
-                if(valor == (j+' Días'))
-                    return '<div style="background-color: ' + coloresDia[valor] + '; color: ' + colorFuentePar + '">' + valor + '</div>';
+                if(valor == (j+' Días Vencido'))
+                    return '<div style="background-color: ' + coloresDia[valor] + '; color: ' + colorVencido + '">' + j + ' Días' + '</div>';
+                if(valor == (j+' Días Realizado'))
+                    return '<div style="background-color: ' + coloresDia[valor] + '; color: ' + coloresDia[valor] + '">' + j + ' Días' + '</div>';
+                if(valor == (j+' Días Pendiente'))
+                    return '<div style="background-color: ' + coloresDia[valor] + '; color: ' + colorPendiente + '">' + j + ' Días' + '</div>';
             }            
             for(var k=2; k<=60; k++) {                
-                if(valor == (k+' Meses'))
-                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + colorFuentePar + '">' + valor + '</div>';
+                if(valor == (k+' Meses Vencido'))
+                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + colorVencido + '">' + j + ' Meses' +  '</div>';
+                if(valor == (k+' Meses Realizado'))
+                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + coloresDia[valor] + '">' + j + ' Meses' +  '</div>';
+                if(valor == (k+' Meses Pendiente'))
+                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + colorPendiente + '">' + j + ' Meses' +  '</div>';
             }            
         }
     }
@@ -307,19 +335,13 @@ for (var i=1;i<=cantidadDias;i++)
             tooltip: 'D&iacute;a ' + i,
             width: 57,
             align: 'center',
-//            editor: {
-//                xtype: 'numberfield',
-//                allowNegative: false,
-//                maxValue: 100000
-//            },            
-            renderer : generarRenderer('#ffdc44', '#000000', '#ffdc44', '#000000')
+            renderer : generarRenderer('#ffdc44', '#000000', '#ffdc44', '#FF0000')
         });
     }
 
     var grid = new Ext.grid.EditorGridPanel({
         autoWidth: true,
         height: 400,
-        //autoHeight: true,
         store: datastore,
         stripeRows: true,
         border: true,
@@ -329,7 +351,6 @@ for (var i=1;i<=cantidadDias;i++)
         loadMask: {
             msg: 'Cargando...'
         },
-//        plugins: columnHeaderGroup,
         columns: columns
     });
     
@@ -386,8 +407,11 @@ for (var i=1;i<=cantidadDias;i++)
                       case 'Ok': recargarDatosEstados();
                         break;
                       case '1':
+                        mensaje = 'No es posible agregar un estado a una fecha pasada.';
+                        break;
+                      case '2':
                         mensaje = 'Solo puede registrar un estado por día.';
-                        break;                  
+                        break;
                     }
                     if(mensaje != null)
                     {
@@ -416,6 +440,13 @@ for (var i=1;i<=cantidadDias;i++)
           iconCls : 'eliminar',
           handler : function()
           {
+              var sm = grid.getSelectionModel();
+                var cell = sm.getSelectedCell();
+                var column = cell[1];
+                var row = cell[0];
+                var dia = grid.getColumnModel().getColumnId(column);
+                var mes = meses_combobox.getValue();
+                var ano = getAno(anos_combobox.getValue()) - 1;
               var record = grillaEstados.getSelectionModel().getSelected();
               Ext.Ajax.request({
                   url : getAbsoluteUrl('seguimiento_mantenimiento', 'eliminarEstado'),
@@ -425,15 +456,30 @@ for (var i=1;i<=cantidadDias;i++)
                   },
                   success : function(result)
                   {
-                    recargarDatosEstados();
-                    if(result.responseText != 'Ok')
+                    var mensaje = null;
+                    switch(result.responseText)
                     {
-                      alert(result.responseText);
+                      case 'Ok': recargarDatosEstados();
+                        break;
+                      case '1':
+                        mensaje = 'No es posible eliminar un estado de una fecha pasada.';
+                        break;
+                    }
+                    if(mensaje != null)
+                    {
+                      Ext.Msg.show(
+                      {
+                        title : 'Información',
+                        msg : mensaje,
+                        buttons : Ext.Msg.OK,
+                        icon : Ext.MessageBox.INFO
+                      });
                     }
                   },
                   params :
                   {
-                    'codigo' : record.get('codigo')  
+                    'codigo' : record.get('codigo'),
+                    'fecha_seg' : ano+"-"+mes+"-"+dia,
                   }
                 });
           }
@@ -494,7 +540,7 @@ for (var i=1;i<=cantidadDias;i++)
           handler : function()
           {
             win.hide();
-            recargarDatosMetodos();
+            recargarDatosMantenimientos();
           }
         }],
         listeners :
