@@ -56,6 +56,7 @@ class proximos_mantenimientosActions extends sfActions
 
                 $criteria -> addAscendingOrderByColumn(RegistroRepMaquinaPeer::RRM_FECHA_PROX_CAMBIO);
                 $registros = RegistroRepMaquinaPeer::doSelect($criteria);
+                
 
             $this->renderText('<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
@@ -156,8 +157,8 @@ class proximos_mantenimientosActions extends sfActions
    <Alignment ss:Horizontal="Center"/>
    <Interior ss:Color="#f0a05f" ss:Pattern="Solid"/>
   </Style>
- </Styles>
- <Worksheet ss:Name="Hoja1">
+ </Styles> 
+ <Worksheet ss:Name="Próximos Mantenimientos">
   <Table ss:ExpandedColumnCount="37" ss:ExpandedRowCount="'.((count($registros)*2)+1).'" x:FullColumns="1"
    x:FullRows="1" ss:DefaultRowHeight="15">');
 		$this->renderText('
@@ -172,13 +173,15 @@ class proximos_mantenimientosActions extends sfActions
     <Cell ss:StyleID="s73"><Data ss:Type="String">Fecha Próximo Cambio</Data></Cell> 
    </Row>');
                 
+                $id_rrm = array();
                 foreach($registros as $registro) {
                         $estado = 'Pendiente';
                         $criterio1 = new Criteria();
                         $criterio1 -> add(ProximosEstadoPeer::PRE_PROX_CODIGO, $registro -> getRrmCodigo());
                         $valor_estado = ProximosEstadoPeer::doSelectOne($criterio1);
                         if($valor_estado != '') {
-                            $estado = $valor_estado->getPreEstado();                      
+                            $estado = $valor_estado->getPreEstado();
+                            $id_rrm[] = $registro -> getRrmCodigo();
                         }
 
                         $dateTimeFechaActual = new DateTime(date('Y-m-d'));
@@ -218,6 +221,7 @@ class proximos_mantenimientosActions extends sfActions
                         }
 			$this->renderText($row);			
 		}
+                
 		$this->renderText('</Table>
 			<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
 			<PageSetup>
@@ -237,34 +241,74 @@ class proximos_mantenimientosActions extends sfActions
 			<ProtectScenarios>False</ProtectScenarios>
 			</WorksheetOptions>
 			</Worksheet>
-			<Worksheet ss:Name="Hoja2">
-			<Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-			x:FullRows="1" ss:DefaultRowHeight="15">
-			</Table>
-			<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-			<PageSetup>
-			<Header x:Margin="0.3"/>
-			<Footer x:Margin="0.3"/>
-			<PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-			</PageSetup>
-			<ProtectObjects>False</ProtectObjects>
-			<ProtectScenarios>False</ProtectScenarios>
-			</WorksheetOptions>
-			</Worksheet>
-			<Worksheet ss:Name="Hoja3">
-			<Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-			x:FullRows="1" ss:DefaultRowHeight="15">
-			</Table>
-			<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-			<PageSetup>
-			<Header x:Margin="0.3"/>
-			<Footer x:Margin="0.3"/>
-			<PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-			</PageSetup>
-			<ProtectObjects>False</ProtectObjects>
-			<ProtectScenarios>False</ProtectScenarios>
-			</WorksheetOptions>
-			</Worksheet>
+                       <Worksheet ss:Name="Observaciones">
+                       <Table ss:ExpandedColumnCount="37" ss:ExpandedRowCount="'.((count($registros)*2)+1).'" x:FullColumns="1"
+                       x:FullRows="1" ss:DefaultRowHeight="15">');
+                                    $this->renderText('
+                        <Column ss:AutoFitWidth="0" ss:Width="130"/>
+                        <Column ss:AutoFitWidth="0" ss:Width="130"/>
+                        <Column ss:AutoFitWidth="0" ss:Width="200"/>
+                        <Column ss:AutoFitWidth="0" ss:Width="170"/>
+                        <Row ss:AutoFitHeight="0" ss:Height="40">
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Fecha Próximo Cambio</Data></Cell>
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Estado</Data></Cell>
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Observación</Data></Cell>
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Creado por</Data></Cell>
+                       </Row>');
+                       
+                        for($i=0; $i<sizeof($id_rrm); $i++) {
+                            $criterio2 = new Criteria();
+                            $criterio2 -> add(ProximosEstadoPeer::PRE_PROX_CODIGO, $id_rrm[$i]);
+                            $observaciones = ProximosEstadoPeer::doSelect($criterio2);                            
+                            foreach ($observaciones as $observacion) {
+                                $usuario = UsuarioPeer::obtenerNombreUsuario($observacion -> getPreUsuRegistra());
+                                $fecha = RegistroRepMaquinaPeer::retrieveByPK($id_rrm[$i]);
+                                if(($observacion -> getPreObservacion()) != '') {
+                                    $row = '<Row>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$fecha->getRrmFechaProxCambio('d-m-Y').'</Data></Cell>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$observacion -> getPreEstado().'</Data></Cell>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$observacion -> getPreObservacion().'</Data></Cell>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$usuario.'</Data></Cell>			
+                                        </Row>';                                
+                                    $this->renderText($row);
+                                }
+                            } 
+                        }                       
+                        
+                        $this->renderText('</Table>
+                                <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+                                <PageSetup>
+                                <Header x:Margin="0.3"/>
+                                <Footer x:Margin="0.3"/>
+                                <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+                                </PageSetup>
+                                <Selected/>
+                                <Panes>
+                                <Pane>
+                                <Number>3</Number>
+                                <ActiveRow>3</ActiveRow>
+                                <ActiveCol>5</ActiveCol>
+                                </Pane>
+                                </Panes>
+                                <ProtectObjects>False</ProtectObjects>
+                                <ProtectScenarios>False</ProtectScenarios>
+                                </WorksheetOptions>
+                                </Worksheet>                                
+                                <Worksheet ss:Name="Hoja3">
+                                <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
+                                x:FullRows="1" ss:DefaultRowHeight="15">
+                                </Table>
+                                <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+                                <PageSetup>
+                                <Header x:Margin="0.3"/>
+                                <Footer x:Margin="0.3"/>
+                                <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+                                </PageSetup>
+                                <ProtectObjects>False</ProtectObjects>
+                                <ProtectScenarios>False</ProtectScenarios>
+                                </WorksheetOptions>
+                                </Worksheet>
+                        
 			</Workbook>
     ');
 
