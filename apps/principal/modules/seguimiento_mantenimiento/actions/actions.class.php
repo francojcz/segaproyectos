@@ -20,6 +20,9 @@ class seguimiento_mantenimientoActions extends sfActions
 		header("Content-Type: application/download");
 		header("Content-Disposition: attachment;filename=datos.xls ");
 		header("Content-Transfer-Encoding: binary ");
+                
+                $id_maquina = array();
+                $fechas_seg = array();
                 	
                 if($request->getParameter('codigo_maquina')!='-1') {
                     $criteria = new Criteria();
@@ -71,8 +74,15 @@ class seguimiento_mantenimientoActions extends sfActions
                    <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
                   </Style>
                   <Style ss:ID="s66">
-                   <Interior ss:Color="#4CD774" ss:Pattern="Solid"/>
-                   <NumberFormat ss:Format="Fixed"/>
+                   <Alignment ss:Horizontal="Center"/> 
+                   <Borders>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
                   </Style>
                   <Style ss:ID="s68">
                    <Interior ss:Color="#71A7CD" ss:Pattern="Solid"/>
@@ -179,7 +189,7 @@ class seguimiento_mantenimientoActions extends sfActions
                   </Style>
                  </Styles>');
                 $this->renderText('
-                 <Worksheet ss:Name="Hoja1">
+                 <Worksheet ss:Name="Seguimiento Mantenimiento">
                   <Table ss:ExpandedColumnCount="37" ss:ExpandedRowCount="'.((count($registros)*2)+1).'" x:FullColumns="1"
                     x:FullRows="1" ss:DefaultRowHeight="15">');
                     $this->renderText('
@@ -366,6 +376,7 @@ class seguimiento_mantenimientoActions extends sfActions
                         }
                     }
 
+                    
                     for($j=1;$j<=31;$j++){
                         $estado = 'Pendiente';
                         $criterio1 = new Criteria();
@@ -373,7 +384,9 @@ class seguimiento_mantenimientoActions extends sfActions
                         $criterio1 -> add(SeguimientoPeer::SEG_FECHA, $ano_fin."-".$mes_fin."-".$j);                        
                         $valor_estado = SeguimientoPeer::doSelectOne($criterio1);
                         if($valor_estado != '') {
-                            $estado = $valor_estado->getSegEstado();                        
+                            $estado = $valor_estado->getSegEstado();
+                            $id_maquina[] = $request->getParameter('codigo_maquina');
+                            $fechas_seg[] = $ano_fin."-".$mes_fin."-".$j;
                         }
 
                         $dateTimeFechaActual = new DateTime(date('Y-m-d'));
@@ -510,8 +523,15 @@ class seguimiento_mantenimientoActions extends sfActions
                    <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
                   </Style>
                   <Style ss:ID="s66">
-                   <Interior ss:Color="#4CD774" ss:Pattern="Solid"/>
-                   <NumberFormat ss:Format="Fixed"/>
+                   <Alignment ss:Horizontal="Center"/> 
+                   <Borders>
+                    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                   </Borders>
+                   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
                   </Style>
                   <Style ss:ID="s68">
                    <Interior ss:Color="#71A7CD" ss:Pattern="Solid"/>
@@ -618,7 +638,7 @@ class seguimiento_mantenimientoActions extends sfActions
                   </Style>
                  </Styles>');
                 $this->renderText('
-                 <Worksheet ss:Name="Hoja1">
+                 <Worksheet ss:Name="Seguimiento Mantenimiento">
                   <Table ss:ExpandedColumnCount="37" ss:ExpandedRowCount="'.((count($maquinas)*2)+1).'" x:FullColumns="1"
                     x:FullRows="1" ss:DefaultRowHeight="15">');
                     $this->renderText('
@@ -823,9 +843,11 @@ class seguimiento_mantenimientoActions extends sfActions
                             $criterio2 -> add(SeguimientoPeer::SEG_FECHA, $ano_fin."-".$mes_fin."-".$j);                        
                             $valor_estado = SeguimientoPeer::doSelectOne($criterio2);
                             if($valor_estado != '') {
-                                $estado = $valor_estado->getSegEstado();                        
+                                $estado = $valor_estado->getSegEstado();  
+                                $id_maquina[] = $maquina->getMaqCodigo();
+                                $fechas_seg[] = $ano_fin."-".$mes_fin."-".$j;
                             }
-//
+
                             $dateTimeFechaActual = new DateTime(date('Y-m-d'));
                             $FechaActual = $dateTimeFechaActual -> getTimestamp();
                             $dateTimeFechaRegistro = new DateTime($ano_fin."-".$mes_fin."-".$j);
@@ -931,34 +953,78 @@ class seguimiento_mantenimientoActions extends sfActions
 			<ProtectScenarios>False</ProtectScenarios>
 			</WorksheetOptions>
 			</Worksheet>
-			<Worksheet ss:Name="Hoja2">
-			<Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-			x:FullRows="1" ss:DefaultRowHeight="15">
-			</Table>
-			<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-			<PageSetup>
-			<Header x:Margin="0.3"/>
-			<Footer x:Margin="0.3"/>
-			<PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-			</PageSetup>
-			<ProtectObjects>False</ProtectObjects>
-			<ProtectScenarios>False</ProtectScenarios>
-			</WorksheetOptions>
-			</Worksheet>
-			<Worksheet ss:Name="Hoja3">
-			<Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-			x:FullRows="1" ss:DefaultRowHeight="15">
-			</Table>
-			<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-			<PageSetup>
-			<Header x:Margin="0.3"/>
-			<Footer x:Margin="0.3"/>
-			<PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-			</PageSetup>
-			<ProtectObjects>False</ProtectObjects>
-			<ProtectScenarios>False</ProtectScenarios>
-			</WorksheetOptions>
-			</Worksheet>
+                        
+                       <Worksheet ss:Name="Observaciones">
+                       <Table ss:ExpandedColumnCount="37" ss:ExpandedRowCount="'.((count($registros)*2)+1).'" x:FullColumns="1"
+                       x:FullRows="1" ss:DefaultRowHeight="15">');
+                                    $this->renderText('
+                        <Column ss:AutoFitWidth="0" ss:Width="170"/>
+                        <Column ss:AutoFitWidth="0" ss:Width="130"/>
+                        <Column ss:AutoFitWidth="0" ss:Width="130"/>
+                        <Column ss:AutoFitWidth="0" ss:Width="200"/>
+                        <Column ss:AutoFitWidth="0" ss:Width="170"/>
+                        <Row ss:AutoFitHeight="0" ss:Height="40">
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Nombre Máquina</Data></Cell>
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Fecha Mantenimiento</Data></Cell>
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Estado</Data></Cell>
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Observación</Data></Cell>
+                        <Cell ss:StyleID="s73"><Data ss:Type="String">Creado por</Data></Cell>
+                       </Row>');
+                       
+                        for($i=0; $i<sizeof($id_maquina); $i++) {
+                            $criterio2 = new Criteria();
+                            $criterio2 -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $id_maquina[$i]);
+                            $criterio2 -> add(SeguimientoPeer::SEG_FECHA, $fechas_seg[$i]);
+                            $observaciones = SeguimientoPeer::doSelect($criterio2);                            
+                            foreach ($observaciones as $observacion) {
+                                $usuario = UsuarioPeer::obtenerNombreUsuario($observacion -> getSegUsuRegistra());
+                                $nom_maquina = MaquinaPeer::retrieveByPK($id_maquina[$i]);
+                                if(($observacion -> getSegObservacion()) != '') {
+                                    $row = '<Row>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$nom_maquina->getMaqNombre().'</Data></Cell>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$fechas_seg[$i].'</Data></Cell>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$observacion -> getSegEstado().'</Data></Cell>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$observacion -> getSegObservacion().'</Data></Cell>
+                                        <Cell ss:StyleID="s66"><Data ss:Type="String">'.$usuario.'</Data></Cell>			
+                                        </Row>';                                
+                                    $this->renderText($row);
+                                }
+                            } 
+                        }                       
+                        
+                        $this->renderText('</Table>
+                        <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+                        <PageSetup>
+                        <Header x:Margin="0.3"/>
+                        <Footer x:Margin="0.3"/>
+                        <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+                        </PageSetup>
+                        <Selected/>
+                        <Panes>
+                        <Pane>
+                        <Number>3</Number>
+                        <ActiveRow>3</ActiveRow>
+                        <ActiveCol>5</ActiveCol>
+                        </Pane>
+                        </Panes>
+                        <ProtectObjects>False</ProtectObjects>
+                        <ProtectScenarios>False</ProtectScenarios>
+                        </WorksheetOptions>
+                        </Worksheet>                                
+                        <Worksheet ss:Name="Hoja3">
+                        <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
+                        x:FullRows="1" ss:DefaultRowHeight="15">
+                        </Table>
+                        <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+                        <PageSetup>
+                        <Header x:Margin="0.3"/>
+                        <Footer x:Margin="0.3"/>
+                        <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+                        </PageSetup>
+                        <ProtectObjects>False</ProtectObjects>
+                        <ProtectScenarios>False</ProtectScenarios>
+                        </WorksheetOptions>
+                        </Worksheet>
 			</Workbook>
         ');
 

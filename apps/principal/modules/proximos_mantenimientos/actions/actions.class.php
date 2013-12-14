@@ -241,6 +241,8 @@ class proximos_mantenimientosActions extends sfActions
 			<ProtectScenarios>False</ProtectScenarios>
 			</WorksheetOptions>
 			</Worksheet>
+                        
+
                        <Worksheet ss:Name="Observaciones">
                        <Table ss:ExpandedColumnCount="37" ss:ExpandedRowCount="'.((count($registros)*2)+1).'" x:FullColumns="1"
                        x:FullRows="1" ss:DefaultRowHeight="15">');
