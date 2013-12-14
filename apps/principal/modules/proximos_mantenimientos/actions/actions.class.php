@@ -199,7 +199,7 @@ class proximos_mantenimientosActions extends sfActions
                         $row = '<Row>
                             <Cell ss:StyleID="s64"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
                             <Cell ss:StyleID="s64"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
-                            <Cell ss:StyleID="s64"><Data ss:Type="Number">'.$repuesto -> getRepNumero().'</Data></Cell>
+                            <Cell ss:StyleID="s64"><Data ss:Type="String">'.$repuesto -> getRepNumero().'</Data></Cell>
                             <Cell ss:StyleID="s64"><Data ss:Type="String">'.$registro -> getRrmFechaProxCambio('d-m-Y').'</Data></Cell>			
                             </Row>';
                         }
@@ -207,7 +207,7 @@ class proximos_mantenimientosActions extends sfActions
                         $row = '<Row>
                             <Cell ss:StyleID="s65"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
                             <Cell ss:StyleID="s65"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
-                            <Cell ss:StyleID="s65"><Data ss:Type="Number">'.$repuesto -> getRepNumero().'</Data></Cell>
+                            <Cell ss:StyleID="s65"><Data ss:Type="String">'.$repuesto -> getRepNumero().'</Data></Cell>
                             <Cell ss:StyleID="s65"><Data ss:Type="String">'.$registro -> getRrmFechaProxCambio('d-m-Y').'</Data></Cell>			
                             </Row>';
                         }
@@ -215,7 +215,7 @@ class proximos_mantenimientosActions extends sfActions
                         $row = '<Row>
                             <Cell ss:StyleID="s66"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
                             <Cell ss:StyleID="s66"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
-                            <Cell ss:StyleID="s66"><Data ss:Type="Number">'.$repuesto -> getRepNumero().'</Data></Cell>
+                            <Cell ss:StyleID="s66"><Data ss:Type="String">'.$repuesto -> getRepNumero().'</Data></Cell>
                             <Cell ss:StyleID="s66"><Data ss:Type="String">'.$registro -> getRrmFechaProxCambio('d-m-Y').'</Data></Cell>			
                             </Row>';
                         }
