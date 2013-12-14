@@ -23,39 +23,39 @@ class proximos_mantenimientosActions extends sfActions
 		header("Content-Transfer-Encoding: binary ");
 
 		$criteria = new Criteria();            
-            if ($request -> getParameter('codigo_maquina') != '-1')
-            {
-                $criteria -> add(RegistroRepMaquinaPeer::RRM_MAQ_CODIGO, $request -> getParameter('codigo_maquina'));
-            }
-            //Anos disponibles
-            $anos = array('2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023');
-            $mes = $request -> getParameter('codigo_mes');
-            $dias = array();
-            $dias[1] = 31;
-            if((($anos[($request->getParameter('codigo_ano'))-1])%4)!=0)
-                $dias[2] = 28;
-            else
-                $dias[2] = 29;
-            $dias[3] = 31;
-            $dias[4] = 30;
-            $dias[5] = 31;
-            $dias[6] = 30;
-            $dias[7] = 31;
-            $dias[8] = 31;
-            $dias[9] = 30;
-            $dias[10] = 31;
-            $dias[11] = 30;
-            $dias[12] = 31;
-                       
-            $ano = $anos[($request->getParameter('codigo_ano'))-1];
-            $inicio = $ano.'-'.$mes.'-01';
-            $fin = $ano.'-'.$mes.'-'.$dias[$mes];
-            
-            $criteria -> add(RegistroRepMaquinaPeer::RRM_FECHA_PROX_CAMBIO,$fin,CRITERIA::LESS_EQUAL);
-            $criteria -> addAnd(RegistroRepMaquinaPeer::RRM_FECHA_PROX_CAMBIO,$inicio,CRITERIA::GREATER_EQUAL);
-            
-            $criteria -> addAscendingOrderByColumn(RegistroRepMaquinaPeer::RRM_FECHA_PROX_CAMBIO);
-            $registros = RegistroRepMaquinaPeer::doSelect($criteria);
+                if ($request -> getParameter('codigo_maquina') != '-1')
+                {
+                    $criteria -> add(RegistroRepMaquinaPeer::RRM_MAQ_CODIGO, $request -> getParameter('codigo_maquina'));
+                }
+                //Anos disponibles
+                $anos = array('2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023');
+                $mes = $request -> getParameter('codigo_mes');
+                $dias = array();
+                $dias[1] = 31;
+                if((($anos[($request->getParameter('codigo_ano'))-1])%4)!=0)
+                    $dias[2] = 28;
+                else
+                    $dias[2] = 29;
+                $dias[3] = 31;
+                $dias[4] = 30;
+                $dias[5] = 31;
+                $dias[6] = 30;
+                $dias[7] = 31;
+                $dias[8] = 31;
+                $dias[9] = 30;
+                $dias[10] = 31;
+                $dias[11] = 30;
+                $dias[12] = 31;
+
+                $ano = $anos[($request->getParameter('codigo_ano'))-1];
+                $inicio = $ano.'-'.$mes.'-01';
+                $fin = $ano.'-'.$mes.'-'.$dias[$mes];
+
+                $criteria -> add(RegistroRepMaquinaPeer::RRM_FECHA_PROX_CAMBIO,$fin,CRITERIA::LESS_EQUAL);
+                $criteria -> addAnd(RegistroRepMaquinaPeer::RRM_FECHA_PROX_CAMBIO,$inicio,CRITERIA::GREATER_EQUAL);
+
+                $criteria -> addAscendingOrderByColumn(RegistroRepMaquinaPeer::RRM_FECHA_PROX_CAMBIO);
+                $registros = RegistroRepMaquinaPeer::doSelect($criteria);
 
             $this->renderText('<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
@@ -92,19 +92,39 @@ class proximos_mantenimientosActions extends sfActions
   </Style>
   <Style ss:ID="s62">
    <NumberFormat ss:Format="Fixed"/>
+  </Style>  
+  <Style ss:ID="s64">
+   <Alignment ss:Horizontal="Center"/> 
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
   </Style>
   <Style ss:ID="s65">
    <Alignment ss:Horizontal="Center"/>
-   <Interior ss:Color="#FFDF4C" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s64">
-  <Alignment ss:Horizontal="Center"/>
-   <Interior ss:Color="#DDD9C4" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FFFFFF"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
   </Style>
   <Style ss:ID="s66">
    <Alignment ss:Horizontal="Center"/>
-   <Interior ss:Color="#DDD9C4" ss:Pattern="Solid"/>
-   <NumberFormat ss:Format="Fixed"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
   </Style>
   <Style ss:ID="s68">
    <Alignment ss:Horizontal="Center"/>
@@ -120,7 +140,7 @@ class proximos_mantenimientosActions extends sfActions
   </Style>
   <Style ss:ID="s71">
    <Alignment ss:Horizontal="Center"/>
-   <Interior ss:Color="#DDD9C4" ss:Pattern="Solid"/>
+   <Interior ss:Color="#E4E1D0" ss:Pattern="Solid"/>
   </Style>
   <Style ss:ID="s72">
    <Alignment ss:Horizontal="Center"/>
@@ -153,14 +173,50 @@ class proximos_mantenimientosActions extends sfActions
    </Row>');
                 
                 foreach($registros as $registro) {
+                        $estado = 'Pendiente';
+                        $criterio1 = new Criteria();
+                        $criterio1 -> add(ProximosEstadoPeer::PRE_PROX_CODIGO, $registro -> getRrmCodigo());
+                        $valor_estado = ProximosEstadoPeer::doSelectOne($criterio1);
+                        if($valor_estado != '') {
+                            $estado = $valor_estado->getPreEstado();                      
+                        }
+
+                        $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+                        $FechaActual = $dateTimeFechaActual -> getTimestamp();
+                        $dateTimeFechaRegistro = new DateTime($registro -> getRrmFechaProxCambio());
+                        $FechaRegistro = $dateTimeFechaRegistro -> getTimestamp();
+                        if(($FechaActual > $FechaRegistro) && ($valor_estado == '')) {
+                            $estado = 'Vencido';
+                        }
+                    
                         $maquina = MaquinaPeer::retrieveByPK($registro->getRrmMaqCodigo());
                         $repuesto = RepuestoPeer::retrieveByPK($registro->getRrmRepCodigo());
-			$this->renderText('<Row>
-			<Cell ss:StyleID="s65"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
-			<Cell ss:StyleID="s64"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
-			<Cell ss:StyleID="s66"><Data ss:Type="String">'.$repuesto -> getRepNumero().'</Data></Cell>
-			<Cell ss:StyleID="s71"><Data ss:Type="String">'.$registro -> getRrmFechaProxCambio('d-m-Y').'</Data></Cell>			
-			</Row>');			
+                        
+                        if($estado == 'Vencido') {
+                        $row = '<Row>
+                            <Cell ss:StyleID="s64"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
+                            <Cell ss:StyleID="s64"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
+                            <Cell ss:StyleID="s64"><Data ss:Type="Number">'.$repuesto -> getRepNumero().'</Data></Cell>
+                            <Cell ss:StyleID="s64"><Data ss:Type="String">'.$registro -> getRrmFechaProxCambio('d-m-Y').'</Data></Cell>			
+                            </Row>';
+                        }
+                        if($estado == 'Realizado') {
+                        $row = '<Row>
+                            <Cell ss:StyleID="s65"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
+                            <Cell ss:StyleID="s65"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
+                            <Cell ss:StyleID="s65"><Data ss:Type="Number">'.$repuesto -> getRepNumero().'</Data></Cell>
+                            <Cell ss:StyleID="s65"><Data ss:Type="String">'.$registro -> getRrmFechaProxCambio('d-m-Y').'</Data></Cell>			
+                            </Row>';
+                        }
+                        if($estado == 'Pendiente') {
+                        $row = '<Row>
+                            <Cell ss:StyleID="s66"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
+                            <Cell ss:StyleID="s66"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
+                            <Cell ss:StyleID="s66"><Data ss:Type="Number">'.$repuesto -> getRepNumero().'</Data></Cell>
+                            <Cell ss:StyleID="s66"><Data ss:Type="String">'.$registro -> getRrmFechaProxCambio('d-m-Y').'</Data></Cell>			
+                            </Row>';
+                        }
+			$this->renderText($row);			
 		}
 		$this->renderText('</Table>
 			<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">

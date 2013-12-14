@@ -77,7 +77,13 @@ class mantenimientos_realizadosActions extends sfActions
   </Style>
   <Style ss:ID="s65">
    <Alignment ss:Horizontal="Center"/>
-   <Interior ss:Color="#FFDF4C" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Interior ss:Color="#DDD9C4" ss:Pattern="Solid"/>
   </Style>
   <Style ss:ID="s64">
   <Alignment ss:Horizontal="Center"/>
@@ -85,8 +91,14 @@ class mantenimientos_realizadosActions extends sfActions
   </Style>
   <Style ss:ID="s66">
    <Alignment ss:Horizontal="Center"/>
-   <Interior ss:Color="#DDD9C4" ss:Pattern="Solid"/>
-   <NumberFormat ss:Format="Fixed"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
   </Style>
   <Style ss:ID="s68">
    <Alignment ss:Horizontal="Center"/>
@@ -144,11 +156,11 @@ class mantenimientos_realizadosActions extends sfActions
 
 			$this->renderText('<Row>
 			<Cell ss:StyleID="s65"><Data ss:Type="String">'.$maquina -> getMaqNombre().'</Data></Cell>
-			<Cell ss:StyleID="s64"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
-			<Cell ss:StyleID="s66"><Data ss:Type="String">'.$repuesto -> getRepNumero().'</Data></Cell>
-                        <Cell ss:StyleID="s72"><Data ss:Type="Number">'.$registro -> getRrmConsumo().'</Data></Cell>
-			<Cell ss:StyleID="s71"><Data ss:Type="String">'.$registro -> getRrmFechaCambio('d-m-Y').'</Data></Cell>
-			<Cell ss:StyleID="s68"><Data ss:Type="String">'.$registro -> getRrmObservaciones().'</Data></Cell>
+			<Cell ss:StyleID="s66"><Data ss:Type="String">'.$repuesto -> getRepNombre().'</Data></Cell>
+			<Cell ss:StyleID="s66"><Data ss:Type="Number">'.$repuesto -> getRepNumero().'</Data></Cell>
+                        <Cell ss:StyleID="s66"><Data ss:Type="Number">'.$registro -> getRrmConsumo().'</Data></Cell>
+			<Cell ss:StyleID="s66"><Data ss:Type="String">'.$registro -> getRrmFechaCambio('d-m-Y').'</Data></Cell>
+			<Cell ss:StyleID="s66"><Data ss:Type="String">'.$registro -> getRrmObservaciones().'</Data></Cell>
 			</Row>');			
 		}
 		$this->renderText('</Table>

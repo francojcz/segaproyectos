@@ -310,11 +310,11 @@ for (var i=1;i<=cantidadDias;i++)
             }            
             for(var k=2; k<=60; k++) {                
                 if(valor == (k+' Meses Vencido'))
-                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + colorVencido + '">' + j + ' Meses' +  '</div>';
+                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + colorVencido + '">' + k + ' Meses' +  '</div>';
                 if(valor == (k+' Meses Realizado'))
-                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + coloresDia[valor] + '">' + j + ' Meses' +  '</div>';
+                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + coloresDia[valor] + '">' + k + ' Meses' +  '</div>';
                 if(valor == (k+' Meses Pendiente'))
-                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + colorPendiente + '">' + j + ' Meses' +  '</div>';
+                    return '<div style="background-color: ' + coloresMes[valor] + '; color: ' + colorPendiente + '">' + k + ' Meses' +  '</div>';
             }            
         }
     }

@@ -68,7 +68,7 @@ class seguimiento_mantenimientoActions extends sfActions
                   </Style>
                   <Style ss:ID="s64">
                    <Alignment ss:Horizontal="Center"/>
-                   <Interior ss:Color="#DDD9C4" ss:Pattern="Solid"/>
+                   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
                   </Style>
                   <Style ss:ID="s66">
                    <Interior ss:Color="#4CD774" ss:Pattern="Solid"/>
@@ -98,29 +98,77 @@ class seguimiento_mantenimientoActions extends sfActions
                    <Interior ss:Color="#4F81BD" ss:Pattern="Solid"/>
                   </Style>');
                 
+                $colorDia1 = randomColor();
                 $this->renderText('
-                <Style ss:ID="1 Día">
+                <Style ss:ID="1 Día Vencido">
                  <Alignment ss:Horizontal="Center"/>
-                 <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
+                 <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                 <Interior ss:Color="'.$colorDia1.'" ss:Pattern="Solid"/>
+                </Style>
+                <Style ss:ID="1 Día Realizado">
+                 <Alignment ss:Horizontal="Center"/>
+                 <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorDia1.'"/>
+                 <Interior ss:Color="'.$colorDia1.'" ss:Pattern="Solid"/>
+                </Style>
+                <Style ss:ID="1 Día Pendiente">
+                 <Alignment ss:Horizontal="Center"/>
+                 <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                 <Interior ss:Color="'.$colorDia1.'" ss:Pattern="Solid"/>
                 </Style>');
                 //Asignar color a cada periodo
                 for($i=2;$i<=31;$i++) {
+                    $colorDias = randomColor();
                     $this->renderText('
-                      <Style ss:ID="'.$i.' Días">
+                      <Style ss:ID="'.$i.' Días Vencido">
                        <Alignment ss:Horizontal="Center"/>
-                       <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
+                       <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                       <Interior ss:Color="'.$colorDias.'" ss:Pattern="Solid"/>
+                      </Style>
+                      <Style ss:ID="'.$i.' Días Realizado">
+                       <Alignment ss:Horizontal="Center"/>
+                       <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorDias.'"/>
+                       <Interior ss:Color="'.$colorDias.'" ss:Pattern="Solid"/>
+                      </Style>
+                      <Style ss:ID="'.$i.' Días Pendiente">
+                       <Alignment ss:Horizontal="Center"/>
+                       <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                       <Interior ss:Color="'.$colorDias.'" ss:Pattern="Solid"/>
                       </Style>');
                 }
+                $colorMes1 = randomColor();
                 $this->renderText('
-                <Style ss:ID="1 Mes">
+                <Style ss:ID="1 Mes Vencido">
                  <Alignment ss:Horizontal="Center"/>
-                 <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
+                 <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                 <Interior ss:Color="'.$colorMes1.'" ss:Pattern="Solid"/>
+                </Style>
+                <Style ss:ID="1 Mes Realiado">
+                 <Alignment ss:Horizontal="Center"/>
+                 <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorMes1.'"/>
+                 <Interior ss:Color="'.$colorMes1.'" ss:Pattern="Solid"/>
+                </Style>
+                <Style ss:ID="1 Mes Pendiente">
+                 <Alignment ss:Horizontal="Center"/>
+                 <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                 <Interior ss:Color="'.$colorMes1.'" ss:Pattern="Solid"/>
                 </Style>');
                 for($j=2;$j<=60;$j++) {
+                    $colorMeses = randomColor();
                     $this->renderText('
-                      <Style ss:ID="'.$j.' Meses">
+                      <Style ss:ID="'.$j.' Meses Vencido">
                        <Alignment ss:Horizontal="Center"/>
-                       <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
+                       <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                       <Interior ss:Color="'.$colorMeses.'" ss:Pattern="Solid"/>
+                      </Style>
+                      <Style ss:ID="'.$j.' Meses Realizado">
+                       <Alignment ss:Horizontal="Center"/>
+                       <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorMeses.'"/>
+                       <Interior ss:Color="'.$colorMeses.'" ss:Pattern="Solid"/>
+                      </Style>
+                      <Style ss:ID="'.$j.' Meses Pendiente">
+                       <Alignment ss:Horizontal="Center"/>
+                       <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                       <Interior ss:Color="'.$colorMeses.'" ss:Pattern="Solid"/>
                       </Style>');
                 }
                 
@@ -320,23 +368,36 @@ class seguimiento_mantenimientoActions extends sfActions
                     }
 
                     for($j=1;$j<=31;$j++){
+                        $estado = 'Pendiente';
                         if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
-                            if($temp['dia '.$j]['Mes']==1)
+                            if($temp['dia '.$j]['Mes']==1) {
                                 $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                            if($temp['dia '.$j]['Mes']>1)
+                                $fields['estado dia '.$j] = $estado;
+                            }
+                            if($temp['dia '.$j]['Mes']>1) {
                                 $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
+                                $fields['estado dia '.$j] = $estado;
+                            }
                         }
                         if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']==''){
-                            if($temp['dia '.$j]['Dia']==1)
+                            if($temp['dia '.$j]['Dia']==1) {
                                 $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Día';
-                            if($temp['dia '.$j]['Dia']>1)
+                                $fields['estado dia '.$j] = $estado;
+                            }
+                            if($temp['dia '.$j]['Dia']>1) {
                                 $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Días';
+                                $fields['estado dia '.$j] = $estado;
+                            }
                         }
                         if($temp['dia '.$j]['Dia']=='' && $temp['dia '.$j]['Mes']!=''){
-                            if($temp['dia '.$j]['Mes']==1)
+                            if($temp['dia '.$j]['Mes']==1) {
                                 $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                            if($temp['dia '.$j]['Mes']>1)
+                                $fields['estado dia '.$j] = $estado;
+                            }
+                            if($temp['dia '.$j]['Mes']>1) {
                                 $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
+                                $fields['estado dia '.$j] = $estado;
+                            }
                         }
                     }
                     
@@ -431,7 +492,7 @@ class seguimiento_mantenimientoActions extends sfActions
                   </Style>
                   <Style ss:ID="s64">
                    <Alignment ss:Horizontal="Center"/>
-                   <Interior ss:Color="#DDD9C4" ss:Pattern="Solid"/>
+                   <Interior ss:Color="#FFFFFF" ss:Pattern="Solid"/>
                   </Style>
                   <Style ss:ID="s66">
                    <Interior ss:Color="#4CD774" ss:Pattern="Solid"/>
