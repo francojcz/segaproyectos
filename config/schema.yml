@@ -238,6 +238,14 @@ propel:
     pmto_causa_eliminacion: { phpName: PmtoCausaEliminacion, type: VARCHAR, size: '250', required: false }
     pmto_causa_actualizacion: { phpName: PmtoCausaActualizacion, type: VARCHAR, size: '250', required: false }
     _indexes: { FK_reference_43: [pmto_usu_crea], FK_reference_44: [pmto_usu_actualiza], FK_reference_49: [pmto_tipo] }
+  proximos_estado:
+    _attributes: { phpName: ProximosEstado }
+    pre_codigo: { phpName: PreCodigo, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    pre_estado: { phpName: PreEstado, type: VARCHAR, size: '50', required: false }
+    pre_observacion: { phpName: PreObservacion, type: VARCHAR, size: '200', required: false }
+    pre_prox_codigo: { phpName: PreProxCodigo, type: INTEGER, size: '11', required: false }
+    pre_usu_registra: { phpName: PreUsuRegistra, type: INTEGER, size: '11', required: false }
+    _indexes: { FK_reference_59: [pre_usu_registra], FK_reference_10: [pre_prox_codigo] }
   registro_modificacion:
     _attributes: { phpName: RegistroModificacion }
     rem_id: { phpName: RemId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }

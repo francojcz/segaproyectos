@@ -333,21 +333,142 @@ class proximos_mantenimientosActions extends sfActions
 
             foreach ($registros as $registro)
             {
+                $estado = 'Pendiente';
+                $criterio1 = new Criteria();
+                $criterio1 -> add(ProximosEstadoPeer::PRE_PROX_CODIGO, $registro -> getRrmCodigo());
+                $valor_estado = ProximosEstadoPeer::doSelectOne($criterio1);
+                if($valor_estado != '') {
+                    $estado = $valor_estado->getPreEstado();                      
+                }
+                
+                $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+                $FechaActual = $dateTimeFechaActual -> getTimestamp();
+                $dateTimeFechaRegistro = new DateTime($registro -> getRrmFechaProxCambio());
+                $FechaRegistro = $dateTimeFechaRegistro -> getTimestamp();
+                if(($FechaActual > $FechaRegistro) && ($valor_estado == '')) {
+                    $estado = 'Vencido';
+                }
+                
                 $fields = array();
-
                 $fields['id_registro_rep_maquina'] = $registro -> getRrmCodigo();
                 $maquina = MaquinaPeer::retrieveByPK($registro->getRrmMaqCodigo());
-                $fields['nombre_equipo'] = $maquina->getMaqNombre();
+                $fields['nombre_equipo'] = $maquina->getMaqNombre().' '.$estado;
                 $repuesto = RepuestoPeer::retrieveByPK($registro->getRrmRepCodigo());
-                $fields['nombre_parte'] = $repuesto->getRepNombre();
-                $fields['numero_parte'] = $repuesto->getRepNumero();
-                $fields['rrm_fecha_cambio'] = $registro -> getRrmFechaProxCambio();                
+                $fields['nombre_parte'] = $repuesto->getRepNombre().' '.$estado;
+                $fields['numero_parte'] = $repuesto->getRepNumero().' '.$estado;
+                $fields['rrm_fecha_cambio'] = $registro -> getRrmFechaProxCambio().' '.$estado;               
                 $fields['rrm_observaciones'] = $registro -> getRrmObservaciones();                                
                 $fields['rrm_consumo'] = $registro -> getRrmConsumo();
-
                 $data[] = $fields;
             }
 
+            $result['data'] = $data;
+            return $this -> renderText(json_encode($result));
+        }
+        
+        public function executeListarEstados() {
+		$result = array();
+		$data = array();
+                
+                $estado = array('Realizado');
+
+		for($i=0;$i<1;$i++) {
+                    $fields = array();
+                    
+                    $fields['codigo'] = ($i+1);
+                    $fields['nombre'] = $estado[$i];
+                    
+                    $data[] = $fields;
+		}
+
+		$result['data'] = $data;
+		return $this->renderText(json_encode($result));
+	}
+        
+        public function executeRegistrarEstado(sfWebRequest $request)
+        {          
+            $user = $this -> getUser();           
+            $codigo_usuario = $user -> getAttribute('usu_codigo');
+            $codigo_perfil_usuario = $user -> getAttribute('usu_per_codigo');
+            
+            $registroRepMaquina = RegistroRepMaquinaPeer::retrieveByPK($request -> getParameter('cod_prox'));
+            $dateTimeFechaUso = new DateTime($registroRepMaquina ->getRrmFechaProxCambio());
+            $timeStampFechaUso = $dateTimeFechaUso -> getTimestamp();
+            $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+            $timeStampFechaActual = $dateTimeFechaActual -> getTimestamp();
+
+            if (($timeStampFechaUso < $timeStampFechaActual) && ($codigo_perfil_usuario!='2'))
+            {
+                return $this -> renderText('1');
+            }
+            
+            $registro_prox = '';
+            $criteria = new Criteria();
+            $criteria -> add(ProximosEstadoPeer::PRE_PROX_CODIGO, $request->getParameter('cod_prox'));
+            $registro_prox += ProximosEstadoPeer::doSelectOne($criteria);
+            
+            $estado = array('','Realizado');
+            
+            if($registro_prox == ''){
+                $registro = new ProximosEstado();
+                $registro -> setPreEstado($estado[$request->getParameter('estado_prox')]);
+                $registro -> setPreObservacion($request->getParameter('observacion_prox'));
+                $registro ->setPreProxCodigo($request->getParameter('cod_prox'));
+                $registro -> setPreUsuRegistra($codigo_usuario);
+                $registro -> save();
+                return $this -> renderText('Ok');
+            }
+            else
+                return $this -> renderText('2');
+            
+        }
+        
+        public function executeEliminarEstado(sfWebRequest $request)
+        {      
+            $user = $this -> getUser();           
+            $codigo_perfil_usuario = $user -> getAttribute('usu_per_codigo');
+            
+            $registroRepMaquina = RegistroRepMaquinaPeer::retrieveByPK($request -> getParameter('codigo_prox'));
+            $dateTimeFechaUso = new DateTime($registroRepMaquina ->getRrmFechaProxCambio());
+            $timeStampFechaUso = $dateTimeFechaUso -> getTimestamp();
+            $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+            $timeStampFechaActual = $dateTimeFechaActual -> getTimestamp();
+
+            if (($timeStampFechaUso < $timeStampFechaActual) && ($codigo_perfil_usuario!='2'))
+            {
+                return $this -> renderText('1');
+            }
+            
+            if ($request -> hasParameter('codigo'))
+            {
+                $registro = ProximosEstadoPeer::retrieveByPK($request -> getParameter('codigo'));
+                $registro -> delete();
+            }
+            return $this -> renderText('Ok');
+        }
+        
+        public function executeListarEstadosProximos(sfWebRequest $request)
+        {
+            $criteria = new Criteria();
+            if ($request -> hasParameter('cod_registro')) {
+                $criteria -> add(ProximosEstadoPeer::PRE_PROX_CODIGO, $request -> getParameter('cod_registro'));
+            }
+            
+            $registrosProximos = ProximosEstadoPeer::doSelect($criteria);
+
+            $result = array();
+            $data = array();
+            foreach ($registrosProximos as $registroProximo)
+            {
+                $fields = array();
+                $fields['codigo'] = $registroProximo -> getPreCodigo();
+                $registroRepMaquina = RegistroRepMaquinaPeer::retrieveByPK($registroProximo->getPreProxCodigo());
+                $fields['fecha'] = $registroRepMaquina ->getRrmFechaProxCambio();
+                $fields['estado'] = $registroProximo -> getPreEstado();
+                $fields['observacion'] = $registroProximo -> getPreObservacion();
+                $fields['usu_registra'] = UsuarioPeer::obtenerNombreUsuario($registroProximo -> getPreUsuRegistra());
+                $data[] = $fields;
+            }
             $result['data'] = $data;
             return $this -> renderText(json_encode($result));
         }

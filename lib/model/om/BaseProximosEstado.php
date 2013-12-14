@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Base class that represents a row from the 'registro_pmto_maquina' table.
+ * Base class that represents a row from the 'proximos_estado' table.
  *
  * 
  *
@@ -11,52 +11,46 @@
  *
  * @package    lib.model.om
  */
-abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent {
+abstract class BaseProximosEstado extends BaseObject  implements Persistent {
 
 
 	/**
 	 * The Peer class.
 	 * Instance provides a convenient way of calling static methods on a class
 	 * that calling code may not be able to identify.
-	 * @var        RegistroPmtoMaquinaPeer
+	 * @var        ProximosEstadoPeer
 	 */
 	protected static $peer;
 
 	/**
-	 * The value for the rpm_codigo field.
+	 * The value for the pre_codigo field.
 	 * @var        int
 	 */
-	protected $rpm_codigo;
+	protected $pre_codigo;
 
 	/**
-	 * The value for the rpm_maq_codigo field.
-	 * @var        int
-	 */
-	protected $rpm_maq_codigo;
-
-	/**
-	 * The value for the rpm_pmto_codigo field.
-	 * @var        int
-	 */
-	protected $rpm_pmto_codigo;
-
-	/**
-	 * The value for the rpm_fecha_inicio field.
+	 * The value for the pre_estado field.
 	 * @var        string
 	 */
-	protected $rpm_fecha_inicio;
+	protected $pre_estado;
 
 	/**
-	 * The value for the rpm_usu_registra field.
-	 * @var        int
-	 */
-	protected $rpm_usu_registra;
-
-	/**
-	 * The value for the rpm_fecha_registro field.
+	 * The value for the pre_observacion field.
 	 * @var        string
 	 */
-	protected $rpm_fecha_registro;
+	protected $pre_observacion;
+
+	/**
+	 * The value for the pre_prox_codigo field.
+	 * @var        int
+	 */
+	protected $pre_prox_codigo;
+
+	/**
+	 * The value for the pre_usu_registra field.
+	 * @var        int
+	 */
+	protected $pre_usu_registra;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -74,301 +68,157 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 
 	// symfony behavior
 	
-	const PEER = 'RegistroPmtoMaquinaPeer';
+	const PEER = 'ProximosEstadoPeer';
 
 	/**
-	 * Get the [rpm_codigo] column value.
+	 * Get the [pre_codigo] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getRpmCodigo()
+	public function getPreCodigo()
 	{
-		return $this->rpm_codigo;
+		return $this->pre_codigo;
 	}
 
 	/**
-	 * Get the [rpm_maq_codigo] column value.
+	 * Get the [pre_estado] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getPreEstado()
+	{
+		return $this->pre_estado;
+	}
+
+	/**
+	 * Get the [pre_observacion] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getPreObservacion()
+	{
+		return $this->pre_observacion;
+	}
+
+	/**
+	 * Get the [pre_prox_codigo] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getRpmMaqCodigo()
+	public function getPreProxCodigo()
 	{
-		return $this->rpm_maq_codigo;
+		return $this->pre_prox_codigo;
 	}
 
 	/**
-	 * Get the [rpm_pmto_codigo] column value.
+	 * Get the [pre_usu_registra] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getRpmPmtoCodigo()
+	public function getPreUsuRegistra()
 	{
-		return $this->rpm_pmto_codigo;
+		return $this->pre_usu_registra;
 	}
 
 	/**
-	 * Get the [optionally formatted] temporal [rpm_fecha_inicio] column value.
-	 * 
-	 *
-	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
-	 *							If format is NULL, then the raw DateTime object will be returned.
-	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-	 * @throws     PropelException - if unable to parse/validate the date/time value.
-	 */
-	public function getRpmFechaInicio($format = 'Y-m-d')
-	{
-		if ($this->rpm_fecha_inicio === null) {
-			return null;
-		}
-
-
-		if ($this->rpm_fecha_inicio === '0000-00-00') {
-			// while technically this is not a default value of NULL,
-			// this seems to be closest in meaning.
-			return null;
-		} else {
-			try {
-				$dt = new DateTime($this->rpm_fecha_inicio);
-			} catch (Exception $x) {
-				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->rpm_fecha_inicio, true), $x);
-			}
-		}
-
-		if ($format === null) {
-			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-			return $dt;
-		} elseif (strpos($format, '%') !== false) {
-			return strftime($format, $dt->format('U'));
-		} else {
-			return $dt->format($format);
-		}
-	}
-
-	/**
-	 * Get the [rpm_usu_registra] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getRpmUsuRegistra()
-	{
-		return $this->rpm_usu_registra;
-	}
-
-	/**
-	 * Get the [optionally formatted] temporal [rpm_fecha_registro] column value.
-	 * 
-	 *
-	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
-	 *							If format is NULL, then the raw DateTime object will be returned.
-	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-	 * @throws     PropelException - if unable to parse/validate the date/time value.
-	 */
-	public function getRpmFechaRegistro($format = 'Y-m-d')
-	{
-		if ($this->rpm_fecha_registro === null) {
-			return null;
-		}
-
-
-		if ($this->rpm_fecha_registro === '0000-00-00') {
-			// while technically this is not a default value of NULL,
-			// this seems to be closest in meaning.
-			return null;
-		} else {
-			try {
-				$dt = new DateTime($this->rpm_fecha_registro);
-			} catch (Exception $x) {
-				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->rpm_fecha_registro, true), $x);
-			}
-		}
-
-		if ($format === null) {
-			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-			return $dt;
-		} elseif (strpos($format, '%') !== false) {
-			return strftime($format, $dt->format('U'));
-		} else {
-			return $dt->format($format);
-		}
-	}
-
-	/**
-	 * Set the value of [rpm_codigo] column.
+	 * Set the value of [pre_codigo] column.
 	 * 
 	 * @param      int $v new value
-	 * @return     RegistroPmtoMaquina The current object (for fluent API support)
+	 * @return     ProximosEstado The current object (for fluent API support)
 	 */
-	public function setRpmCodigo($v)
+	public function setPreCodigo($v)
 	{
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->rpm_codigo !== $v) {
-			$this->rpm_codigo = $v;
-			$this->modifiedColumns[] = RegistroPmtoMaquinaPeer::RPM_CODIGO;
+		if ($this->pre_codigo !== $v) {
+			$this->pre_codigo = $v;
+			$this->modifiedColumns[] = ProximosEstadoPeer::PRE_CODIGO;
 		}
 
 		return $this;
-	} // setRpmCodigo()
+	} // setPreCodigo()
 
 	/**
-	 * Set the value of [rpm_maq_codigo] column.
+	 * Set the value of [pre_estado] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     ProximosEstado The current object (for fluent API support)
+	 */
+	public function setPreEstado($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->pre_estado !== $v) {
+			$this->pre_estado = $v;
+			$this->modifiedColumns[] = ProximosEstadoPeer::PRE_ESTADO;
+		}
+
+		return $this;
+	} // setPreEstado()
+
+	/**
+	 * Set the value of [pre_observacion] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     ProximosEstado The current object (for fluent API support)
+	 */
+	public function setPreObservacion($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->pre_observacion !== $v) {
+			$this->pre_observacion = $v;
+			$this->modifiedColumns[] = ProximosEstadoPeer::PRE_OBSERVACION;
+		}
+
+		return $this;
+	} // setPreObservacion()
+
+	/**
+	 * Set the value of [pre_prox_codigo] column.
 	 * 
 	 * @param      int $v new value
-	 * @return     RegistroPmtoMaquina The current object (for fluent API support)
+	 * @return     ProximosEstado The current object (for fluent API support)
 	 */
-	public function setRpmMaqCodigo($v)
+	public function setPreProxCodigo($v)
 	{
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->rpm_maq_codigo !== $v) {
-			$this->rpm_maq_codigo = $v;
-			$this->modifiedColumns[] = RegistroPmtoMaquinaPeer::RPM_MAQ_CODIGO;
+		if ($this->pre_prox_codigo !== $v) {
+			$this->pre_prox_codigo = $v;
+			$this->modifiedColumns[] = ProximosEstadoPeer::PRE_PROX_CODIGO;
 		}
 
 		return $this;
-	} // setRpmMaqCodigo()
+	} // setPreProxCodigo()
 
 	/**
-	 * Set the value of [rpm_pmto_codigo] column.
+	 * Set the value of [pre_usu_registra] column.
 	 * 
 	 * @param      int $v new value
-	 * @return     RegistroPmtoMaquina The current object (for fluent API support)
+	 * @return     ProximosEstado The current object (for fluent API support)
 	 */
-	public function setRpmPmtoCodigo($v)
+	public function setPreUsuRegistra($v)
 	{
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->rpm_pmto_codigo !== $v) {
-			$this->rpm_pmto_codigo = $v;
-			$this->modifiedColumns[] = RegistroPmtoMaquinaPeer::RPM_PMTO_CODIGO;
+		if ($this->pre_usu_registra !== $v) {
+			$this->pre_usu_registra = $v;
+			$this->modifiedColumns[] = ProximosEstadoPeer::PRE_USU_REGISTRA;
 		}
 
 		return $this;
-	} // setRpmPmtoCodigo()
-
-	/**
-	 * Sets the value of [rpm_fecha_inicio] column to a normalized version of the date/time value specified.
-	 * 
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
-	 * @return     RegistroPmtoMaquina The current object (for fluent API support)
-	 */
-	public function setRpmFechaInicio($v)
-	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->rpm_fecha_inicio !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->rpm_fecha_inicio !== null && $tmpDt = new DateTime($this->rpm_fecha_inicio)) ? $tmpDt->format('Y-m-d') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->rpm_fecha_inicio = ($dt ? $dt->format('Y-m-d') : null);
-				$this->modifiedColumns[] = RegistroPmtoMaquinaPeer::RPM_FECHA_INICIO;
-			}
-		} // if either are not null
-
-		return $this;
-	} // setRpmFechaInicio()
-
-	/**
-	 * Set the value of [rpm_usu_registra] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     RegistroPmtoMaquina The current object (for fluent API support)
-	 */
-	public function setRpmUsuRegistra($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->rpm_usu_registra !== $v) {
-			$this->rpm_usu_registra = $v;
-			$this->modifiedColumns[] = RegistroPmtoMaquinaPeer::RPM_USU_REGISTRA;
-		}
-
-		return $this;
-	} // setRpmUsuRegistra()
-
-	/**
-	 * Sets the value of [rpm_fecha_registro] column to a normalized version of the date/time value specified.
-	 * 
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
-	 * @return     RegistroPmtoMaquina The current object (for fluent API support)
-	 */
-	public function setRpmFechaRegistro($v)
-	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->rpm_fecha_registro !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->rpm_fecha_registro !== null && $tmpDt = new DateTime($this->rpm_fecha_registro)) ? $tmpDt->format('Y-m-d') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->rpm_fecha_registro = ($dt ? $dt->format('Y-m-d') : null);
-				$this->modifiedColumns[] = RegistroPmtoMaquinaPeer::RPM_FECHA_REGISTRO;
-			}
-		} // if either are not null
-
-		return $this;
-	} // setRpmFechaRegistro()
+	} // setPreUsuRegistra()
 
 	/**
 	 * Indicates whether the columns in this object are only set to default values.
@@ -402,12 +252,11 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	{
 		try {
 
-			$this->rpm_codigo = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-			$this->rpm_maq_codigo = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-			$this->rpm_pmto_codigo = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-			$this->rpm_fecha_inicio = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-			$this->rpm_usu_registra = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
-			$this->rpm_fecha_registro = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->pre_codigo = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
+			$this->pre_estado = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+			$this->pre_observacion = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+			$this->pre_prox_codigo = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+			$this->pre_usu_registra = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -417,10 +266,10 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 			}
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 6; // 6 = RegistroPmtoMaquinaPeer::NUM_COLUMNS - RegistroPmtoMaquinaPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 5; // 5 = ProximosEstadoPeer::NUM_COLUMNS - ProximosEstadoPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
-			throw new PropelException("Error populating RegistroPmtoMaquina object", $e);
+			throw new PropelException("Error populating ProximosEstado object", $e);
 		}
 	}
 
@@ -463,13 +312,13 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(RegistroPmtoMaquinaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(ProximosEstadoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		// We don't need to alter the object instance pool; we're just modifying this instance
 		// already in the pool.
 
-		$stmt = RegistroPmtoMaquinaPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+		$stmt = ProximosEstadoPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
 		$row = $stmt->fetch(PDO::FETCH_NUM);
 		$stmt->closeCursor();
 		if (!$row) {
@@ -498,14 +347,14 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(RegistroPmtoMaquinaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(ProximosEstadoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
 		try {
 			$ret = $this->preDelete($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseRegistroPmtoMaquina:delete:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseProximosEstado:delete:pre') as $callable)
 			{
 			  if (call_user_func($callable, $this, $con))
 			  {
@@ -516,10 +365,10 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 			}
 
 			if ($ret) {
-				RegistroPmtoMaquinaPeer::doDelete($this, $con);
+				ProximosEstadoPeer::doDelete($this, $con);
 				$this->postDelete($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseRegistroPmtoMaquina:delete:post') as $callable)
+				foreach (sfMixer::getCallables('BaseProximosEstado:delete:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con);
 				}
@@ -555,7 +404,7 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(RegistroPmtoMaquinaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(ProximosEstadoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
@@ -563,7 +412,7 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 		try {
 			$ret = $this->preSave($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseRegistroPmtoMaquina:save:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseProximosEstado:save:pre') as $callable)
 			{
 			  if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
 			  {
@@ -587,12 +436,12 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 				}
 				$this->postSave($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseRegistroPmtoMaquina:save:post') as $callable)
+				foreach (sfMixer::getCallables('BaseProximosEstado:save:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con, $affectedRows);
 				}
 
-				RegistroPmtoMaquinaPeer::addInstanceToPool($this);
+				ProximosEstadoPeer::addInstanceToPool($this);
 			} else {
 				$affectedRows = 0;
 			}
@@ -622,22 +471,22 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 			$this->alreadyInSave = true;
 
 			if ($this->isNew() ) {
-				$this->modifiedColumns[] = RegistroPmtoMaquinaPeer::RPM_CODIGO;
+				$this->modifiedColumns[] = ProximosEstadoPeer::PRE_CODIGO;
 			}
 
 			// If this object has been modified, then save it to the database.
 			if ($this->isModified()) {
 				if ($this->isNew()) {
-					$pk = RegistroPmtoMaquinaPeer::doInsert($this, $con);
+					$pk = ProximosEstadoPeer::doInsert($this, $con);
 					$affectedRows += 1; // we are assuming that there is only 1 row per doInsert() which
 										 // should always be true here (even though technically
 										 // BasePeer::doInsert() can insert multiple rows).
 
-					$this->setRpmCodigo($pk);  //[IMV] update autoincrement primary key
+					$this->setPreCodigo($pk);  //[IMV] update autoincrement primary key
 
 					$this->setNew(false);
 				} else {
-					$affectedRows += RegistroPmtoMaquinaPeer::doUpdate($this, $con);
+					$affectedRows += ProximosEstadoPeer::doUpdate($this, $con);
 				}
 
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
@@ -709,7 +558,7 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 			$failureMap = array();
 
 
-			if (($retval = RegistroPmtoMaquinaPeer::doValidate($this, $columns)) !== true) {
+			if (($retval = ProximosEstadoPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
@@ -732,7 +581,7 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = RegistroPmtoMaquinaPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = ProximosEstadoPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		$field = $this->getByPosition($pos);
 		return $field;
 	}
@@ -748,22 +597,19 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	{
 		switch($pos) {
 			case 0:
-				return $this->getRpmCodigo();
+				return $this->getPreCodigo();
 				break;
 			case 1:
-				return $this->getRpmMaqCodigo();
+				return $this->getPreEstado();
 				break;
 			case 2:
-				return $this->getRpmPmtoCodigo();
+				return $this->getPreObservacion();
 				break;
 			case 3:
-				return $this->getRpmFechaInicio();
+				return $this->getPreProxCodigo();
 				break;
 			case 4:
-				return $this->getRpmUsuRegistra();
-				break;
-			case 5:
-				return $this->getRpmFechaRegistro();
+				return $this->getPreUsuRegistra();
 				break;
 			default:
 				return null;
@@ -784,14 +630,13 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true)
 	{
-		$keys = RegistroPmtoMaquinaPeer::getFieldNames($keyType);
+		$keys = ProximosEstadoPeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getRpmCodigo(),
-			$keys[1] => $this->getRpmMaqCodigo(),
-			$keys[2] => $this->getRpmPmtoCodigo(),
-			$keys[3] => $this->getRpmFechaInicio(),
-			$keys[4] => $this->getRpmUsuRegistra(),
-			$keys[5] => $this->getRpmFechaRegistro(),
+			$keys[0] => $this->getPreCodigo(),
+			$keys[1] => $this->getPreEstado(),
+			$keys[2] => $this->getPreObservacion(),
+			$keys[3] => $this->getPreProxCodigo(),
+			$keys[4] => $this->getPreUsuRegistra(),
 		);
 		return $result;
 	}
@@ -808,7 +653,7 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = RegistroPmtoMaquinaPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = ProximosEstadoPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		return $this->setByPosition($pos, $value);
 	}
 
@@ -824,22 +669,19 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	{
 		switch($pos) {
 			case 0:
-				$this->setRpmCodigo($value);
+				$this->setPreCodigo($value);
 				break;
 			case 1:
-				$this->setRpmMaqCodigo($value);
+				$this->setPreEstado($value);
 				break;
 			case 2:
-				$this->setRpmPmtoCodigo($value);
+				$this->setPreObservacion($value);
 				break;
 			case 3:
-				$this->setRpmFechaInicio($value);
+				$this->setPreProxCodigo($value);
 				break;
 			case 4:
-				$this->setRpmUsuRegistra($value);
-				break;
-			case 5:
-				$this->setRpmFechaRegistro($value);
+				$this->setPreUsuRegistra($value);
 				break;
 		} // switch()
 	}
@@ -863,14 +705,13 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
 	{
-		$keys = RegistroPmtoMaquinaPeer::getFieldNames($keyType);
+		$keys = ProximosEstadoPeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setRpmCodigo($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setRpmMaqCodigo($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setRpmPmtoCodigo($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setRpmFechaInicio($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setRpmUsuRegistra($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setRpmFechaRegistro($arr[$keys[5]]);
+		if (array_key_exists($keys[0], $arr)) $this->setPreCodigo($arr[$keys[0]]);
+		if (array_key_exists($keys[1], $arr)) $this->setPreEstado($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setPreObservacion($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setPreProxCodigo($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setPreUsuRegistra($arr[$keys[4]]);
 	}
 
 	/**
@@ -880,14 +721,13 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function buildCriteria()
 	{
-		$criteria = new Criteria(RegistroPmtoMaquinaPeer::DATABASE_NAME);
+		$criteria = new Criteria(ProximosEstadoPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(RegistroPmtoMaquinaPeer::RPM_CODIGO)) $criteria->add(RegistroPmtoMaquinaPeer::RPM_CODIGO, $this->rpm_codigo);
-		if ($this->isColumnModified(RegistroPmtoMaquinaPeer::RPM_MAQ_CODIGO)) $criteria->add(RegistroPmtoMaquinaPeer::RPM_MAQ_CODIGO, $this->rpm_maq_codigo);
-		if ($this->isColumnModified(RegistroPmtoMaquinaPeer::RPM_PMTO_CODIGO)) $criteria->add(RegistroPmtoMaquinaPeer::RPM_PMTO_CODIGO, $this->rpm_pmto_codigo);
-		if ($this->isColumnModified(RegistroPmtoMaquinaPeer::RPM_FECHA_INICIO)) $criteria->add(RegistroPmtoMaquinaPeer::RPM_FECHA_INICIO, $this->rpm_fecha_inicio);
-		if ($this->isColumnModified(RegistroPmtoMaquinaPeer::RPM_USU_REGISTRA)) $criteria->add(RegistroPmtoMaquinaPeer::RPM_USU_REGISTRA, $this->rpm_usu_registra);
-		if ($this->isColumnModified(RegistroPmtoMaquinaPeer::RPM_FECHA_REGISTRO)) $criteria->add(RegistroPmtoMaquinaPeer::RPM_FECHA_REGISTRO, $this->rpm_fecha_registro);
+		if ($this->isColumnModified(ProximosEstadoPeer::PRE_CODIGO)) $criteria->add(ProximosEstadoPeer::PRE_CODIGO, $this->pre_codigo);
+		if ($this->isColumnModified(ProximosEstadoPeer::PRE_ESTADO)) $criteria->add(ProximosEstadoPeer::PRE_ESTADO, $this->pre_estado);
+		if ($this->isColumnModified(ProximosEstadoPeer::PRE_OBSERVACION)) $criteria->add(ProximosEstadoPeer::PRE_OBSERVACION, $this->pre_observacion);
+		if ($this->isColumnModified(ProximosEstadoPeer::PRE_PROX_CODIGO)) $criteria->add(ProximosEstadoPeer::PRE_PROX_CODIGO, $this->pre_prox_codigo);
+		if ($this->isColumnModified(ProximosEstadoPeer::PRE_USU_REGISTRA)) $criteria->add(ProximosEstadoPeer::PRE_USU_REGISTRA, $this->pre_usu_registra);
 
 		return $criteria;
 	}
@@ -902,9 +742,9 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function buildPkeyCriteria()
 	{
-		$criteria = new Criteria(RegistroPmtoMaquinaPeer::DATABASE_NAME);
+		$criteria = new Criteria(ProximosEstadoPeer::DATABASE_NAME);
 
-		$criteria->add(RegistroPmtoMaquinaPeer::RPM_CODIGO, $this->rpm_codigo);
+		$criteria->add(ProximosEstadoPeer::PRE_CODIGO, $this->pre_codigo);
 
 		return $criteria;
 	}
@@ -915,18 +755,18 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function getPrimaryKey()
 	{
-		return $this->getRpmCodigo();
+		return $this->getPreCodigo();
 	}
 
 	/**
-	 * Generic method to set the primary key (rpm_codigo column).
+	 * Generic method to set the primary key (pre_codigo column).
 	 *
 	 * @param      int $key Primary key.
 	 * @return     void
 	 */
 	public function setPrimaryKey($key)
 	{
-		$this->setRpmCodigo($key);
+		$this->setPreCodigo($key);
 	}
 
 	/**
@@ -935,27 +775,25 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 * If desired, this method can also make copies of all associated (fkey referrers)
 	 * objects.
 	 *
-	 * @param      object $copyObj An object of RegistroPmtoMaquina (or compatible) type.
+	 * @param      object $copyObj An object of ProximosEstado (or compatible) type.
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
 	 * @throws     PropelException
 	 */
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setRpmMaqCodigo($this->rpm_maq_codigo);
+		$copyObj->setPreEstado($this->pre_estado);
 
-		$copyObj->setRpmPmtoCodigo($this->rpm_pmto_codigo);
+		$copyObj->setPreObservacion($this->pre_observacion);
 
-		$copyObj->setRpmFechaInicio($this->rpm_fecha_inicio);
+		$copyObj->setPreProxCodigo($this->pre_prox_codigo);
 
-		$copyObj->setRpmUsuRegistra($this->rpm_usu_registra);
-
-		$copyObj->setRpmFechaRegistro($this->rpm_fecha_registro);
+		$copyObj->setPreUsuRegistra($this->pre_usu_registra);
 
 
 		$copyObj->setNew(true);
 
-		$copyObj->setRpmCodigo(NULL); // this is a auto-increment column, so set to default value
+		$copyObj->setPreCodigo(NULL); // this is a auto-increment column, so set to default value
 
 	}
 
@@ -968,7 +806,7 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 * objects.
 	 *
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-	 * @return     RegistroPmtoMaquina Clone of current object.
+	 * @return     ProximosEstado Clone of current object.
 	 * @throws     PropelException
 	 */
 	public function copy($deepCopy = false)
@@ -987,12 +825,12 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 * same instance for all member of this class. The method could therefore
 	 * be static, but this would prevent one from overriding the behavior.
 	 *
-	 * @return     RegistroPmtoMaquinaPeer
+	 * @return     ProximosEstadoPeer
 	 */
 	public function getPeer()
 	{
 		if (self::$peer === null) {
-			self::$peer = new RegistroPmtoMaquinaPeer();
+			self::$peer = new ProximosEstadoPeer();
 		}
 		return self::$peer;
 	}
@@ -1020,9 +858,9 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	 */
 	public function __call($method, $arguments)
 	{
-	  if (!$callable = sfMixer::getCallable('BaseRegistroPmtoMaquina:'.$method))
+	  if (!$callable = sfMixer::getCallable('BaseProximosEstado:'.$method))
 	  {
-	    throw new sfException(sprintf('Call to undefined method BaseRegistroPmtoMaquina::%s', $method));
+	    throw new sfException(sprintf('Call to undefined method BaseProximosEstado::%s', $method));
 	  }
 	
 	  array_unshift($arguments, $this);
@@ -1030,4 +868,4 @@ abstract class BaseRegistroPmtoMaquina extends BaseObject  implements Persistent
 	  return call_user_func_array($callable, $arguments);
 	}
 
-} // BaseRegistroPmtoMaquina
+} // BaseProximosEstado

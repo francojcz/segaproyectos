@@ -407,10 +407,10 @@ for (var i=1;i<=cantidadDias;i++)
                       case 'Ok': recargarDatosEstados();
                         break;
                       case '1':
-                        mensaje = 'No es posible agregar un estado a una fecha pasada.';
+                        mensaje = 'No es posible agregar un estado a una fecha pasada';
                         break;
                       case '2':
-                        mensaje = 'Solo puede registrar un estado por día.';
+                        mensaje = 'Solo puede registrar un estado por día';
                         break;
                     }
                     if(mensaje != null)
@@ -462,7 +462,7 @@ for (var i=1;i<=cantidadDias;i++)
                       case 'Ok': recargarDatosEstados();
                         break;
                       case '1':
-                        mensaje = 'No es posible eliminar un estado de una fecha pasada.';
+                        mensaje = 'No es posible eliminar un estado de una fecha pasada';
                         break;
                     }
                     if(mensaje != null)
@@ -509,9 +509,9 @@ for (var i=1;i<=cantidadDias;i++)
         },
         {
           dataIndex : 'observacion',
-          header : 'Observacion',
-          tooltip : 'Observacion',
-          width : 200,
+          header : 'Observación',
+          tooltip : 'Observación',
+          width : 300,
           align : 'center',
           editor : new Ext.form.TextField()
         },
@@ -593,62 +593,62 @@ for (var i=1;i<=cantidadDias;i++)
                     labelWidth: 40,
                     footer: false,
                     items: [meses_combobox]
-                    },{
+                }, {
                     width: '220',
                     layout: 'form',
                     labelWidth: 40,
                     footer: false,
                     items: [anos_combobox]
-                    },{
+                }, {
                     width: '220',
                     layout: 'form',
                     labelWidth: 40,
                     footer: false,
                     items: [maquinas_combobox]
-                    }, {
-                        xtype: 'button',
-                        text : 'Editar estado',
-                        tooltip: 'Editar estado de Mantenimiento',
-                        iconCls : 'evento',
-                        style: 'padding: 0px 25px 0px 0px',
-                        handler : function()      
-                        {           
-                            redirigirSiSesionExpiro();
-                            var sm = grid.getSelectionModel();
-                            var cell = sm.getSelectedCell();
-                            var column = cell[1];
-                            var row = cell[0];
-                            var dia = grid.getColumnModel().getColumnId(column);
-                            var registro = datastore.getAt(row);
-                            var valor = registro.get('dia '+dia);
-                            
-                            if(sm.hasSelection())
-                            {
-                                if(valor != '') {
-                                    recargarDatosEstados();
-                                    Ext.getBody().mask();
-                                    win.show();
-                                }
-                                else {
-                                    Ext.Msg.show({
-                                        title : 'Información',
-                                        msg : 'No se ha asignado ningún mantenimiento para el día seleccionado.',
-                                        buttons : Ext.Msg.OK,
-                                        icon : Ext.MessageBox.INFO
-                                    });
-                                }
-                            } else
-                            {
-                              Ext.Msg.show(
-                              {
-                                title : 'Información',
-                                msg : 'Primero debe seleccionar una día.',
-                                buttons : Ext.Msg.OK,
-                                icon : Ext.MessageBox.INFO
-                              });
+                }, {
+                    xtype: 'button',
+                    text : 'Editar estado',
+                    tooltip: 'Editar estado de Mantenimiento',
+                    iconCls : 'evento',
+                    style: 'padding: 0px 25px 0px 0px',
+                    handler : function()      
+                    {           
+                        redirigirSiSesionExpiro();
+                        var sm = grid.getSelectionModel();
+                        var cell = sm.getSelectedCell();
+                        var column = cell[1];
+                        var row = cell[0];
+                        var dia = grid.getColumnModel().getColumnId(column);
+                        var registro = datastore.getAt(row);
+                        var valor = registro.get('dia '+dia);
+
+                        if(sm.hasSelection())
+                        {
+                            if(valor != '') {
+                                recargarDatosEstados();
+                                Ext.getBody().mask();
+                                win.show();
                             }
-                          }
-                    }, {
+                            else {
+                                Ext.Msg.show({
+                                    title : 'Información',
+                                    msg : 'No se ha asignado ningún mantenimiento para el día seleccionado',
+                                    buttons : Ext.Msg.OK,
+                                    icon : Ext.MessageBox.INFO
+                                });
+                            }
+                        } else
+                        {
+                          Ext.Msg.show(
+                          {
+                            title : 'Información',
+                            msg : 'Primero debe seleccionar una día',
+                            buttons : Ext.Msg.OK,
+                            icon : Ext.MessageBox.INFO
+                          });
+                        }
+                      }
+                 }, {
                         xtype: 'button',
                         iconCls: 'exportar_excel',
                         text: 'Guardar en formato Excel',

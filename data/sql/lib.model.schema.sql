@@ -963,25 +963,54 @@ DROP TABLE IF EXISTS `seguimiento`;
 
 CREATE TABLE `seguimiento`
 (
-	`seg_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+        `seg_codigo` INTEGER(11) NOT NULL AUTO_INCREMENT,
         `seg_maq_codigo` INTEGER(11),
-	`seg_fecha` DATE,
+        `seg_fecha` DATE,
         `seg_estado` VARCHAR(50),
         `seg_observacion` VARCHAR(200),
         `seg_usu_registra` INTEGER(11),
-	PRIMARY KEY (`seg_codigo`),
+        PRIMARY KEY (`seg_codigo`),
         KEY `FK_reference_57`(`seg_usu_registra`),
         KEY `FK_reference_1`(`seg_maq_codigo`),
         CONSTRAINT `seg_maquina_FK_1`
-		FOREIGN KEY (`seg_maq_codigo`)
-		REFERENCES `maquina` (`maq_codigo`)
+                FOREIGN KEY (`seg_maq_codigo`)
+                REFERENCES `maquina` (`maq_codigo`)
+                ON UPDATE RESTRICT
+                ON DELETE RESTRICT,
+        CONSTRAINT `seg_usuario_FK_2`
+                FOREIGN KEY (`seg_usu_registra`)
+                REFERENCES `usuario` (`usu_codigo`)
+                ON UPDATE RESTRICT
+                ON DELETE RESTRICT
+);
+
+#-----------------------------------------------------------------------------
+#-- proximos_estado
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `proximos_estado`;
+
+
+CREATE TABLE `proximos_estado`
+(
+	`pre_codigo` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+        `pre_estado` VARCHAR(50),
+        `pre_observacion` VARCHAR(200),
+        `pre_prox_codigo` INTEGER(11),
+        `pre_usu_registra` INTEGER(11),
+	PRIMARY KEY (`pre_codigo`),
+        KEY `FK_reference_59`(`pre_usu_registra`),
+        KEY `FK_reference_10`(`pre_prox_codigo`),
+        CONSTRAINT `pre_proximo_FK_1`
+		FOREIGN KEY (`pre_prox_codigo`)
+		REFERENCES `registro_rep_maquina` (`rrm_codigo`)
 		ON UPDATE RESTRICT
 		ON DELETE RESTRICT,
-        CONSTRAINT `seg_maquina_FK_2`
-		FOREIGN KEY (`seg_usu_registra`)
-		REFERENCES `usuario` (`usu_codigo`)
-		ON UPDATE RESTRICT
-		ON DELETE RESTRICT
+        CONSTRAINT `pre_usuario_FK_2`
+                FOREIGN KEY (`pre_usu_registra`)
+                REFERENCES `usuario` (`usu_codigo`)
+                ON UPDATE RESTRICT
+                ON DELETE RESTRICT
 );
 
 #-----------------------------------------------------------------------------
