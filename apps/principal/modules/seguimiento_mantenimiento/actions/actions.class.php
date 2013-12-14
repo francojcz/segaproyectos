@@ -98,6 +98,7 @@ class seguimiento_mantenimientoActions extends sfActions
                    <Interior ss:Color="#4F81BD" ss:Pattern="Solid"/>
                   </Style>');
                 
+                //Asignar color a cada periodo
                 $colorDia1 = randomColor();
                 $this->renderText('
                 <Style ss:ID="1 Día Vencido">
@@ -115,7 +116,6 @@ class seguimiento_mantenimientoActions extends sfActions
                  <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
                  <Interior ss:Color="'.$colorDia1.'" ss:Pattern="Solid"/>
                 </Style>');
-                //Asignar color a cada periodo
                 for($i=2;$i<=31;$i++) {
                     $colorDias = randomColor();
                     $this->renderText('
@@ -218,8 +218,7 @@ class seguimiento_mantenimientoActions extends sfActions
                     <Cell ss:StyleID="s73"><Data ss:Type="String">Día 29</Data></Cell>    
                     <Cell ss:StyleID="s73"><Data ss:Type="String">Día 30</Data></Cell>    
                     <Cell ss:StyleID="s73"><Data ss:Type="String">Día 31</Data></Cell>    
-                   </Row>');
-                          
+                   </Row>');                          
                     
                   $maquina = MaquinaPeer::retrieveByPK($request->getParameter('codigo_maquina'));
                   
@@ -369,6 +368,22 @@ class seguimiento_mantenimientoActions extends sfActions
 
                     for($j=1;$j<=31;$j++){
                         $estado = 'Pendiente';
+                        $criterio1 = new Criteria();
+                        $criterio1 -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $request->getParameter('codigo_maquina'));
+                        $criterio1 -> add(SeguimientoPeer::SEG_FECHA, $ano_fin."-".$mes_fin."-".$j);                        
+                        $valor_estado = SeguimientoPeer::doSelectOne($criterio1);
+                        if($valor_estado != '') {
+                            $estado = $valor_estado->getSegEstado();                        
+                        }
+
+                        $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+                        $FechaActual = $dateTimeFechaActual -> getTimestamp();
+                        $dateTimeFechaRegistro = new DateTime($ano_fin."-".$mes_fin."-".$j);
+                        $FechaRegistro = $dateTimeFechaRegistro -> getTimestamp();
+                        if(($FechaActual > $FechaRegistro) && ($valor_estado == '')) {
+                            $estado = 'Vencido';
+                        }
+                        
                         if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
                             if($temp['dia '.$j]['Mes']==1) {
                                 $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
@@ -406,7 +421,7 @@ class seguimiento_mantenimientoActions extends sfActions
                       if($fields['dia '.$k]=='')
                           $colores['dia '.$k] = 's64';
                       else
-                          $colores['dia '.$k] = $fields['dia '.$k];
+                          $colores['dia '.$k] = $fields['dia '.$k].' '.$fields['estado dia '.$k];
                   }
                     
 
@@ -522,31 +537,79 @@ class seguimiento_mantenimientoActions extends sfActions
                    <Interior ss:Color="#4F81BD" ss:Pattern="Solid"/>
                   </Style>');
                     
-                  $this->renderText('
-                <Style ss:ID="1 Día">
-                 <Alignment ss:Horizontal="Center"/>
-                 <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
-                </Style>');
-                //Asignar color a cada periodo
-                for($i=2;$i<=31;$i++) {
+                  //Asignar color a cada periodo
+                    $colorDia1 = randomColor();
                     $this->renderText('
-                      <Style ss:ID="'.$i.' Días">
-                       <Alignment ss:Horizontal="Center"/>
-                       <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
-                      </Style>');
-                }
-                $this->renderText('
-                <Style ss:ID="1 Mes">
-                 <Alignment ss:Horizontal="Center"/>
-                 <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
-                </Style>');
-                for($j=2;$j<=60;$j++) {
+                    <Style ss:ID="1 Día Vencido">
+                     <Alignment ss:Horizontal="Center"/>
+                     <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                     <Interior ss:Color="'.$colorDia1.'" ss:Pattern="Solid"/>
+                    </Style>
+                    <Style ss:ID="1 Día Realizado">
+                     <Alignment ss:Horizontal="Center"/>
+                     <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorDia1.'"/>
+                     <Interior ss:Color="'.$colorDia1.'" ss:Pattern="Solid"/>
+                    </Style>
+                    <Style ss:ID="1 Día Pendiente">
+                     <Alignment ss:Horizontal="Center"/>
+                     <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                     <Interior ss:Color="'.$colorDia1.'" ss:Pattern="Solid"/>
+                    </Style>');
+                    for($i=2;$i<=31;$i++) {
+                        $colorDias = randomColor();
+                        $this->renderText('
+                          <Style ss:ID="'.$i.' Días Vencido">
+                           <Alignment ss:Horizontal="Center"/>
+                           <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                           <Interior ss:Color="'.$colorDias.'" ss:Pattern="Solid"/>
+                          </Style>
+                          <Style ss:ID="'.$i.' Días Realizado">
+                           <Alignment ss:Horizontal="Center"/>
+                           <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorDias.'"/>
+                           <Interior ss:Color="'.$colorDias.'" ss:Pattern="Solid"/>
+                          </Style>
+                          <Style ss:ID="'.$i.' Días Pendiente">
+                           <Alignment ss:Horizontal="Center"/>
+                           <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                           <Interior ss:Color="'.$colorDias.'" ss:Pattern="Solid"/>
+                          </Style>');
+                    }
+                    $colorMes1 = randomColor();
                     $this->renderText('
-                      <Style ss:ID="'.$j.' Meses">
-                       <Alignment ss:Horizontal="Center"/>
-                       <Interior ss:Color="'.randomColor().'" ss:Pattern="Solid"/>
-                      </Style>');
-                }
+                    <Style ss:ID="1 Mes Vencido">
+                     <Alignment ss:Horizontal="Center"/>
+                     <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                     <Interior ss:Color="'.$colorMes1.'" ss:Pattern="Solid"/>
+                    </Style>
+                    <Style ss:ID="1 Mes Realiado">
+                     <Alignment ss:Horizontal="Center"/>
+                     <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorMes1.'"/>
+                     <Interior ss:Color="'.$colorMes1.'" ss:Pattern="Solid"/>
+                    </Style>
+                    <Style ss:ID="1 Mes Pendiente">
+                     <Alignment ss:Horizontal="Center"/>
+                     <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                     <Interior ss:Color="'.$colorMes1.'" ss:Pattern="Solid"/>
+                    </Style>');
+                    for($j=2;$j<=60;$j++) {
+                        $colorMeses = randomColor();
+                        $this->renderText('
+                          <Style ss:ID="'.$j.' Meses Vencido">
+                           <Alignment ss:Horizontal="Center"/>
+                           <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#FF0000"/>
+                           <Interior ss:Color="'.$colorMeses.'" ss:Pattern="Solid"/>
+                          </Style>
+                          <Style ss:ID="'.$j.' Meses Realizado">
+                           <Alignment ss:Horizontal="Center"/>
+                           <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="'.$colorMeses.'"/>
+                           <Interior ss:Color="'.$colorMeses.'" ss:Pattern="Solid"/>
+                          </Style>
+                          <Style ss:ID="'.$j.' Meses Pendiente">
+                           <Alignment ss:Horizontal="Center"/>
+                           <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+                           <Interior ss:Color="'.$colorMeses.'" ss:Pattern="Solid"/>
+                          </Style>');
+                    }
                 
                 $this->renderText('
                   <Style ss:ID="s74">
@@ -754,32 +817,61 @@ class seguimiento_mantenimientoActions extends sfActions
                         }
 
                         for($j=1;$j<=31;$j++){
-                            if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
-                                if($temp['dia '.$j]['Mes']==1)
+                            $estado = 'Pendiente';
+                            $criterio2 = new Criteria();
+                            $criterio2 -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $maquina->getMaqCodigo());
+                            $criterio2 -> add(SeguimientoPeer::SEG_FECHA, $ano_fin."-".$mes_fin."-".$j);                        
+                            $valor_estado = SeguimientoPeer::doSelectOne($criterio2);
+                            if($valor_estado != '') {
+                                $estado = $valor_estado->getSegEstado();                        
+                            }
+//
+                            $dateTimeFechaActual = new DateTime(date('Y-m-d'));
+                            $FechaActual = $dateTimeFechaActual -> getTimestamp();
+                            $dateTimeFechaRegistro = new DateTime($ano_fin."-".$mes_fin."-".$j);
+                            $FechaRegistro = $dateTimeFechaRegistro -> getTimestamp();
+                            if(($FechaActual > $FechaRegistro) && ($valor_estado == '')) {
+                                $estado = 'Vencido';
+                            }
+                            
+                           if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']!=''){
+                                if($temp['dia '.$j]['Mes']==1) {
                                     $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                                if($temp['dia '.$j]['Mes']>1)
+                                    $fields['estado dia '.$j] = $estado;
+                                }
+                                if($temp['dia '.$j]['Mes']>1) {
                                     $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
+                                    $fields['estado dia '.$j] = $estado;
+                                }
                             }
                             if($temp['dia '.$j]['Dia']!='' && $temp['dia '.$j]['Mes']==''){
-                                if($temp['dia '.$j]['Dia']==1)
+                                if($temp['dia '.$j]['Dia']==1) {
                                     $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Día';
-                                if($temp['dia '.$j]['Dia']>1)
+                                    $fields['estado dia '.$j] = $estado;
+                                }
+                                if($temp['dia '.$j]['Dia']>1) {
                                     $fields['dia '.$j] = $temp['dia '.$j]['Dia'].' Días';
+                                    $fields['estado dia '.$j] = $estado;
+                                }
                             }
                             if($temp['dia '.$j]['Dia']=='' && $temp['dia '.$j]['Mes']!=''){
-                                if($temp['dia '.$j]['Mes']==1)
+                                if($temp['dia '.$j]['Mes']==1) {
                                     $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Mes';
-                                if($temp['dia '.$j]['Mes']>1)
+                                    $fields['estado dia '.$j] = $estado;
+                                }
+                                if($temp['dia '.$j]['Mes']>1) {
                                     $fields['dia '.$j] = $temp['dia '.$j]['Mes'].' Meses';
+                                    $fields['estado dia '.$j] = $estado;
+                                }
                             }
                         }
-                        
+
                           $colores = array();
                           for($k=1;$k<=31;$k++) {
                               if($fields['dia '.$k]=='')
                                   $colores['dia '.$k] = 's64';
                               else
-                                  $colores['dia '.$k] = $fields['dia '.$k];
+                                  $colores['dia '.$k] = $fields['dia '.$k].' '.$fields['estado dia '.$k];
                           }
 
 
