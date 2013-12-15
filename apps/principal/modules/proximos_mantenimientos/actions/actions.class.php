@@ -472,9 +472,9 @@ class proximos_mantenimientosActions extends sfActions
 		$result = array();
 		$data = array();
                 
-                $estado = array('Realizado');
+                $estado = array('Realizado', 'Vencido', 'Pendiente');
 
-		for($i=0;$i<1;$i++) {
+		for($i=0;$i<3;$i++) {
                     $fields = array();
                     
                     $fields['codigo'] = ($i+1);
@@ -509,7 +509,7 @@ class proximos_mantenimientosActions extends sfActions
             $criteria -> add(ProximosEstadoPeer::PRE_PROX_CODIGO, $request->getParameter('cod_prox'));
             $registro_prox += ProximosEstadoPeer::doSelectOne($criteria);
             
-            $estado = array('','Realizado');
+            $estado = array('', 'Realizado', 'Vencido', 'Pendiente');
             
             if($registro_prox == ''){
                 $registro = new ProximosEstado();

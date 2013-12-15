@@ -1547,9 +1547,9 @@ class seguimiento_mantenimientoActions extends sfActions
 		$result = array();
 		$data = array();
                 
-                $estado = array('Realizado');
+                $estado = array('Realizado', 'Vencido', 'Pendiente');
 
-		for($i=0;$i<1;$i++) {
+		for($i=0;$i<3;$i++) {
                     $fields = array();
                     
                     $fields['codigo'] = ($i+1);
@@ -1584,7 +1584,7 @@ class seguimiento_mantenimientoActions extends sfActions
             $criteria -> add(SeguimientoPeer::SEG_MAQ_CODIGO, $request->getParameter('maq_codigo'));
             $registro_seg += SeguimientoPeer::doSelectOne($criteria);
             
-            $estado = array('','Realizado');
+            $estado = array('', 'Realizado', 'Vencido', 'Pendiente');
             
             if($registro_seg == ''){
                 $registro = new Seguimiento();
