@@ -1,6 +1,6 @@
 
 var ayuda_usu_login = 'Ingrese el login suministrado para poder ingresar al sistema';
-var ayuda_usu_password = 'Ingrese el password suministrado para poder ingresar al sistema';
+var ayuda_usu_password = 'Ingrese la contrase&ntilde;a suministrada para poder ingresar al sistema';
 
 var login_panel = new Ext.form.FormPanel({
     autoHeight: true,
@@ -38,7 +38,7 @@ var login_panel = new Ext.form.FormPanel({
             }
         }
     }, {
-        fieldLabel: 'Password',
+        fieldLabel: 'Contrase&ntilde;a',
         inputType: 'password',
         maxLength: 32,
         minLength: 4,
@@ -115,17 +115,17 @@ function login_autenticar(){
         url: getAbsoluteUrl('login', 'autenticar'),
         params: {
             usu_login: Ext.getCmp('usu_login').getValue(),
-            usu_password_encriptada: hex_md5(Ext.getCmp('usu_password').getValue()),
+            usu_password: Ext.getCmp('usu_password').getValue(),
             certificado: certificado
         },
         success: function(response, action){
             obj = Ext.util.JSON.decode(response.responseText);
             if (obj.success) {
                 if (obj.mensaje == '1') {
-                    window.location = getAbsoluteUrl('interfaz_superadmin', 'index');
+                    window.location = getAbsoluteUrl('administrador', 'index');
                 }
                 if (obj.mensaje == '2') {
-                    window.location = getAbsoluteUrl('interfaz_admin', 'index');
+                    window.location = getAbsoluteUrl('coordinador', 'index');
                 }
                 if (obj.mensaje == '3') {
                     window.location = getAbsoluteUrl('ingreso_datos', 'index');

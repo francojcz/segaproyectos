@@ -5,10 +5,10 @@ include(dirname(__FILE__).'/../../bootstrap/functional.php');
 $browser = new sfTestFunctional(new sfBrowser());
 
 $browser->
-  get('/interfaz_superadmin/index')->
+  get('/administrador/index')->
 
   with('request')->begin()->
-    isParameter('module', 'interfaz_superadmin')->
+    isParameter('module', 'administrador')->
     isParameter('action', 'index')->
   end()->
 

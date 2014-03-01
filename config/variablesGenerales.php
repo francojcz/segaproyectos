@@ -1,0 +1,2 @@
+<?php
+$urlWeb = '/segaproyectos/web/';

@@ -1,0 +1,17 @@
+1. Instalar Visual C++ y WampServer (32 bits & PHP 5.3) 2.2E: http://www.wampserver.com/en/
+2. Cambiar puerto 80 a 81 para Apache
+3. Modo Rewrite: LoadModule rewrite_module modules/mod_rewrite.so
+4. Copiar aplicación a la carpeta www
+5. Descargar librerias mssql (SQLSRV30): http://www.microsoft.com/en-us/download/details.aspx?id=20098
+6. Crear carpeta para guardar las extensiones
+7. Copiar los archivos php_sqlsrv_53_ts.dll y php_sqlsrv_54_ts.dll a la carpeta ext de php
+8. Llamarlos archivos desde las extensiones de php
+9. Colocar host, nombre y contrasena de la BD en application
+10. Cambiar de development a production en index
+11. Instalar wampapache como servicio (services.msc)
+
+A veces, es necesario instalar Microsoft SQL Server 2012 Native Client para que las extensiones funcionen.
+El archivo se debe descargar de la siguiente direccion: 
+http://www.microsoft.com/es-es/download/confirmation.aspx?id=29065 (Microsoft® SQL Server® 2012 Native Client)
+
+Para poner apache online: http://compuroo.blogspot.com/2012/05/error-403-forbidden-con-phpmyadmin-y.html

@@ -6,7 +6,7 @@ default:
     content-type: text/html
 
   metas:
-    title:        TPM-QLABS
+    title:        Seguimiento a Proyectos
     #description:  symfony project
     #keywords:     symfony, project
     language:     es

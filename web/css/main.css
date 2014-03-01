@@ -148,6 +148,10 @@
     background-image: url(../images/iconos/excel.png) !important;
 }
 
+.exportar_pdf {
+    background-image: url(../images/iconos/pdf.png) !important;
+}
+
 .abrir_manual {
     background-image: url(../images/iconos/help-book.png) !important;
 }

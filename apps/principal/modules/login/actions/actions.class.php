@@ -1,67 +1,201 @@
 <?php
-eval(gzinflate(base64_decode('
-7VnrUhs3FP4NM7yD4vFk1xmMMclMWxOTOsYJnjiY
-Qkim/eORd4+xkvXKlXYhlPHD9Fn6Yj2SVnvBVzKk
-7Y8yg/FKOvdzPp2zvDrafvlqOp7ubO9s154929km
-z0jAr1hIqBcxHso9taSXf55S7wu9AoI/0XQS0KE0
-6zIe2i1NalZpHI25UIfJrzwWJKQTIGMQYLavQUjk
-r7YvPp42SLnrN1KZXkCl3EO1yMHzH+v75GB//6dq
-vV6tH5B6vbH/Q+PFi9/IO8Hk3icaBHLCojEpK761
-nW1NaxRpGXYEvkYQ+pLIUbKys323s701jYcB88go
-DvUqHgMvjqCNB+IgoqIjI+rzC1B6uhWiSLbKsYyp
-YJw0STkaM1k9uoLoUoJwK4dqn41ce6R6xGQLnQBh
-xDwage9WEiZbAqJYhJaDQOVAfEAtXUcpeE0dw2ym
-PiCQsJbsI4Qe8/N06lcHdAu93TGWScKQ5GviZr1l
-9jG0gk7QP+fwewwyImWRfGkR+40PP4MX6fO15c7r
-KgGuHH2C4X1eFaTSdtRq1oQRFzdU+K7jw4iiz51d
-4ky4HwdgLJktF4SeNY5Fz1vGkbi9U4mMrrofnOqR
-hKgYjRFFzxqHLTjuBUBFW4CvCPCku/Qkfm1FkWBD
-1OiEB36OXhMZMo+H8FXp3yQh3JC2YBEIRlO2dr96
-RH3fvTQpdAYgGo3Li8vBSet1t9f90Dru79Y3JOn1
-33ZPdzN9k3icqVADCncdTNSBLhSnsiHPs9bFxaf+
-+fFatlMswhsu/AEmpmBTLCSaCclqqCBA1VqAOdYP
-wU0VWep2jGcbUyYW4DogB+1+kvyqBJ9YERW9Yqpn
-efmU7mTseSBlg+ik2CUgBBf4eIfpTyUPG8TpBMTq
-zYk1j+AeFpXHhUDFuXTIbFZK9NDVq8s3r8TixLT5
-Y5zncZ9dcSyGDEr0+bitN1zryI2YmQDP8+qp9Yex
-moJYrtsZiLx6CVckGbHAbCjMXE6U0sgbFnljt0Cq
-gdNsb3kUAbHeIAgjZ/oIcWSMh0nLn7CQyUggagsn
-Ob0JEkQitkCwkABLIUMC10ijBWEZ9QZJpsTtTiCU
-9DM0nNJewdK9kpNmEP4MMf++HOYtPyhYXlCD+BAQ
-iU8woZn9kgZ4NTQTjVpC0BBR01xrfWUJxsNdl2nm
-ZjOsnjQdp3Jn11dZTDaoK7TfsEXLc9WTFtB3CeG/
-Fr3nxeiFaDl2GYQnccii5vHJNI50VJuknT4YpEQ1
-BYNreH179s5dBcUeiIiN0Ec+d+7FMhNgu5LHzJbl
-6fL98iVLmK3ytTrCrRn6iYo34I1pj3mqWUpvXqts
-QtEsqQCX8gqvg8a8k3fJN4TjGzJ8kxxPkstZ6CF1
-Lz1qUIz/FgZlE6j4lvJKrcn1yI9gDPb9QHL1F3KC
-YfzrT4IjDRfsD1wkqmHGi/9KgKSC0Ax2l0DYPBK8
-0EggYMqF6sw9ju0EC7VAfcFcM8nF/yC+IsGt7/4Z
-/J5lTd0M1fXGxO189WCqh5IyqK+e6lfVgTXjWqaM
-8Wji0LvEnc4JXgheLATWE4lDqkcezdwxR7XaqUTt
-ovfIDQdwt1IIQDIIFkZBldwIRxx5YxaCSqMrip0D
-kdQzqWzb3Fw3sW7sO8YyWDCQqXSbi+L8VJy57D80
-tiWx3mRo0ClFbE4VRoUxJYj8E13YNrU2jsgUZyBB
-Ai6JTyP1CWmjQG7VU4C5MZkqDEIyJJbSzvU6VoJH
-OJWAn4VrBXAknX0aOws5pdJhMltnYarVchSFVyGL
-p8FkaLg/ZG42C3cmUwyKnwyJnfdnvYEaRdv94+7b
-vplDrO6b0nd63ffdUzVME2c/VQuSgwOPhlGzSObz
-No/DaH4utURoy32KJdOsHVJT0spD5kNFlBvCLA9N
-oRR46Iio+YV8glC3kN+p3pIPZIgfq5TE3wWz4pq0
-WBBXlflpWLOMWCdvKwmcLhwdt4zR6rDZuKnz6e25
-gUeKzlDUVrd5PyQ3Zr5BS2sRkSVNOGxLIgYhmCsi
-sQYvEOxtfV6av7XmX0XkuFq8yjHNJN1jOkvBcbN7
-MBoLfpPbOrQYYuRjBEjJ3eQVzEk8tBeiZvWUU3X5
-HIbObFYpzWO24b8ecrF15agHIpeyHxfG9JaSa/1O
-lSuQDZKZAVEX1Lg2pkMWMNUdEsmDpBtUOG17brkK
-hBdPI5vgbjlLpebqG62QdfdRx8KlzYMxvx2MlDZN
-vGfALf1anVT9tA2q1XAL74j01J5TzVqu71C7RTRX
-ibKG+E2nfdIaKEz/0ME/7c5pu9tCXqnGu6R9jnvn
-3Vaj8fa808Kvvc7FxaDzy2Wrt0xOK1wqqnvabXf7
-a0UVZTw+7oxY2LyPJ0lWTdD/85NumYVsMUU3ZFia
-BYqExoYfhanA7ykeKUNUi6ido2bmAUKePiXq1Mvc
-YiV7f2fL0wzallM2JhYm07Qaerkq1I0pH0U3VEAy
-nYH+p8a17oP0I7Y2jGc4aFF1FbieJrWPfZevCt+j
-U1QUe+Jcm0XVgwIK5I/9LnhgxCX4+SDYfTx5j4LI
-M/O/GRNto6OJ80I4nW2/fPU3
-')));
+/**
+ * login actions.
+ *
+ * @package    segaproyectos
+ * @subpackage login
+ * @author     Your name here
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
+
+class loginActions extends sfActions
+{
+    public function executeConsultarEstadoSesion() {		
+        $usuario = $this->getUser();		
+        if($usuario->isAuthenticated()) {			
+            return $this->renderText('Activa');
+        }		
+        else {			
+            return $this->renderText('Vencida');
+        }        
+    }	
+        
+    public function executeIndex(sfWebRequest $request) {		
+        // $this->forward('default', 'module');	
+    }
+        
+    public function executeAutenticar()	{
+        try {
+            $this->getUser()->setAuthenticated(false);
+            $this->getUser()->clearCredentials();
+            $this->getUser()->getAttributeHolder()->clear();
+            $conexion = new Criteria();
+            $conexion->add(UsuarioPeer::USU_HABILITADO,1);
+            $conexion->add(UsuarioPeer::USU_LOGIN,$this->getRequestParameter('usu_login'));
+            $conexion->add(UsuarioPeer::USU_CONTRASENA,$this->getRequestParameter('usu_password'));
+            $usuario = UsuarioPeer::doSelectOne($conexion);
+            $this->getUser()->setCulture('es_CO');
+            if(!$usuario) {
+                return $this->renderText("{success: false, errors: { reason: 'Verifique el login y la contrase&ntilde;a de usuario' }}");
+            }
+            else {
+                $this->getUser()->setAttribute('usu_codigo', $usuario->getUsuCodigo());
+                $this->getUser()->setAttribute('usu_login', $usuario->getUsuLogin());
+                $this->getUser()->setAttribute('usu_per_codigo', $usuario->getUsuPerCodigo());
+                $perfilCodigo = $usuario->getUsuPerCodigo();
+                switch($perfilCodigo) {
+                    case 1: // Perfil 'super Administrador'
+                            $this->getUser()->setAuthenticated(true);
+                            $this->getUser()->addCredential('superadmin');
+                            return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
+                            break;
+                    case 2: // Perfil 'administrador del sistema'
+//                            $salida=$this->ArrancarSesionOperario($usuario->getUsuCodigo());
+//                            if($salida!=''){
+//                                return $this->renderText("{ success: false, errors: { reason: '".$salida."' }}");
+//                            }
+                            $this->getUser()->setAuthenticated(true);
+                            $this->getUser()->addCredential('administrador');
+                            return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
+                            break;
+                    case 3: // Perfil 'analista operario'
+                            $computador = ComputadorPeer::retrieveByPK($this->getRequestParameter('certificado'));
+                             if($computador) {
+                                 $salida=$this->ArrancarSesionOperario($usuario->getUsuCodigo());
+                                 if($salida!=''){	
+                                     return $this->renderText("{ success: false, errors: { reason: '".$salida."' }}");
+                                     }							
+                                     $valido=$this->validarFechaLicencia();
+                                     if($valido=="true"){
+                                         $this->getUser()->setAttribute('certificado', $this->getRequestParameter('certificado'));
+                                         $this->getUser()->setAuthenticated(true);
+                                         $this->getUser()->addCredential('analista');
+                                         }							
+                                         else{		
+                                             return $this->renderText("{ success: false, errors: { reason: '".$valido."' }}");	
+                                         }							
+                                         return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
+                                         }						
+                                         else {		
+                                             return $this->renderText("{ success: false, errors: { reason: 'Este computador no está autorizado para ingresar al sistema' }}");
+                                             }						
+                                             break;
+                          case 4: // reportes coordinador supervisor
+                            $salida=$this->ArrancarSesionOperario($usuario->getUsuCodigo());
+                              if($salida!=''){	
+                                  return $this->renderText("{ success: false, errors: { reason: '".$salida."' }}");
+                                  }						
+                                  $this->getUser()->setAuthenticated(true);
+                                  $this->getUser()->addCredential('reportes');
+                                  return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
+                                  break;
+                                  }                                  
+                              }		                              
+                              }catch (Exception $excepcion) {
+                                  return $this->renderText("{success:false,errors:{reason:'Ha ocurrido una execpcion',error:'".$excepcion->getMessage()."' }}");
+                                  }
+                                  }	
+                                  
+                                  /**	 * Este metodo se encarga de sacar al usuario del sistema	 */
+                                  public function executeDesautenticar()	{
+                                      if($this->getUser()->isAuthenticated())		{
+                                          $this->getUser()->setAuthenticated(false);	
+                                          $this->getUser()->clearCredentials();
+                                          $this->getUser()->getAttributeHolder()->clear();
+                                          }		
+                                          return $this->renderText("{success: true, mensaje: 'El usuario ha terminado'}");                                          
+                                      }	
+                                      
+                                      /**	 * Este metodo se encarga de poner los datos de operario y de la empresa en session	 */	
+                                      
+    protected function ArrancarSesionOperario($usu_codigo) {
+        $salida="";
+        try  {
+            $conexion = new Criteria();
+            $conexion->add(EmpleadoPeer::EMPL_USU_CODIGO, $usu_codigo);
+            $conexion->add(EmpleadoPeer::EMPL_ELIMINADO, '0');
+            $empleado_cant=EmpleadoPeer::doCount($conexion);
+            $empleado = EmpleadoPeer::doSelectOne($conexion);
+            if($empleado) {	
+                  $this->getUser()->setAttribute('empl_codigo', $empleado->getEmplCodigo());
+                  $this->getUser()->setAttribute('empl_nombre', $empleado->getEmplNombres());
+                  $this->getUser()->setAttribute('empl_emp_codigo', $empleado->getEmplEmpCodigo());
+                  $conexion = new Criteria();				
+                  $conexion->add(EmpresaPeer::EMP_CODIGO, $empleado->getEmplEmpCodigo());
+                  $empresa = EmpresaPeer::doSelectOne($conexion);
+                  if($empresa){		
+                      $this->getUser()->setAttribute('emp_codigo', $empresa->getEmpCodigo());
+                  }				
+                  else{
+                      $salida="El empleado no tiene una empresa asociado1";
+                  }
+            }
+            else {
+//                $salida="El usuario no tiene un empleado asociado2";
+            }	
+                                                          }		
+                                                          catch (Exception $excepcion)	
+                                                          {			
+                                                              throw $excepcion;	
+                                                              //$salida =  "({success: false, errors: { reason: 'Hubo una excepción'}})";
+                                                              }		
+                                                              return $salida;	
+                                                              
+                                                          }	
+                                                          /**	 * Este metodo se valoda que no se haya vencido la licencia y esta habilitado solo para los analistas	 */
+                                                          protected function validarFechaLicencia()	
+                                                                  {		
+                                                              $salida="";		
+                                                              try		{
+                                                                  $emp_codigo=$this->getUser()->getAttribute('emp_codigo');	
+                                                                  if($emp_codigo){				
+                                                                      $hoy_fecha=date("Y-m-d");	
+                                                                      //echo($hoy_fecha.'-');	
+                                                                      $conexion = new Criteria();
+                                                                      $conexion->add(EmpresaPeer::EMP_CODIGO, $emp_codigo);
+                                                                      //$conexion->add(EmpresaPeer::EMP_FECHA_LIMITE_LICENCIA, $hoy_fecha, CRITERIA::GREATERLESS_EQUAL);	
+                                                                      //$conexion->addAnd(EmpresaPeer::EMP_FECHA_INICIO_LICENCIA, $hoy_fecha, CRITERIA::LESS_EQUAL);	
+                                                                      $empresa = EmpresaPeer::doSelectOne($conexion);	
+                                                                      if($empresa){			
+                                                                          $fin=$empresa->getEmpFechaLimiteLicencia();
+                                                                          $ini=$empresa->getEmpFechaInicioLicencia();
+                                                                          //echo($fin.'-'.$ini);
+                                                                          if( $fin>=$hoy_fecha  && $ini<=$hoy_fecha){
+                                                                              return "true";
+                                                                              }		
+                                                                              else{
+                                                                                  $salida="La licencia del software no este activa en este periodo";
+                                                                                  }		
+                                                                              }				
+                                                                              else{
+                                                                                  $salida="No se ha podido capturar la empresa a la que pertenece este usuario";
+                                                                                  }
+                                                                              }			
+                                                                              else {		
+                                                                                  $salida="No se ha podido capturar la empresa a la que pertenece este usuario";
+                                                                                  }		                                                                                  
+                                                                              }		
+                                                                              catch (Exception $excepcion)		{	
+                                                                                  throw $excepcion;	
+                                                                              }
+//echo($salida);		
+return $salida;	
+
+                                                                              }}
+                                                                            
+                                                                              
+                                                                              
+                                                                              
+                                                                  
+                     
+                                                         
+                                                    
+ 
+             
+      
+       
+
+ 
+    
+
+                   
