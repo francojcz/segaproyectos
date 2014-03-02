@@ -1,6 +1,6 @@
 var ayuda_concepto_codigo='Código del Concepto';
 var ayuda_concepto_nombre='Nombre del Concepto';
-var largo_panel = 500;
+var largo_panel = 450;
 
 var concepto_datastore = new Ext.data.Store({
 id: 'concepto_datastore',

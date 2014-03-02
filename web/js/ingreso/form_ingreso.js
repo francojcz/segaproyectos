@@ -3,7 +3,7 @@ var ayuda_ing_concepto='Ingrese una descripción del ingreso';
 var ayuda_ing_valor='Ingrese el valor del ingreso';
 var ayuda_ing_fecha='Ingrese la fecha del ingreso';
 var ayuda_ing_proyecto='Seleccione el proyecto';
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_ingreso_datastore = new Ext.data.Store({
 id: 'crud_ingreso_datastore',

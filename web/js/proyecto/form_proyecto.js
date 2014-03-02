@@ -12,7 +12,7 @@ var ayuda_pro_ejecutor='Seleccione el ejecutor del proyecto';
 var ayuda_pro_tipo='Seleccione el tipo de proyecto';
 var ayuda_pro_otro_tipo='Ingrese otro tipo del proyecto'; 
 
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_proyecto_datastore = new Ext.data.Store({
 id: 'crud_proyecto_datastore',
@@ -450,6 +450,7 @@ var crud_proyecto_formpanel = new Ext.FormPanel({
         defaults:{  anchor:'98%'},
         labelWidth: 190,
         fileUpload: true,
+        autoScroll: true,
         items:
         [       
                 pro_codigo,

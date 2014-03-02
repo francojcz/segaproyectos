@@ -3,7 +3,7 @@ var ayuda_egr_concepto='Seleccione el concepto del egreso';
 var ayuda_egr_valor='Ingrese el valor del egreso';
 var ayuda_egr_fecha='Ingrese la fecha del egreso';
 var ayuda_egr_proyecto='Seleccione el proyecto';
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_egreso_datastore = new Ext.data.Store({
 id: 'crud_egreso_datastore',

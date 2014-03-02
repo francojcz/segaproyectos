@@ -1,4 +1,4 @@
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_asignacion_datastore = new Ext.data.Store({
 id: 'crud_asignacion_datastore',

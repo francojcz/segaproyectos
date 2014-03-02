@@ -7,7 +7,7 @@ var ayuda_org_correo='Ingrese el correo electrónico de la organización';
 var ayuda_org_nombre_contacto='Ingrese el nombre de la persona de contacto';
 var ayuda_org_telefono='Ingrese el teléfono de la organización';
 var ayuda_org_tipo='Seleccione el tipo de organización';
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_organizacion_datastore = new Ext.data.Store({
 id: 'crud_organizacion_datastore',
@@ -299,7 +299,7 @@ var organizacionesporproyecto_gridpanel = new Ext.grid.GridPanel({
         ds: organizacionesporproyecto_datastore,
         cm: organizacionporproyecto_colmodel,
         sm: organizacionporproyecto_pertenece_selmodel,
-        height: 210,
+        height: 260,
         tbar:[
                 proyecto_codigo,
                 {text:'Agregar a Organizaci&oacute;n',iconCls:'agregar',
@@ -357,7 +357,7 @@ var crud_organizacion_formpanel = new Ext.FormPanel({
         region:'east',
         split:true,
         collapsible:true,
-        width:400,
+        width:450,
         border:true,
         title:'Registro de Organizaci&oacute;n',
         //autoWidth: true,
@@ -368,6 +368,7 @@ var crud_organizacion_formpanel = new Ext.FormPanel({
         padding:10,
         defaults:{  anchor:'98%'},
         labelWidth: 150,
+        autoScroll: true,
 //        fileUpload: true,
         items:
         [   

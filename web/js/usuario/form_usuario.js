@@ -5,7 +5,7 @@ var ayuda_usu_recontrasena='Repetir contrasena de usuario, mínimo 6 caracteres'
 var ayuda_usu_perfil='Seleccione el perfil de usuario';
 var ayuda_usu_persona='Seleccione la persona a la cual le asignará el usuario';
 var ayuda_usu_habilitado = 'Seleccione si el usuario se encuentra habilitado';
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_usuario_datastore = new Ext.data.Store({
 id: 'crud_usuario_datastore',

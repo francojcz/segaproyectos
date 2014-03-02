@@ -44,69 +44,34 @@ class loginActions extends sfActions
                 $this->getUser()->setAttribute('usu_per_codigo', $usuario->getUsuPerCodigo());
                 $perfilCodigo = $usuario->getUsuPerCodigo();
                 switch($perfilCodigo) {
-                    case 1: // Perfil 'super Administrador'
+                    case 1: 
                             $this->getUser()->setAuthenticated(true);
                             $this->getUser()->addCredential('superadmin');
                             return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
                             break;
-                    case 2: // Perfil 'administrador del sistema'
-//                            $salida=$this->ArrancarSesionOperario($usuario->getUsuCodigo());
-//                            if($salida!=''){
-//                                return $this->renderText("{ success: false, errors: { reason: '".$salida."' }}");
-//                            }
+                    case 2: 
                             $this->getUser()->setAuthenticated(true);
                             $this->getUser()->addCredential('administrador');
                             return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
                             break;
-                    case 3: // Perfil 'analista operario'
-                            $computador = ComputadorPeer::retrieveByPK($this->getRequestParameter('certificado'));
-                             if($computador) {
-                                 $salida=$this->ArrancarSesionOperario($usuario->getUsuCodigo());
-                                 if($salida!=''){	
-                                     return $this->renderText("{ success: false, errors: { reason: '".$salida."' }}");
-                                     }							
-                                     $valido=$this->validarFechaLicencia();
-                                     if($valido=="true"){
-                                         $this->getUser()->setAttribute('certificado', $this->getRequestParameter('certificado'));
-                                         $this->getUser()->setAuthenticated(true);
-                                         $this->getUser()->addCredential('analista');
-                                         }							
-                                         else{		
-                                             return $this->renderText("{ success: false, errors: { reason: '".$valido."' }}");	
-                                         }							
-                                         return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
-                                         }						
-                                         else {		
-                                             return $this->renderText("{ success: false, errors: { reason: 'Este computador no está autorizado para ingresar al sistema' }}");
-                                             }						
-                                             break;
-                          case 4: // reportes coordinador supervisor
-                            $salida=$this->ArrancarSesionOperario($usuario->getUsuCodigo());
-                              if($salida!=''){	
-                                  return $this->renderText("{ success: false, errors: { reason: '".$salida."' }}");
-                                  }						
-                                  $this->getUser()->setAuthenticated(true);
-                                  $this->getUser()->addCredential('reportes');
-                                  return $this->renderText("{success:true,mensaje:'".$perfilCodigo."'}");
-                                  break;
-                                  }                                  
-                              }		                              
-                              }catch (Exception $excepcion) {
-                                  return $this->renderText("{success:false,errors:{reason:'Ha ocurrido una execpcion',error:'".$excepcion->getMessage()."' }}");
-                                  }
-                                  }	
+                }
+             }		                              
+             }catch (Exception $excepcion) {
+                 return $this->renderText("{success:false,errors:{reason:'Ha ocurrido una execpcion',error:'".$excepcion->getMessage()."' }}");
+             }
+    }	
                                   
-                                  /**	 * Este metodo se encarga de sacar al usuario del sistema	 */
-                                  public function executeDesautenticar()	{
-                                      if($this->getUser()->isAuthenticated())		{
-                                          $this->getUser()->setAuthenticated(false);	
-                                          $this->getUser()->clearCredentials();
-                                          $this->getUser()->getAttributeHolder()->clear();
-                                          }		
-                                          return $this->renderText("{success: true, mensaje: 'El usuario ha terminado'}");                                          
-                                      }	
+    /* Este metodo se encarga de sacar al usuario del sistema */
+    public function executeDesautenticar() {
+        if($this->getUser()->isAuthenticated())	{
+            $this->getUser()->setAuthenticated(false);	
+            $this->getUser()->clearCredentials();
+            $this->getUser()->getAttributeHolder()->clear();
+        }
+        return $this->renderText("{success: true, mensaje: 'El usuario ha terminado'}");
+    }	
                                       
-                                      /**	 * Este metodo se encarga de poner los datos de operario y de la empresa en session	 */	
+   /* Este metodo se encarga de poner los datos de operario y de la empresa en session */	
                                       
     protected function ArrancarSesionOperario($usu_codigo) {
         $salida="";
@@ -133,55 +98,51 @@ class loginActions extends sfActions
             else {
 //                $salida="El usuario no tiene un empleado asociado2";
             }	
-                                                          }		
-                                                          catch (Exception $excepcion)	
-                                                          {			
-                                                              throw $excepcion;	
-                                                              //$salida =  "({success: false, errors: { reason: 'Hubo una excepción'}})";
-                                                              }		
-                                                              return $salida;	
-                                                              
-                                                          }	
-                                                          /**	 * Este metodo se valoda que no se haya vencido la licencia y esta habilitado solo para los analistas	 */
-                                                          protected function validarFechaLicencia()	
-                                                                  {		
-                                                              $salida="";		
-                                                              try		{
-                                                                  $emp_codigo=$this->getUser()->getAttribute('emp_codigo');	
-                                                                  if($emp_codigo){				
-                                                                      $hoy_fecha=date("Y-m-d");	
-                                                                      //echo($hoy_fecha.'-');	
-                                                                      $conexion = new Criteria();
-                                                                      $conexion->add(EmpresaPeer::EMP_CODIGO, $emp_codigo);
-                                                                      //$conexion->add(EmpresaPeer::EMP_FECHA_LIMITE_LICENCIA, $hoy_fecha, CRITERIA::GREATERLESS_EQUAL);	
-                                                                      //$conexion->addAnd(EmpresaPeer::EMP_FECHA_INICIO_LICENCIA, $hoy_fecha, CRITERIA::LESS_EQUAL);	
-                                                                      $empresa = EmpresaPeer::doSelectOne($conexion);	
-                                                                      if($empresa){			
-                                                                          $fin=$empresa->getEmpFechaLimiteLicencia();
-                                                                          $ini=$empresa->getEmpFechaInicioLicencia();
-                                                                          //echo($fin.'-'.$ini);
-                                                                          if( $fin>=$hoy_fecha  && $ini<=$hoy_fecha){
-                                                                              return "true";
-                                                                              }		
-                                                                              else{
-                                                                                  $salida="La licencia del software no este activa en este periodo";
-                                                                                  }		
-                                                                              }				
-                                                                              else{
-                                                                                  $salida="No se ha podido capturar la empresa a la que pertenece este usuario";
-                                                                                  }
-                                                                              }			
-                                                                              else {		
-                                                                                  $salida="No se ha podido capturar la empresa a la que pertenece este usuario";
-                                                                                  }		                                                                                  
-                                                                              }		
-                                                                              catch (Exception $excepcion)		{	
-                                                                                  throw $excepcion;	
-                                                                              }
-//echo($salida);		
-return $salida;	
+         } catch (Exception $excepcion) {
+             throw $excepcion;	
+             //$salida =  "({success: false, errors: { reason: 'Hubo una excepción'}})";
+         }		
+         return $salida;                                                              
+      }	
+      /* Este metodo se valoda que no se haya vencido la licencia y esta habilitado solo para los analistas */
+      protected function validarFechaLicencia() {		
+          $salida="";		
+          try		{
+              $emp_codigo=$this->getUser()->getAttribute('emp_codigo');	
+              if($emp_codigo){				
+                  $hoy_fecha=date("Y-m-d");	
+                  //echo($hoy_fecha.'-');	
+                  $conexion = new Criteria();
+                  $conexion->add(EmpresaPeer::EMP_CODIGO, $emp_codigo);
+                  //$conexion->add(EmpresaPeer::EMP_FECHA_LIMITE_LICENCIA, $hoy_fecha, CRITERIA::GREATERLESS_EQUAL);	
+                  //$conexion->addAnd(EmpresaPeer::EMP_FECHA_INICIO_LICENCIA, $hoy_fecha, CRITERIA::LESS_EQUAL);	
+                  $empresa = EmpresaPeer::doSelectOne($conexion);	
+                  if($empresa){			
+                      $fin=$empresa->getEmpFechaLimiteLicencia();
+                      $ini=$empresa->getEmpFechaInicioLicencia();
+                      //echo($fin.'-'.$ini);
+                      if( $fin>=$hoy_fecha  && $ini<=$hoy_fecha){
+                          return "true";
+                          }		
+                          else{
+                              $salida="La licencia del software no este activa en este periodo";
+                              }		
+                          }				
+                          else{
+                              $salida="No se ha podido capturar la empresa a la que pertenece este usuario";
+                              }
+                          }			
+                          else {		
+                              $salida="No se ha podido capturar la empresa a la que pertenece este usuario";
+                              }		                                                                                  
+                          }		
+                          catch (Exception $excepcion)		{	
+                              throw $excepcion;	
+                          }
+        return $salida;	
 
-                                                                              }}
+   }
+}
                                                                             
                                                                               
                                                                               

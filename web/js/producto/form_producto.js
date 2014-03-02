@@ -3,7 +3,7 @@ var ayuda_prod_nombre='Ingrese el nombre del producto';
 var ayuda_prod_fecha_entrega='Seleccione la fecha de entrega del producto';
 var ayuda_prod_proyecto='Seleccione el proyecto';
 var ayuda_prod_estado='Seleccione el estado del producto';
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_producto_datastore = new Ext.data.Store({
 id: 'crud_producto_datastore',

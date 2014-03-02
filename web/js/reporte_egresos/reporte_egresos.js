@@ -1,4 +1,4 @@
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_egreso_datastore = new Ext.data.Store({
 id: 'crud_egreso_datastore',

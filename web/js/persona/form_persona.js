@@ -6,7 +6,7 @@ var ayuda_pers_cargo='Ingrese el cargo de la persona';
 var ayuda_pers_correo='Ingrese el correo electrónico de la persona';
 var ayuda_pers_telefono='Ingrese el teléfono fijo de la persona'; 
 var ayuda_pers_celular='Ingrese el teléfono celular de la persona'; 
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_persona_datastore = new Ext.data.Store({
 id: 'crud_persona_datastore',

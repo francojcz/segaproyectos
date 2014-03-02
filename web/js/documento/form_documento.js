@@ -1,7 +1,7 @@
 var ayuda_doc_codigo='';
 var ayuda_doc_tipo='Seleccione el tipo de documento';
 var ayuda_doc_proyecto='Seleccione el proyecto';
-var largo_panel=500;
+var largo_panel=450;
 
 var crud_documento_datastore = new Ext.data.Store({
 id: 'crud_documento_datastore',
