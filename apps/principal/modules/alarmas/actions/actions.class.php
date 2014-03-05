@@ -73,12 +73,8 @@ class alarmasActions extends sfActions
 
                                 //Cuando se ha vencido la fecha de entrega del producto
                                 if(($anoactual > $anoentrega) || (($anoactual == $anoentrega) && ($mesactual > $mesentrega)) || (($anoactual == $anoentrega) && ($mesactual == $mesentrega) && ($diaactual > $diaentrega))) {                                                                    
-                                    $datos[$fila]['pro_concepto']='Entrega de Producto';
                                     $datos[$fila]['pro_concepto_s']='<b>Entrega de Producto</b>';
                                     $datos[$fila]['alarma'] = '<a style="color:#000000;"><b>La fecha de entrega del producto "'.$temporalprod->getProdNombre().'" está vencida.  El producto debió ser entregado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                    $datos[$fila]['descripcion'] = 'la fecha de entrega del producto "'.$temporalprod->getProdNombre().'" está vencida.  El producto debió ser entregado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                    $datos[$fila]['pro_codigo']=$temporalprod->getProdCodigo();
-                                    
                                     $fila++;                                
                                 }
 
@@ -98,32 +94,15 @@ class alarmasActions extends sfActions
 
                                     $dias_faltantes = $dias_entrega-$dias_actual;
                                     
-                                    if($dias_faltantes == 0) {                                        
-                                        $datos[$fila]['pro_concepto']='Entrega de Producto';
+                                    if($dias_faltantes == 0) {                               
                                         $datos[$fila]['pro_concepto_s']='<b>Entrega de Producto</b>';
                                         $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>El producto "'.$temporalprod->getProdNombre().'" debe ser entregado hoy '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                        $datos[$fila]['descripcion'] = 'el producto "'.$temporalprod->getProdNombre().'" debe ser entregado hoy '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                        $datos[$fila]['pro_codigo']=$temporalprod->getProdCodigo();
-                                        
                                         $fila++;
                                     }
                                     else {
-                                        if($dias_faltantes >= 1 && $dias_faltantes <= 10 && $dias_faltantes >= 0) {                                        
-                                            $datos[$fila]['pro_concepto']='Entrega de Producto';
+                                        if($dias_faltantes >= 1 && $dias_faltantes <= 20) {       
                                             $datos[$fila]['pro_concepto_s']='<b>Entrega de Producto</b>';
                                             $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Quedan '.$dias_faltantes.' días disponibles para entregar el producto "'.$temporalprod->getProdNombre().'".  El producto debe ser entregado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                            $datos[$fila]['descripcion'] = 'quedan menos de 10 días disponibles para entregar el producto "'.$temporalprod->getProdNombre().'".  El producto debe ser entregado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                            $datos[$fila]['pro_codigo']=$temporalprod->getProdCodigo();
-
-                                            $fila++;
-                                        }
-                                        if($dias_faltantes >= 11 && $dias_faltantes <= 20 && $dias_faltantes >= 0) {                                        
-                                            $datos[$fila]['pro_concepto']='Entrega de Producto';
-                                            $datos[$fila]['pro_concepto_s']='<b>Entrega de Producto</b>';
-                                            $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Quedan '.$dias_faltantes.' disponibles para entregar el producto "'.$temporalprod->getProdNombre().'".  El producto debe ser entregado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                            $datos[$fila]['descripcion'] = 'quedan menos de 20 días disponibles para entregar el producto "'.$temporalprod->getProdNombre().'".  El producto debe ser entregado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                            $datos[$fila]['pro_codigo']=$temporalprod->getProdCodigo();
-
                                             $fila++;
                                         }
                                     }
@@ -153,12 +132,8 @@ class alarmasActions extends sfActions
 
                                 //Cuando se ha retrazado la fecha de entrega del proyecto
                                 if(($anoactual > $anoentrega) || (($anoactual == $anoentrega) && ($mesactual > $mesentrega)) || (($anoactual == $anoentrega) && ($mesactual == $mesentrega) && ($diaactual > $diaentrega))) {                                    
-                                    $datos[$fila]['pro_concepto']='Finalización de Proyecto';
                                     $datos[$fila]['pro_concepto_s']='<b>Finalización de Proyecto</b>';
                                     $datos[$fila]['alarma'] = '<a style="color:#000000;"><b>La fecha de finalización del proyecto "'.$temporalproy->getProNombre().'" está vencida.  El proyecto debió ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                    $datos[$fila]['descripcion'] = 'la fecha de finalización del proyecto "'.$temporalproy->getProNombre().'" está vencida.  El proyecto debió ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                    $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-                                    
                                     $fila++;                                
                                 }
 
@@ -179,42 +154,16 @@ class alarmasActions extends sfActions
                                     $dias_faltantes = $dias_entrega-$dias_actual;
                                     
                                     if($dias_faltantes == 0) {
-                                        $datos[$fila]['pro_concepto']='Finalización de Proyecto';
                                         $datos[$fila]['pro_concepto_s']='<b>Finalización de Proyecto</b>';
                                         $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>El proyecto "'.$temporalproy->getProNombre().'" debe ser finalizado hoy '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                        $datos[$fila]['descripcion'] = 'el proyecto "'.$temporalproy->getProNombre().'" debe ser finalizado hoy '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                        $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-                                        
                                         $fila++;
                                     }
                                     else {
-                                        if($dias_faltantes >= 1 && $dias_faltantes <= 10 && $dias_faltantes >= 0) {                                        
-                                            $datos[$fila]['pro_concepto']='Finalización de Proyecto';
+                                        if($dias_faltantes >= 1 && $dias_faltantes <= 30) {                  
                                             $datos[$fila]['pro_concepto_s']='<b>Finalización de Proyecto</b>';
                                             $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Quedan '.$dias_faltantes.' disponibles para finalizar el proyecto "'.$temporalproy->getProNombre().'".  El proyecto debe ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                            $datos[$fila]['descripcion'] = 'quedan menos de 10 días disponibles para finalizar el proyecto "'.$temporalproy->getProNombre().'".  El proyecto debe ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                            $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-
                                             $fila++;
-                                        }
-                                        if($dias_faltantes >= 11 && $dias_faltantes <= 20 && $dias_faltantes >= 0) {                                        
-                                            $datos[$fila]['pro_concepto']='Finalización de Proyecto';
-                                            $datos[$fila]['pro_concepto_s']='<b>Finalización de Proyecto</b>';
-                                            $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Quedan '.$dias_faltantes.' disponibles para finalizar el proyecto "'.$temporalproy->getProNombre().'".  El proyecto debe ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                            $datos[$fila]['descripcion'] = 'quedan menos de 20 días disponibles para finalizar el proyecto "'.$temporalproy->getProNombre().'".  El proyecto debe ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                            $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-
-                                            $fila++;
-                                        }
-                                        if($dias_faltantes >= 21 && $dias_faltantes <= 30 && $dias_faltantes >= 0) {                                        
-                                            $datos[$fila]['pro_concepto']='Finalización de Proyecto';
-                                            $datos[$fila]['pro_concepto_s']='<b>Finalización de Proyecto</b>';
-                                            $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Quedan '.$dias_faltantes.' días disponibles para finalizar el proyecto "'.$temporalproy->getProNombre().'".  El proyecto debe ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega.'.</b></a>';
-                                            $datos[$fila]['descripcion'] = 'quedan menos de 30 días disponibles para finalizar el proyecto "'.$temporalproy->getProNombre().'".  El proyecto debe ser finalizado el '.$diaentrega.' de '.$this->mes($mesentrega).' de '.$anoentrega;
-                                            $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-
-                                            $fila++;
-                                        }                                      
+                                        }                                     
                                     }
                                 }
                         }
@@ -237,31 +186,19 @@ class alarmasActions extends sfActions
                             $ingresos = $temporalproy->getProAcumuladoIngresos();
                             $disponible = $temporalproy->getProAcumuladoIngresos()-$temporalproy->getProAcumuladoEgresos();
                             $porcentaje = round(($disponible*100)/$ingresos);
-                            if(($porcentaje <= 20) && ($porcentaje > 0)) {
-                                $datos[$fila]['pro_concepto']='Presupuesto de Proyecto';
+                            if($porcentaje <= 20 && $porcentaje > 0) {
                                 $datos[$fila]['pro_concepto_s']='<b>Presupuesto de Proyecto</b>';
                                 $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Queda menos del 20% del presupuesto disponible del proyecto "'.$temporalproy->getProNombre().'".  El presupuesto disponible actual del proyecto es de $'.number_format($disponible, 0, ',', '.').'.</b></a>';
-                                $datos[$fila]['descripcion'] = 'queda menos del 20% del presupuesto disponible del proyecto "'.$temporalproy->getProNombre().'".  El presupuesto disponible actual del proyecto es de $'.number_format($disponible, 0, ',', '.');
-                                $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-                                
                                 $fila++;
                             }
                             if($porcentaje == 0) {
-                                $datos[$fila]['pro_concepto']='Presupuesto de Proyecto';
                                 $datos[$fila]['pro_concepto_s']='<b>Presupuesto de Proyecto</b>';
-                                $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Se ha consumido todo el presupuesto del proyecto "'.$temporalproy->getProNombre().'".</b></a>';
-                                $datos[$fila]['descripcion'] = 'se ha consumido todo el presupuesto del proyecto "'.$temporalproy->getProNombre().'".';
-                                $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-                                
+                                $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Se ha gastado todo el presupuesto del proyecto "'.$temporalproy->getProNombre().'".</b></a>';
                                 $fila++;
                             }
                             if($porcentaje < 0) {
-                                $datos[$fila]['pro_concepto']='Presupuesto de Proyecto';
                                 $datos[$fila]['pro_concepto_s']='<b>Presupuesto de Proyecto</b>';
                                 $datos[$fila]['alarma'] = '<a style="color:#000000;"><b>Se ha superado en $'.number_format($disponible*(-1), 0, ',', '.').' el valor del presupuesto del proyecto "'.$temporalproy->getProNombre().'".</b></a>';
-                                $datos[$fila]['descripcion'] = 'se ha superado en $'.number_format($disponible*(-1), 0, ',', '.').' el valor del presupuesto del proyecto "'.$temporalproy->getProNombre().'"';
-                                $datos[$fila]['pro_codigo']=$temporalproy->getProCodigo();
-                                
                                 $fila++;
                             }
                         }
@@ -275,44 +212,13 @@ class alarmasActions extends sfActions
             catch (Exception $excepcion)
             {
                     return "({success: false, errors: { reason: 'Hubo una excepci&oacute;n en alarma ',error:".$excepcion->getMessage()."'}})";
-            }
-            
-            for($i=0; $i<$fila; $i++) {
-                $criteria = new Criteria();
-                $criteria->add(AlarmaPeer::ALA_CONCEPTO, $datos[$i]['pro_concepto']);
-                $criteria->add(AlarmaPeer::ALA_CON_CODIGO, $datos[$i]['pro_codigo']);
-                $criteria->add(AlarmaPeer::ALA_DESCRIPCION, $datos[$i]['descripcion']);                
-                $count = AlarmaPeer::doCount($criteria);
-                
-                $conexion = new Criteria();
-                $conexion->add(AlarmaPeer::ALA_CONCEPTO, $datos[$i]['pro_concepto']);
-                $conexion->add(AlarmaPeer::ALA_CON_CODIGO, $datos[$i]['pro_codigo']);
-                $registro = AlarmaPeer::doSelectOne($conexion);
-                $count_r = AlarmaPeer::doCount($conexion);
-                if($count_r == 1) {
-                    if($datos[$i]['descripcion'] != ($registro->getAlaDescripcion())) {
-                        $registro->delete();
-                    }                        
-                }
-                
-                if($count == 0) {
-                    $alarma = new Alarma();
-                    $alarma->setAlaConcepto($datos[$i]['pro_concepto']);
-                    $alarma->setAlaConCodigo($datos[$i]['pro_codigo']);
-                    $alarma->setAlaDescripcion($datos[$i]['descripcion']);
-                    $alarma->setAlaEnviado(0);
-                    $alarma->save();
-                }                
-            }
-            
-//            $this->EnviarCorreoElectronicoAutomatico();
+            }           
             
             return $this->renderText($salida);
-            
-            
     }
     
-    public function executeListarTipoAlarma() {
+    public function executeListarTipoAlarma() 
+    {
             $result = array();
             $data = array();
 
@@ -330,12 +236,9 @@ class alarmasActions extends sfActions
             $result['data'] = $data;
             return $this->renderText(json_encode($result));
     }
-        
-    public function executeEnviarCorreoElectronicoAdmin(sfWebRequest $request)
-    {
-        include("/phpmailer/class.phpmailer.php");
-        include("/phpmailer/class.smtp.php");
-        
+
+    public function executeEnviarCorreoElectronico(sfWebRequest $request)
+    {        
         $criteria = new Criteria();
         $alarmas = AlarmaPeer::doSelect($criteria);
         
@@ -345,85 +248,34 @@ class alarmasActions extends sfActions
                 $proyecto = ProyectoPeer::retrieveByPK($producto->getProdProCodigo());
                 $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
                 $correo_destino = $persona->getPersCorreo();
-                $mensaje = $persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
+                $mensaje = '<html>'.$persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
                 $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
-                $mensaje .= 'Atentamente,';
+                $mensaje .= 'Atentamente,<br/><br/>';
+                $mensaje .= 'Cinara<br/><br/><html>';
                 $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);                
             }
             if(($alarma->getAlaConcepto()=='Finalización de Proyecto') || ($alarma->getAlaConcepto()=='Presupuesto de Proyecto')) {
                 $proyecto = ProyectoPeer::retrieveByPK($alarma->getAlaConCodigo());
                 $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
                 $correo_destino = $persona->getPersCorreo();
-                $mensaje = $persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
+                $mensaje = '<html>'.$persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
                 $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
-                $mensaje .= 'Atentamente,';
+                $mensaje .= 'Atentamente,<br/><br/>';
+                $mensaje .= 'Cinara<html>';
                 $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);                
             }
         }
-        return $this -> renderText($enviar_correo);
+        return $this -> renderText('Ok');
     }
     
-    public function EnviarCorreoElectronicoAutomatico()
-    {
-        include("/phpmailer/class.phpmailer.php");
-        include("/phpmailer/class.smtp.php");
-        
-        $criteria = new Criteria();
-        $criteria->add(AlarmaPeer::ALA_ENVIADO, 0);
-        $alarmas = AlarmaPeer::doSelect($criteria);
-        
-        foreach ($alarmas as $alarma) {
-            if($alarma->getAlaConcepto() == 'Entrega de Producto') {
-                $producto = ProductoPeer::retrieveByPK($alarma->getAlaConCodigo());
-                $proyecto = ProyectoPeer::retrieveByPK($producto->getProdProCodigo());
-                $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
-                $correo_destino = $persona->getPersCorreo();
-                $mensaje = $persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
-                $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
-                $mensaje .= 'Atentamente,';
-                $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);
-                if($enviar_correo == 'Ok') {
-                    $alarma->setAlaEnviado(1);
-                    $alarma->save();
-                }
-            }
-            if(($alarma->getAlaConcepto()=='Finalización de Proyecto') || ($alarma->getAlaConcepto()=='Presupuesto de Proyecto')) {
-                $proyecto = ProyectoPeer::retrieveByPK($alarma->getAlaConCodigo());
-                $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
-                $correo_destino = $persona->getPersCorreo();
-                $mensaje = $persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
-                $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
-                $mensaje .= 'Atentamente,';
-                $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);
-                if($enviar_correo == 'Ok') {
-                    $alarma->setAlaEnviado(1);
-                    $alarma->save();
-                } 
-            }
-        }
-    }
-    
-    function enviarCorreo($correo_destino, $mensaje) {            
-            $correo = $correo_destino;
-            $mail = new PHPMailer();
-            $mail->IsSMTP();
-            $mail->SMTPAuth = true;
-            $mail->SMTPSecure = "ssl";
-            $mail->Host = "smtp.gmail.com";
-            $mail->Port = 465;
-            $mail->Mailer = 'smtp';
-            $mail->Username = "franco.cundar@correounivalle.edu.co";
-            $mail->Password = "francocz";
-            $mail->From = "franco.cundar@correounivalle.edu.co";
-            $mail->FromName = "CINARA";
-            $mail->Subject = "Alarma Seguimiento a Proyectos";
-            $mail->MsgHTML($mensaje);
-            $mail->AddAddress($correo, "Destinatario");
-            $mail->IsHTML(true); 
-            if(!$mail->Send())
-                return $mail->ErrorInfo;
-            else
-                return 'Ok';
+    function enviarCorreo($correo_destino, $mensaje) {        
+        $para = $correo_destino;
+        $asunto = "Alarma Seguimiento a Proyectos";
+        $encabezado = "MIME-Version: 1.0" . "\r\n";
+        $encabezado .= "Content-type:text/html; " . "\r\n";
+        $encabezado .= "From: cinarauv@correounivalle.edu.co";
+
+        mail($para, $asunto, $mensaje, $encabezado);
     }
     
     public function mes($num_mes) {

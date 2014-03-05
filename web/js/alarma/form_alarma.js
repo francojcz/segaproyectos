@@ -140,7 +140,7 @@ var crud_alarma_contenedor_panel = new Ext.Panel({
                     style: 'padding: 0px 0px 0px 30px',
                     handler : function() {
                           Ext.Ajax.request({
-                          url : getAbsoluteUrl('alarmas', 'enviarCorreoElectronicoAdmin'),
+                          url : getAbsoluteUrl('alarmas', 'enviarCorreoElectronico'),
                           failure : function()
                           {
                               Ext.Msg.show(
