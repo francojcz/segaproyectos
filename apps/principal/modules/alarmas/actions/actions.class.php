@@ -114,7 +114,8 @@ class alarmasActions extends sfActions
                     if(($request->getParameter('codigo_tipo')=='2') || ($request->getParameter('codigo_tipo')=='-1')) {
                         $conexionproy = new Criteria();
                         $conexionproy->add(ProyectoPeer::PRO_ELIMINADO, 0);
-                        $conexionproy->add(ProyectoPeer::PRO_EST_CODIGO, 1);
+                        $conexionproy->addOr(ProyectoPeer::PRO_EST_CODIGO, 1);
+                        $conexionproy->addOr(ProyectoPeer::PRO_EST_CODIGO, 3);
                         $proyecto = ProyectoPeer::doSelect($conexionproy);
                         
                         if($start!=''){
@@ -173,7 +174,8 @@ class alarmasActions extends sfActions
                     if(($request->getParameter('codigo_tipo')=='3') || ($request->getParameter('codigo_tipo')=='-1')) {
                         $conexionproy = new Criteria();
                         $conexionproy->add(ProyectoPeer::PRO_ELIMINADO, 0);
-                        $conexionproy->add(ProyectoPeer::PRO_EST_CODIGO, 1);
+                        $conexionproy->addOr(ProyectoPeer::PRO_EST_CODIGO, 1);
+                        $conexionproy->addOr(ProyectoPeer::PRO_EST_CODIGO, 3);
                         $proyecto = ProyectoPeer::doSelect($conexionproy);
                         
                         if($start!=''){
@@ -193,7 +195,7 @@ class alarmasActions extends sfActions
                             }
                             if($porcentaje == 0) {
                                 $datos[$fila]['pro_concepto_s']='<b>Presupuesto de Proyecto</b>';
-                                $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Se ha gastado todo el presupuesto del proyecto "'.$temporalproy->getProNombre().'".</b></a>';
+                                $datos[$fila]['alarma'] = '<a style="color:#FF0000;"><b>Se ha gastado todo el presupuesto disponible del proyecto "'.$temporalproy->getProNombre().'".</b></a>';
                                 $fila++;
                             }
                             if($porcentaje < 0) {
@@ -252,7 +254,7 @@ class alarmasActions extends sfActions
                 $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
                 $mensaje .= 'Atentamente,<br/><br/>';
                 $mensaje .= 'Cinara<br/><br/><html>';
-                $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);                
+                $this->enviarCorreo($correo_destino, $mensaje);                
             }
             if(($alarma->getAlaConcepto()=='Finalización de Proyecto') || ($alarma->getAlaConcepto()=='Presupuesto de Proyecto')) {
                 $proyecto = ProyectoPeer::retrieveByPK($alarma->getAlaConCodigo());
@@ -262,7 +264,7 @@ class alarmasActions extends sfActions
                 $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
                 $mensaje .= 'Atentamente,<br/><br/>';
                 $mensaje .= 'Cinara<html>';
-                $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);                
+                $this->enviarCorreo($correo_destino, $mensaje);                
             }
         }
         return $this -> renderText('Ok');
