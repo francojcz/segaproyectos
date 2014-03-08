@@ -240,7 +240,10 @@ class alarmasActions extends sfActions
     }
 
     public function executeEnviarCorreoElectronico(sfWebRequest $request)
-    {        
+    {
+        include("/phpmailer/class.phpmailer.php");
+        include("/phpmailer/class.smtp.php");
+        
         $criteria = new Criteria();
         $alarmas = AlarmaPeer::doSelect($criteria);
         
@@ -250,34 +253,47 @@ class alarmasActions extends sfActions
                 $proyecto = ProyectoPeer::retrieveByPK($producto->getProdProCodigo());
                 $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
                 $correo_destino = $persona->getPersCorreo();
-                $mensaje = '<html>'.$persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
+                $mensaje = $persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
                 $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
                 $mensaje .= 'Atentamente,<br/><br/>';
-                $mensaje .= 'Cinara<br/><br/><html>';
-                $this->enviarCorreo($correo_destino, $mensaje);                
+                $mensaje .= 'Cinara';
+                $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);                
             }
             if(($alarma->getAlaConcepto()=='Finalización de Proyecto') || ($alarma->getAlaConcepto()=='Presupuesto de Proyecto')) {
                 $proyecto = ProyectoPeer::retrieveByPK($alarma->getAlaConCodigo());
                 $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
                 $correo_destino = $persona->getPersCorreo();
-                $mensaje = '<html>'.$persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
+                $mensaje = $persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
                 $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
                 $mensaje .= 'Atentamente,<br/><br/>';
-                $mensaje .= 'Cinara<html>';
-                $this->enviarCorreo($correo_destino, $mensaje);                
+                $mensaje .= 'Cinara';
+                $enviar_correo = $this->enviarCorreo($correo_destino, $mensaje);                
             }
         }
-        return $this -> renderText('Ok');
+        return $this -> renderText($enviar_correo);
     }
     
     function enviarCorreo($correo_destino, $mensaje) {        
-        $para = $correo_destino;
-        $asunto = "Alarma Seguimiento a Proyectos";
-        $encabezado = "MIME-Version: 1.0" . "\r\n";
-        $encabezado .= "Content-type:text/html; " . "\r\n";
-        $encabezado .= "From: cinarauv@correounivalle.edu.co";
-
-        mail($para, $asunto, $mensaje, $encabezado);
+        $correo = $correo_destino;
+            $mail = new PHPMailer();
+            $mail->IsSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = "ssl";
+            $mail->Host = "smtp.gmail.com";
+            $mail->Port = 465;
+            $mail->Mailer = 'smtp';
+            $mail->Username = "franco.cundar@correounivalle.edu.co";
+            $mail->Password = "francocz";
+            $mail->From = "franco.cundar@correounivalle.edu.co";
+            $mail->FromName = "CINARA";
+            $mail->Subject = "Alarma Seguimiento a Proyectos";
+            $mail->MsgHTML($mensaje);
+            $mail->AddAddress($correo, "Destinatario");
+            $mail->IsHTML(true); 
+            if(!$mail->Send())
+                return $mail->ErrorInfo;
+            else
+                return 'Ok';
     }
     
     public function mes($num_mes) {

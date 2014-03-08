@@ -157,7 +157,7 @@ var crud_alarma_contenedor_panel = new Ext.Panel({
                                 switch(result.responseText)
                                 {
                                   case 'Ok': mensaje = 'Los correos electrónicos fueron enviados correctamente.';
-                                    break;                                  
+                                    break;
                                   default: mensaje = 'Error al enviar los correos electrónicos.';
                                     break;
                                 }
