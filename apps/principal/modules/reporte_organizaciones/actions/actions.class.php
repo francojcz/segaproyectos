@@ -147,23 +147,27 @@ class reporte_organizacionesActions extends sfActions
             //Add a page
             $pdf->AddPage('L','LETTER');
             
+            $html = '<font style="text-align:center" size="12"><b>ORGANIZACIONES POR PROYECTO</b></font><br/>';
+            
             $conexion = new Criteria();                     
             if($request->getParameter('codigo_org') != '-1') {
                 $conexion->add(OrganizacionproyectoPeer::ORPY_ORG_CODIGO, $request->getParameter('codigo_org'));
+                $organizacion = OrganizacionPeer::retrieveByPK($request->getParameter('codigo_org'));
+                $html .= '<br/><b>ORGANIZACIÓN: '.strtoupper($organizacion->getOrgNombreCompleto()).' - '.strtoupper($organizacion->getOrgNombreCorto()).'</b>';
             }
             if($request->getParameter('codigo_proy') != '-1') {
                 $conexion->add(OrganizacionproyectoPeer::ORPY_PRO_CODIGO, $request->getParameter('codigo_proy'));
+                $proyecto = ProyectoPeer::retrieveByPK($request->getParameter('codigo_proy'));
+                $html .= '<br/><b>PROYECTO: '.strtoupper($proyecto->getProNombre()).'</b>';
             }
             $organizaciones = OrganizacionproyectoPeer::doSelect($conexion);
             
-            $html ='
+            $html .= '<br/><br/>';
+            $html .='
             <table cellspacing="0" cellpadding="1" border="1">
             <tr>
-                <td style="background-color:#000000;color:#FFFFFF;" colspan="2" align="center"><b>ORGANIZACIONES POR PROYECTO</b></td>
-            </tr>
-            <tr>
-                <td align="center"><b>Nombre de la Organización</b></td>
-                <td align="center"><b>Nombre del Proyecto</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;" align="center"><b>NOMBRE DE LA ORGANIZACIÓN</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;" align="center"><b>NOMBRE DEL PROYECTO</b></td>
             </tr>';
 
             foreach($organizaciones as $temporal)

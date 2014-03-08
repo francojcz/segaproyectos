@@ -43,7 +43,7 @@ var form_coordinador = function(){
                             items: [{
                                 frame: true,
                                 autoLoad: {
-                                    url: getAbsoluteUrl('alarmas', 'index'),
+                                    url: getAbsoluteUrl('alarmas_coord', 'index'),
                                     scripts: true,
                                     scope: this
                                 }
@@ -179,20 +179,6 @@ var form_coordinador = function(){
                                 }
                             }]
                         }]
-                    }, {
-                        expanded: true,
-                        items: [{
-                            title: 'Reportes',
-                            style: 'padding: 10px;',
-                            border: false,
-                            html: '<div style="text-align:center;"> <font face="arial" size=6 color=#4E79B2><br/><br/>Reportes</font><br/><br/><img src="' + urlPrefix + '../images/iconos/reportes.png" alt="reportes"/> </div>'
-                        }],
-                        listeners: {
-                            activate: function(c){
-                                redirigirSiSesionExpiro();
-                                window.open(getAbsoluteUrl('reportes', 'index'));
-                            }
-                        }
                     }, {
                         expanded: true,
                         items: [{

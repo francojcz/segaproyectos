@@ -145,23 +145,27 @@ class reporte_participantesActions extends sfActions
             //Add a page
             $pdf->AddPage('L','LETTER');
             
+            $html = '<font style="text-align:center" size="12"><b>PARTICIPANTES POR PROYECTO</b></font><br/>';
+            
             $criteria = new Criteria(); 
             if($request->getParameter('codigo_pers') != '-1') {
                 $criteria->add(ParticipantePeer::PAR_PERS_CODIGO, $request->getParameter('codigo_pers'));
+                $persona = PersonaPeer::retrieveByPK($request->getParameter('codigo_pers'));
+                $html .= '<br/><b>PERSONA: '.strtoupper($persona->getPersNombres()).' '.strtoupper($persona->getPersApellidos()).'</b>';
             }
             if($request->getParameter('codigo_proy') != '-1') {
                 $criteria->add(ParticipantePeer::PAR_PRO_CODIGO, $request->getParameter('codigo_proy'));
+                $proyecto = ProyectoPeer::retrieveByPK($request->getParameter('codigo_proy'));
+                $html .= '<br/><b>PROYECTO: '.strtoupper($proyecto->getProNombre()).'</b>';
             }
             $participantes = ParticipantePeer::doSelect($criteria);
             
-            $html ='
+            $html .= '<br/><br/>';
+            $html .='
             <table cellspacing="0" cellpadding="1" border="1">
             <tr>
-                <td style="background-color:#000000;color:#FFFFFF;" colspan="2" align="center"><b>PARTICIPANTES POR PROYECTO</b></td>
-            </tr>
-            <tr>
-                <td align="center"><b>Nombre de la Persona</b></td>
-                <td align="center"><b>Nombre del Proyecto</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;" align="center"><b>NOMBRE DE LA PERSONA</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;" align="center"><b>NOMBRE DEL PROYECTO</b></td>
             </tr>';
 
             foreach($participantes as $temporal)

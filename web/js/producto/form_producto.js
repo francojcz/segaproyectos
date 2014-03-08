@@ -118,7 +118,7 @@ var prod_estado = new Ext.form.ComboBox({
         'render': function(){
             ayuda('estd_nombre', ayuda_prod_estado);
         },
-        focus: function(){
+        'change': function() {
             crud_estado_datastore.reload();
         }
     }
@@ -183,7 +183,7 @@ var prod_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('proye_nombre', ayuda_prod_proyecto);
         },
-        focus: function(){
+        'change': function() {
             crud_proyecto_datastore.reload();
         }
     }

@@ -165,35 +165,38 @@ class reporte_asignacionesActions extends sfActions
             //Add a page
             $pdf->AddPage('L','LETTER');
             
+            $html = '<font style="text-align:center" size="12"><b>ASIGNACIÓN DE TIEMPOS</b></font><br/>';
+            
             $total = array();
             $datos = array();
             $fila=0;
             $conexion = new Criteria();
-            $conexion->add(AsignaciondetiempoPeer::ADT_ANO, $request->getParameter('ano'));                                          
+            $conexion->add(AsignaciondetiempoPeer::ADT_ANO, $request->getParameter('ano'));
+            $html .= '<br/><b>AÑO: '.$request->getParameter('ano').'</b>';
             if($request->getParameter('codigo_pers') != '-1') {
                 $conexion->add(AsignaciondetiempoPeer::ADT_PERS_CODIGO, $request->getParameter('codigo_pers'));
+                $persona = PersonaPeer::retrieveByPK($request->getParameter('codigo_pers'));
+                $html .= '<br/><b>PERSONA: '.strtoupper($persona->getPersNombres()).' '.strtoupper($persona->getPersApellidos()).'</b>';
             }
             $asignacion = AsignaciondetiempoPeer::doSelect($conexion);
             
-            $html ='
+            $html .= '<br/><br/>';
+            $html .='
             <table cellspacing="0" cellpadding="1" border="1">
             <tr>
-                <td style="width:100%" style="background-color:#000000;color:#FFFFFF;font-size:11;" colspan="13" align="center"><b>ASIGNACIÓN DE TIEMPOS</b></td>
-            </tr>
-            <tr>
-                <td style="width:40%" align="center"><b>Nombre del Proyecto</b></td>
-                <td style="width:5%" align="center"><b>Ene</b></td>
-                <td style="width:5%" align="center"><b>Feb</b></td>
-                <td style="width:5%" align="center"><b>Mar</b></td>
-                <td style="width:5%" align="center"><b>Abr</b></td>
-                <td style="width:5%" align="center"><b>May</b></td>
-                <td style="width:5%" align="center"><b>Jun</b></td>
-                <td style="width:5%" align="center"><b>Jul</b></td>
-                <td style="width:5%" align="center"><b>Ago</b></td>
-                <td style="width:5%" align="center"><b>Sep</b></td>
-                <td style="width:5%" align="center"><b>Oct</b></td>
-                <td style="width:5%" align="center"><b>Nov</b></td>
-                <td style="width:5%" align="center"><b>Dic</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:40%" align="center"><b>NOMBRE DEL PROYECTO</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>ENE</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>FEB</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>MAR</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>ABR</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>MAY</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>JUN</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>JUL</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>AGO</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>SEP</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>OCT</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>NOV</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:5%" align="center"><b>DIC</b></td>
             </tr>';
 
             foreach($asignacion as $temporal)

@@ -221,7 +221,6 @@ class reporte_consolidadoActions extends sfActions
             $pdf->AddPage('L','LETTER');
             
             $fila=0;
-            $datos = array();
             $total_ingresos = 0;
             $total_egresos = 0;
             $dias[1]=$dias[3]=$dias[5]=$dias[7]=$dias[8]=$dias[10]=$dias[12]=31;
@@ -236,16 +235,26 @@ class reporte_consolidadoActions extends sfActions
             $ano = $request->getParameter('ano');
             $mes = $request->getParameter('mes');
             
-            $html ='
+            $html = '<font style="text-align:center" size="12"><b>PRESUPUESTO CONSOLIDADO</b></font><br/>';
+            if($request->getParameter('codigo_proy') != '-1') {
+                $proyecto = ProyectoPeer::retrieveByPK($request->getParameter('codigo_proy'));
+                $html .= '<br/><b>PROYECTO: '.strtoupper($proyecto->getProNombre()).'</b>';
+            }
+            if($ano != 'TODOS') {
+                $html .= '<br/><b>AÑO: '.$ano.'</b>';
+            }
+            if($mes != '-1') {
+                $html .= '<br/><b>MES: '.strtoupper($this->mes($mes)).'</b>';
+            }
+            
+            $html .= '<br/><br/>';
+            $html .='
             <table style="width:100%" cellspacing="0" cellpadding="1" border="1">
             <tr>
-                <td style="background-color:#000000;color:#FFFFFF;" colspan="4" align="center"><b>PRESUPUESTO CONSOLIDADO</b></td>
-            </tr>
-            <tr>
-                <td style="width:40%" align="center"><b>Nombre del Concepto</b></td>
-                <td style="width:20%" align="center"><b>Total Ingresos</b></td>
-                <td style="width:20%" align="center"><b>Total Egresos</b></td>
-                <td style="width:20%" align="center"><b>Total Disponible</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:40%" align="center"><b>NOMBRE DEL CONCEPTO</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:20%" align="center"><b>TOTAL INGRESOS</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:20%" align="center"><b>TOTAL EGRESOS</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:20%" align="center"><b>TOTAL DISPONIBLE</b></td>
             </tr>';
 
             foreach($conceptos as $temporal)
@@ -334,5 +343,20 @@ class reporte_consolidadoActions extends sfActions
             //Close and output PDF document
             $doc = $pdf->Output('Reporte.pdf', 'F');
             $pdf->Output($doc);
+    }
+    
+    public function mes($mes) {
+        if($mes == 1) { return 'enero'; }
+        if($mes == 2) { return 'febrero'; }
+        if($mes == 3) { return 'marzo'; }
+        if($mes == 4) { return 'abril'; }
+        if($mes == 5) { return 'mayo'; }
+        if($mes == 6) { return 'junio'; }
+        if($mes == 7) { return 'julio'; }
+        if($mes == 8) { return 'agosto'; }
+        if($mes == 9) { return 'septiembre'; }
+        if($mes == 10) { return 'octubre'; }
+        if($mes == 11) { return 'noviembre'; }
+        if($mes == 12) { return 'diciembre'; }
     }
 }

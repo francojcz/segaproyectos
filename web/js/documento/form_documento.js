@@ -108,7 +108,7 @@ var doc_tipo = new Ext.form.ComboBox({
         'render': function(){
             ayuda('tipd_nombre', ayuda_doc_tipo);
         },
-        focus: function(){
+        'change': function() {
             crud_tipo_datastore.reload();
         }
     }
@@ -146,7 +146,7 @@ var doc_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('proyec_nombre', ayuda_doc_proyecto);
         },
-        focus: function(){
+        'change': function() {
             crud_proyecto_datastore.reload();
         }
     }

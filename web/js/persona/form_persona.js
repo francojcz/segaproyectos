@@ -232,7 +232,6 @@ columns:[
 var crud_persona_gridpanel = new Ext.grid.GridPanel({
             id: 'crud_persona_gridpanel',
             title:'Personas registradas en el sistema',
-//            columnWidth: '.6',
             region:'center',
             stripeRows:true,
             frame: true,
@@ -371,7 +370,7 @@ function crud_persona_actualizar(btn){
                         {},
                         function(){
                         crud_persona_formpanel.getForm().reset();
-                        crud_persona_datastore.reload(); 
+                        crud_persona_datastore.load(); 
                         },
                         function(){}
                         );

@@ -165,7 +165,7 @@ var usu_perfil = new Ext.form.ComboBox({
         'render': function(){
             ayuda('per_nombre', ayuda_usu_perfil);
         },
-        focus: function(){
+        'change': function() {
             crud_perfil_datastore.reload();
         }
     }
@@ -190,7 +190,7 @@ var usu_persona = new Ext.form.ComboBox({
         'render': function(){
             ayuda('persona_nombre', ayuda_usu_persona);
         },
-        focus: function(){
+        'change': function() {
             crud_persona_datastore.reload();
         }
     }

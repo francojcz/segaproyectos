@@ -151,7 +151,7 @@ var egr_concepto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('con_egr_nombre', ayuda_egr_concepto);
         },
-        focus: function(){
+        'change': function() {
             crud_concepto_datastore.reload();
         }
     }
@@ -176,7 +176,7 @@ var egr_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('pro_egr_nombre', ayuda_egr_proyecto);
         },
-        focus: function(){
+        'change': function() {
             crud_proyecto_datastore.reload();
         }
     }

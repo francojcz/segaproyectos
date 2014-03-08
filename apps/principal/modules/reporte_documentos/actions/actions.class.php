@@ -147,26 +147,30 @@ class reporte_documentosActions extends sfActions
             //Add a page
             $pdf->AddPage('L','LETTER');
             
+            $html = '<font style="text-align:center" size="12"><b>DOCUMENTOS POR PROYECTO</b></font><br/>';
+            
             $conexion = new Criteria();                    
             if($request->getParameter('codigo_proy') != '-1') {
                 $conexion->add(DocumentoPeer::DOC_PRO_CODIGO, $request->getParameter('codigo_proy'));
+                $proyecto = ProyectoPeer::retrieveByPK($request->getParameter('codigo_proy'));
+                $html .= '<br/><b>PROYECTO: '.strtoupper($proyecto->getProNombre()).'</b>';
             }
             if($request->getParameter('codigo_tip_doc') != '-1') {
                 $conexion->add(DocumentoPeer::DOC_TIPD_CODIGO, $request->getParameter('codigo_tip_doc'));
+                $tipo = TipodocumentoPeer::retrieveByPK($request->getParameter('codigo_tip_doc'));
+                $html .= '<br/><b>TIPO DE DOCUMENTO: '.strtoupper($tipo->getTipdNombre()).'</b>';
             }
 
             $conexion->add(DocumentoPeer::DOC_ELIMINADO, 0);
             $conexion->addAscendingOrderByColumn(DocumentoPeer::DOC_TIPD_CODIGO);
             $documento = DocumentoPeer::doSelect($conexion);
             
-            $html ='
+            $html .= '<br/><br/>';
+            $html .='
             <table style="width:100%" cellspacing="0" cellpadding="1" border="1">
             <tr>
-                <td style="background-color:#000000;color:#FFFFFF;" colspan="4" align="center"><b>DOCUMENTOS POR PROYECTO</b></td>
-            </tr>
-            <tr>
-                <td style="width:40%" align="center"><b>Tipo de Documento</b></td>
-                <td style="width:60%" align="center"><b>Nombre del Proyecto</b></td>
+                <td style="width:40%;background-color:#000000;color:#FFFFFF;" align="center"><b>TIPO DE DOCUMENTO</b></td>
+                <td style="width:60%;background-color:#000000;color:#FFFFFF;" align="center"><b>NOMBRE DEL PROYECTO</b></td>
             </tr>';
             
             foreach($documento as $temporal)

@@ -197,7 +197,7 @@ var ing_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('pro_ing_nombre', ayuda_ing_proyecto);
         },
-        focus: function(){
+        'change': function() {
             crud_proyecto_datastore.reload();
         }
     }

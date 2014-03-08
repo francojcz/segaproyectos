@@ -63,7 +63,7 @@ var persona_codigo = new Ext.form.ComboBox({
         selectOnFocus: true,
         fieldLabel: 'Persona',
         listeners: {
-                focus : function(){
+                'change': function() {
                         crud_persona_datastore.reload();
                 } 
         }

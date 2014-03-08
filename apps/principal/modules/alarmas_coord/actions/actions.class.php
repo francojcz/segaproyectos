@@ -1,13 +1,14 @@
 <?php
+
 /**
- * alarmas actions.
+ * alarmas_coord actions.
  *
  * @package    segaproyectos
- * @subpackage alarmas
+ * @subpackage alarmas_coord
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class alarmasActions extends sfActions
+class alarmas_coordActions extends sfActions
 {
  /**
   * Executes index action
@@ -16,10 +17,10 @@ class alarmasActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-//    $this->forward('default', 'module');      
+//    $this->forward('default', 'module');
   }
   
-    public function executeListarAlarma(sfWebRequest $request)
+  public function executeListarAlarma(sfWebRequest $request)
     {
             $salida='({"total":"0", "results":""})';
             $fila=0;
@@ -237,47 +238,6 @@ class alarmasActions extends sfActions
 
             $result['data'] = $data;
             return $this->renderText(json_encode($result));
-    }
-
-    public function executeEnviarCorreoElectronico(sfWebRequest $request)
-    {        
-        $criteria = new Criteria();
-        $alarmas = AlarmaPeer::doSelect($criteria);
-        
-        foreach ($alarmas as $alarma) {
-            if($alarma->getAlaConcepto() == 'Entrega de Producto') {
-                $producto = ProductoPeer::retrieveByPK($alarma->getAlaConCodigo());
-                $proyecto = ProyectoPeer::retrieveByPK($producto->getProdProCodigo());
-                $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
-                $correo_destino = $persona->getPersCorreo();
-                $mensaje = '<html>'.$persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
-                $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
-                $mensaje .= 'Atentamente,<br/><br/>';
-                $mensaje .= 'Cinara<br/><br/><html>';
-                $this->enviarCorreo($correo_destino, $mensaje);                
-            }
-            if(($alarma->getAlaConcepto()=='Finalización de Proyecto') || ($alarma->getAlaConcepto()=='Presupuesto de Proyecto')) {
-                $proyecto = ProyectoPeer::retrieveByPK($alarma->getAlaConCodigo());
-                $persona = PersonaPeer::retrieveByPK($proyecto->getProPersCodigo());
-                $correo_destino = $persona->getPersCorreo();
-                $mensaje = '<html>'.$persona->getPersNombres().' '.$persona->getPersApellidos().',<br/><br/>';
-                $mensaje .= 'Se le informa que '.$alarma->getAlaDescripcion().'.<br/><br/><br/>';
-                $mensaje .= 'Atentamente,<br/><br/>';
-                $mensaje .= 'Cinara<html>';
-                $this->enviarCorreo($correo_destino, $mensaje);                
-            }
-        }
-        return $this -> renderText('Ok');
-    }
-    
-    function enviarCorreo($correo_destino, $mensaje) {        
-        $para = $correo_destino;
-        $asunto = "Alarma Seguimiento a Proyectos";
-        $encabezado = "MIME-Version: 1.0" . "\r\n";
-        $encabezado .= "Content-type:text/html; " . "\r\n";
-        $encabezado .= "From: cinarauv@correounivalle.edu.co";
-
-        mail($para, $asunto, $mensaje, $encabezado);
     }
     
     public function mes($num_mes) {

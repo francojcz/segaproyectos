@@ -105,7 +105,7 @@ var proyecto_codigo = new Ext.form.ComboBox({
         selectOnFocus: true,
         fieldLabel: 'Proyecto',
         listeners: {
-                focus : function(){
+                'change': function() {
                         crud_proyecto_datastore.reload();
                 } 
         }
@@ -268,7 +268,7 @@ var org_tipo = new Ext.form.ComboBox({
         'render': function(){
             ayuda('tip_nombre', ayuda_org_tipo);
         },
-        focus: function(){
+        'change': function() {
             crud_tipo_datastore.reload();
         }
     }

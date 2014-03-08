@@ -146,31 +146,35 @@ class reporte_productosActions extends sfActions
             //Set some language-dependent strings
             $pdf->setLanguageArray($l);
             //Set font
-            $pdf->SetFont('helvetica','', 10);
+            $pdf->SetFont('helvetica','', 9);
             //Add a page
             $pdf->AddPage('L','LETTER');
+            
+            $html = '<font style="text-align:center" size="12"><b>PRODUCTOS POR PROYECTO</b></font><br/>';
             
             $conexion = new Criteria();                    
             if($request->getParameter('codigo_proy') != '-1') {
                 $conexion->add(ProductoPeer::PROD_PRO_CODIGO, $request->getParameter('codigo_proy'));
+                $proyecto = ProyectoPeer::retrieveByPK($request->getParameter('codigo_proy'));
+                $html .= '<br/><b>PROYECTO: '.strtoupper($proyecto->getProNombre()).'</b>';
             }
             if($request->getParameter('codigo_est_prod') != '-1') {
                 $conexion->add(ProductoPeer::PROD_EST_CODIGO, $request->getParameter('codigo_est_prod'));
+                $estado = EstadoproductoPeer::retrieveByPK($request->getParameter('codigo_est_prod'));
+                $html .= '<br/><b>ESTADO DEL PRODUCTO: '.strtoupper($estado->getEstProdNombre()).'</b>';
             }
             $conexion->add(ProductoPeer::PROD_ELIMINADO, 0);   
             $conexion->addAscendingOrderByColumn(ProductoPeer::PROD_NOMBRE);
             $producto = ProductoPeer::doSelect($conexion);
             
-            $html ='
-            <table style="width:100%" cellspacing="0" cellpadding="1" border="1">
+            $html .= '<br/><br/>';
+            $html .='
+            <table style="width:100%" cellspacing="0" cellpadding="1" border="1">            
             <tr>
-                <td style="background-color:#000000;color:#FFFFFF;" colspan="4" align="center"><b>PRODUCTOS POR PROYECTO</b></td>
-            </tr>
-            <tr>
-                <td style="width:35%" align="center"><b>Nombre del Producto</b></td>
-                <td style="width:15%" align="center"><b>Fecha de Entrega</b></td>
-                <td style="width:15%" align="center"><b>Estado del Producto</b></td>
-                <td style="width:35%" align="center"><b>Nombre del Proyecto</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:35%" align="center"><b>NOMBRE DEL PRODUCTO</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:15%" align="center"><b>FECHA DE ENTREGA</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:15%" align="center"><b>ESTADO</b></td>
+                <td style="background-color:#000000;color:#FFFFFF;width:35%" align="center"><b>NOMBRE DEL PROYECTO</b></td>
             </tr>';
             
             foreach($producto as $temporal)

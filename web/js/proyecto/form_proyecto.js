@@ -316,7 +316,7 @@ var pro_usu_persona = new Ext.form.ComboBox({
         'render': function(){
             ayuda('persona_pro_nombre', ayuda_pro_usu_persona);
         },
-        focus: function(){
+        'change': function() {
             crud_persona_datastore.reload();
         }
     }
@@ -341,7 +341,7 @@ var pro_estado = new Ext.form.ComboBox({
         'render': function(){
             ayuda('est_nombre', ayuda_pro_estado);
         },
-        focus: function(){
+        'change': function() {
             crud_estado_datastore.reload();
         }
     }
@@ -366,7 +366,7 @@ var pro_ejecutor = new Ext.form.ComboBox({
         'render': function(){
             ayuda('eje_nombre', ayuda_pro_ejecutor);
         },
-        focus: function(){
+        'change': function() {
             crud_ejecutor_datastore.reload();
         }
     }
@@ -391,10 +391,10 @@ var pro_tipo = new Ext.form.ComboBox({
         'render': function(){
             ayuda('tipp_nombre', ayuda_pro_tipo);
         },
-        focus: function(){
+        'change': function() {
             crud_tipo_datastore.reload();
         },
-       select: function() {
+        select: function() {
            if(pro_tipo.getValue() == '4') {
                Ext.getCmp('pro_otro_tipo').setDisabled(false);
            }

@@ -162,18 +162,22 @@ class reporte_proyectosActions extends sfActions
             //Add a page
             $pdf->AddPage('P','LETTER');            
             
+            $html = '<font style="text-align:center" size="12"><b>INFORMACIÓN DE PROYECTOS</b></font><br/>';
             $conexion = new Criteria();                    
             if($request->getParameter('codigo_pers') != '-1') {
                 $conexion->add(ProyectoPeer::PRO_PERS_CODIGO, $request->getParameter('codigo_pers'));
+                $persona = PersonaPeer::retrieveByPK($request->getParameter('codigo_pers'));
+                $html .= '<br/><b>COORDINADOR: '.strtoupper($persona->getPersNombres()).' '.strtoupper($persona->getPersApellidos()).'</b>';
             }
             if($request->getParameter('codigo_est_proy') != '-1') {
                 $conexion->add(ProyectoPeer::PRO_EST_CODIGO, $request->getParameter('codigo_est_proy'));
+                $estado = EstadoproyectoPeer::retrieveByPK($request->getParameter('codigo_est_proy'));
+                $html .= '<br/><b>ESTADO DEL PROYECTO: '.strtoupper($estado->getEstProNombre()).'</b>';
             }
             $conexion->add(ProyectoPeer::PRO_ELIMINADO, 0);            
             $conexion->addAscendingOrderByColumn(ProyectoPeer::PRO_NOMBRE);
             $proyecto = ProyectoPeer::doSelect($conexion);
-            
-            $html .= '<font style="text-align:center" size="12"><b>INFORMACIÓN DE PROYECTOS</b></font><br/><br/><br/>';
+            $html .= '<br/><br/>';
             
             foreach($proyecto as $temporal)
             {
@@ -213,7 +217,7 @@ class reporte_proyectosActions extends sfActions
                     $html .= $temporal->getProFechaFin();
                     
                     $html .= '<br/><b>Observaciones:</b> ';
-                    $html .= $temporal->getProObservaciones().'<br/><br/><br/></font>';
+                    $html .= $temporal->getProObservaciones().'<br/><br/></font>';
             }            
             $pdf->writeHTML($html, true, false, true, false, '');
             
