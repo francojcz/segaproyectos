@@ -410,5 +410,4 @@ function crud_persona_eliminar()
 function crud_persona_agregar(btn, ev) {
         crud_persona_formpanel.getForm().reset();
         Ext.getCmp('crud_persona_actualizar_boton').setText('Guardar');
-
 }
