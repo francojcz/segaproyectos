@@ -54,7 +54,19 @@ class reporte_consolidadoActions extends sfActions
                             $criteria_ing->add(ConceptosingresoPeer::CSI_CON_CODIGO, $temporal->getConCodigo());                            
                             if($request->getParameter('codigo_proy') != '-1') {                                
                                 $criteria_ing->add(ConceptosingresoPeer::CSI_PRO_CODIGO, $request->getParameter('codigo_proy'));
-                            }                            
+                            }     
+                            
+                            //Proyectos del coordinador activo en la sesión
+                            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+                            if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                                $criteria = new Criteria();
+                                $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                                $proyectos = ProyectoPeer::doSelect($criteria);
+                                foreach ($proyectos as $proyecto) {
+                                    $criteria_ing->addOr(ConceptosingresoPeer::CSI_PRO_CODIGO, $proyecto->getProCodigo());
+                                }
+                            }
+                            
                             if($request->getParameter('ano') != 'TODOS' && $request->getParameter('mes') == '-1') {
                                 $criteria_ing->add(ConceptosingresoPeer::CSI_FECHA, $ano.'-01-01', Criteria::GREATER_EQUAL);
                                 $criteria_ing->addAnd(ConceptosingresoPeer::CSI_FECHA, $ano.'-12-31', Criteria::LESS_EQUAL);
@@ -80,6 +92,17 @@ class reporte_consolidadoActions extends sfActions
                             if($request->getParameter('codigo_proy') != '-1') {
                                 $criteria_egr->add(EgresoPeer::EGR_PRO_CODIGO, $request->getParameter('codigo_proy'));
                             }
+                            
+                            //Proyectos del coordinador activo en la sesión
+                            if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                                $criteria = new Criteria();
+                                $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                                $proyectos = ProyectoPeer::doSelect($criteria);
+                                foreach ($proyectos as $proyecto) {
+                                    $criteria_egr->addOr(EgresoPeer::EGR_PRO_CODIGO, $proyecto->getProCodigo());
+                                }
+                            }
+                            
                             if($request->getParameter('ano') != 'TODOS' && $request->getParameter('mes') == '-1') {
                                 $criteria_egr->add(EgresoPeer::EGR_FECHA, $ano.'-01-01', Criteria::GREATER_EQUAL);
                                 $criteria_egr->addAnd(EgresoPeer::EGR_FECHA, $ano.'-12-31', Criteria::LESS_EQUAL);
@@ -142,6 +165,13 @@ class reporte_consolidadoActions extends sfActions
             $criteria = new Criteria();
             $criteria->add(ProyectoPeer::PRO_ELIMINADO, 0);
             $criteria->addAscendingOrderByColumn(ProyectoPeer::PRO_NOMBRE);
+            
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1) {
+                $criteria->addOr(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+            }
+            
             $proyectos = ProyectoPeer::doSelect($criteria);
             
             foreach ($proyectos as $temporal) {
@@ -264,6 +294,16 @@ class reporte_consolidadoActions extends sfActions
                     if($request->getParameter('codigo_proy') != '-1') {                                
                         $criteria_ing->add(ConceptosingresoPeer::CSI_PRO_CODIGO, $request->getParameter('codigo_proy'));
                     }                            
+                    //Proyectos del coordinador activo en la sesión
+                    $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+                    if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                        $criteria = new Criteria();
+                        $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                        $proyectos = ProyectoPeer::doSelect($criteria);
+                        foreach ($proyectos as $proyecto) {
+                            $criteria_ing->addOr(ConceptosingresoPeer::CSI_PRO_CODIGO, $proyecto->getProCodigo());
+                        }
+                    }
                     if($request->getParameter('ano') != 'TODOS' && $request->getParameter('mes') == '-1') {
                         $criteria_ing->add(ConceptosingresoPeer::CSI_FECHA, $ano.'-01-01', Criteria::GREATER_EQUAL);
                         $criteria_ing->addAnd(ConceptosingresoPeer::CSI_FECHA, $ano.'-12-31', Criteria::LESS_EQUAL);
@@ -288,6 +328,15 @@ class reporte_consolidadoActions extends sfActions
                     $criteria_egr->add(EgresoPeer::EGR_ELIMINADO, 0);                            
                     if($request->getParameter('codigo_proy') != '-1') {
                         $criteria_egr->add(EgresoPeer::EGR_PRO_CODIGO, $request->getParameter('codigo_proy'));
+                    }
+                    //Proyectos del coordinador activo en la sesión
+                    if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                        $criteria = new Criteria();
+                        $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                        $proyectos = ProyectoPeer::doSelect($criteria);
+                        foreach ($proyectos as $proyecto) {
+                            $criteria_egr->addOr(EgresoPeer::EGR_PRO_CODIGO, $proyecto->getProCodigo());
+                        }
                     }
                     if($request->getParameter('ano') != 'TODOS' && $request->getParameter('mes') == '-1') {
                         $criteria_egr->add(EgresoPeer::EGR_FECHA, $ano.'-01-01', Criteria::GREATER_EQUAL);

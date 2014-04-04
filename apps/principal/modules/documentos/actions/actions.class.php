@@ -217,9 +217,9 @@ class documentosActions extends sfActions
                     $temporal = $_FILES['doc_documento_url']['tmp_name'];
 
                     if($nombre!=''){
-                        if($tamano > 21000000)//21 Megas
+                        if($tamano > 2000000)//21 Megas
                         {
-                                $salida = "({success: false, errors: { reason: 'El archivo excede el l&iacute;mite de tama&ntilde;o permitido'}})";
+                                $salida = "({success: false, errors: { reason: 'El archivo excede el l&iacute;mite de tama&ntilde;o permitido.  Comprima y verifique nuevamente.'}})";
                         }
                         else
                         {

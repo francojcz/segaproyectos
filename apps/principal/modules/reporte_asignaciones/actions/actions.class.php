@@ -38,6 +38,17 @@ class reporte_asignacionesActions extends sfActions
                     if($request->getParameter('codigo_pers') != '-1') {
                         $conexion->add(AsignaciondetiempoPeer::ADT_PERS_CODIGO, $request->getParameter('codigo_pers'));
                     }
+                    
+                    //Proyectos del coordinador activo en la sesión
+                    $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+                    if($codigo_usuario != 1) {
+                        $criteria = new Criteria();
+                        $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                        $proyectos = ProyectoPeer::doSelect($criteria);
+                        foreach ($proyectos as $proyecto) {
+                            $conexion->addOr(AsignaciondetiempoPeer::ADT_PRO_CODIGO, $proyecto->getProCodigo());
+                        }
+                    }
                                         
                     $asignaciones_cantidad = AsignaciondetiempoPeer::doCount($conexion);
 
@@ -178,6 +189,18 @@ class reporte_asignacionesActions extends sfActions
                 $persona = PersonaPeer::retrieveByPK($request->getParameter('codigo_pers'));
                 $html .= '<br/><b>PERSONA: '.strtoupper($persona->getPersNombres()).' '.strtoupper($persona->getPersApellidos()).'</b>';
             }
+            
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1) {
+                $criteria = new Criteria();
+                $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                $proyectos = ProyectoPeer::doSelect($criteria);
+                foreach ($proyectos as $proyecto) {
+                    $conexion->addOr(AsignaciondetiempoPeer::ADT_PRO_CODIGO, $proyecto->getProCodigo());
+                }
+            }
+            
             $asignacion = AsignaciondetiempoPeer::doSelect($conexion);
             
             $html .= '<br/><br/>';

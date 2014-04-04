@@ -40,6 +40,17 @@ class reporte_documentosActions extends sfActions
                         $conexion->add(DocumentoPeer::DOC_TIPD_CODIGO, $request->getParameter('codigo_tip_doc'));
                     }
                     
+                    //Proyectos del coordinador activo en la sesión
+                    $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+                    if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                        $criteria = new Criteria();
+                        $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                        $proyectos = ProyectoPeer::doSelect($criteria);
+                        foreach ($proyectos as $proyecto) {
+                            $conexion->addOr(DocumentoPeer::DOC_PRO_CODIGO, $proyecto->getProCodigo());
+                        }
+                    }
+                    
                     $conexion->add(DocumentoPeer::DOC_ELIMINADO, 0);
                     $documentos_cantidad = DocumentoPeer::doCount($conexion);
 
@@ -86,6 +97,13 @@ class reporte_documentosActions extends sfActions
             $criteria = new Criteria();
             $criteria->add(ProyectoPeer::PRO_ELIMINADO, 0);
             $criteria->addAscendingOrderByColumn(ProyectoPeer::PRO_NOMBRE);
+            
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1) {
+                $criteria->addOr(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+            }
+            
             $proyectos = ProyectoPeer::doSelect($criteria);
             
             foreach ($proyectos as $temporal) {
@@ -163,6 +181,18 @@ class reporte_documentosActions extends sfActions
 
             $conexion->add(DocumentoPeer::DOC_ELIMINADO, 0);
             $conexion->addAscendingOrderByColumn(DocumentoPeer::DOC_TIPD_CODIGO);
+            
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                $criteria = new Criteria();
+                $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                $proyectos = ProyectoPeer::doSelect($criteria);
+                foreach ($proyectos as $proyecto) {
+                    $conexion->addOr(DocumentoPeer::DOC_PRO_CODIGO, $proyecto->getProCodigo());
+                }
+            }
+            
             $documento = DocumentoPeer::doSelect($conexion);
             
             $html .= '<br/><br/>';

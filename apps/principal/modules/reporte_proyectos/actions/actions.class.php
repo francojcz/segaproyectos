@@ -40,6 +40,12 @@ class reporte_proyectosActions extends sfActions
                         $conexion->add(ProyectoPeer::PRO_EST_CODIGO, $request->getParameter('codigo_est_proy'));
                     }
                     
+                    //Proyectos del coordinador activo en la sesión
+                    $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+                    if($codigo_usuario != 1) {
+                        $conexion->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                    }
+                    
                     $conexion->add(ProyectoPeer::PRO_ELIMINADO, 0);
                     $proyectos_cantidad = ProyectoPeer::doCount($conexion);
 
@@ -98,6 +104,11 @@ class reporte_proyectosActions extends sfActions
             $criteria = new Criteria();
             $criteria->add(PersonaPeer::PERS_ELIMINADO, 0);
             $criteria->addAscendingOrderByColumn(PersonaPeer::PERS_NOMBRES);
+            //Nombre del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1) {
+                $criteria->add(PersonaPeer::PERS_CODIGO, $codigo_usuario);
+            }
             $personas = PersonaPeer::doSelect($criteria);
             
             foreach ($personas as $temporal) {
@@ -176,6 +187,11 @@ class reporte_proyectosActions extends sfActions
             }
             $conexion->add(ProyectoPeer::PRO_ELIMINADO, 0);            
             $conexion->addAscendingOrderByColumn(ProyectoPeer::PRO_NOMBRE);
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1) {
+                $conexion->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+            }
             $proyecto = ProyectoPeer::doSelect($conexion);
             $html .= '<br/><br/>';
             

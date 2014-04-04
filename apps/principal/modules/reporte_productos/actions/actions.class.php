@@ -40,6 +40,17 @@ class reporte_productosActions extends sfActions
                         $conexion->add(ProductoPeer::PROD_EST_CODIGO, $request->getParameter('codigo_est_prod'));
                     }
                     
+                    //Proyectos del coordinador activo en la sesión
+                    $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+                    if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                        $criteria = new Criteria();
+                        $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                        $proyectos = ProyectoPeer::doSelect($criteria);
+                        foreach ($proyectos as $proyecto) {
+                            $conexion->addOr(ProductoPeer::PROD_PRO_CODIGO, $proyecto->getProCodigo());
+                        }
+                    }
+                    
                     $conexion->add(ProductoPeer::PROD_ELIMINADO, 0);
                     $productos_cantidad = ProductoPeer::doCount($conexion);
 
@@ -88,6 +99,13 @@ class reporte_productosActions extends sfActions
             $criteria = new Criteria();
             $criteria->add(ProyectoPeer::PRO_ELIMINADO, 0);
             $criteria->addAscendingOrderByColumn(ProyectoPeer::PRO_NOMBRE);
+            
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1) {
+                $criteria->addOr(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+            }
+            
             $proyectos = ProyectoPeer::doSelect($criteria);
             
             foreach ($proyectos as $temporal) {
@@ -165,6 +183,18 @@ class reporte_productosActions extends sfActions
             }
             $conexion->add(ProductoPeer::PROD_ELIMINADO, 0);   
             $conexion->addAscendingOrderByColumn(ProductoPeer::PROD_NOMBRE);
+            
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                $criteria = new Criteria();
+                $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                $proyectos = ProyectoPeer::doSelect($criteria);
+                foreach ($proyectos as $proyecto) {
+                    $conexion->addOr(ProductoPeer::PROD_PRO_CODIGO, $proyecto->getProCodigo());
+                }
+            }
+            
             $producto = ProductoPeer::doSelect($conexion);
             
             $html .= '<br/><br/>';

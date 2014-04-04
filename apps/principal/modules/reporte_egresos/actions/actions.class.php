@@ -45,6 +45,18 @@ class reporte_egresosActions extends sfActions
                     if($request->getParameter('codigo_proy') != '-1') {
                         $conexion->add(EgresoPeer::EGR_PRO_CODIGO, $request->getParameter('codigo_proy'));
                     }
+                    
+                    //Proyectos del coordinador activo en la sesión
+                    $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+                    if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                        $criteria = new Criteria();
+                        $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                        $proyectos = ProyectoPeer::doSelect($criteria);
+                        foreach ($proyectos as $proyecto) {
+                            $conexion->addOr(EgresoPeer::EGR_PRO_CODIGO, $proyecto->getProCodigo());
+                        }
+                    }
+                    
                     if($request->getParameter('codigo_con') != '-1') {
                         $conexion->add(EgresoPeer::EGR_CON_CODIGO, $request->getParameter('codigo_con'));
                     }
@@ -110,6 +122,13 @@ class reporte_egresosActions extends sfActions
             $criteria = new Criteria();
             $criteria->add(ProyectoPeer::PRO_ELIMINADO, 0);
             $criteria->addAscendingOrderByColumn(ProyectoPeer::PRO_NOMBRE);
+            
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1) {
+                $criteria->addOr(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+            }
+            
             $proyectos = ProyectoPeer::doSelect($criteria);
             
             foreach ($proyectos as $temporal) {
@@ -247,6 +266,16 @@ class reporte_egresosActions extends sfActions
 
             if($request->getParameter('codigo_proy') != '-1') {
                 $conexion->add(EgresoPeer::EGR_PRO_CODIGO, $request->getParameter('codigo_proy'));
+            }
+            //Proyectos del coordinador activo en la sesión
+            $codigo_usuario = $this->getUser()->getAttribute('usu_codigo');
+            if($codigo_usuario != 1 && $request->getParameter('codigo_proy') == '-1') {
+                $criteria = new Criteria();
+                $criteria->add(ProyectoPeer::PRO_PERS_CODIGO, $codigo_usuario);
+                $proyectos = ProyectoPeer::doSelect($criteria);
+                foreach ($proyectos as $proyecto) {
+                    $conexion->addOr(EgresoPeer::EGR_PRO_CODIGO, $proyecto->getProCodigo());
+                }
             }
             if($request->getParameter('codigo_con') != '-1') {
                 $conexion->add(EgresoPeer::EGR_CON_CODIGO, $request->getParameter('codigo_con'));

@@ -1,0 +1,85 @@
+Instalación Apache, Php y MySQL:
+1. Instalar apache: sudo apt-get install apache2
+2. Verificar estado de apache: /etc/init.d/apache2 status
+3. Instalar php5: sudo apt-get install php5 libapache2-mod-php5
+4. Reiniciar servidor web: sudo /etc/init.d/apache2 restart
+5. Dar permisos:
+   sudo chown -R USUARIO:www-data /var/www
+   sudo chmod -R 755 /var/www
+6. Crear info.php para comprobar el funcionamiento de PHP: sudo nano /var/www/info.php
+   Pegar lo siguiente dentro, luego guardar y cerrar: <?php phpinfo(); ?>
+   Comprobar entrando a la dirección: http://direccion_ip/info.php
+7. Instalar MySQ: sudo apt-get install mysql-server
+8. Instalar PHP: sudo apt-get install php5-mysql php5-curl php5-gd php5-idn php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+9. Reiniciar servidor web: sudo /etc/init.d/apache2 restart
+10. Instalar phpmyadmin: sudo apt-get install phpmyadmin
+11. Comprobar si funciona ingresando a: http://direccion_ip/phpmyadmin
+12. Reiniciar servidor web: sudo /etc/init.d/apache2 restart
+
+Configurar aplicación:
+1. Listar los dispositivos actualmente en uso y verificar cual corresponde a la usb: ls -l /dev/sd*
+2. Crear una carpeta para montar usb: sudo mkdir /media/usb
+3. Montar usb en la carpeta creada: sudo mount -t vfat /dev/sdb1 /media/usb
+4. Copiar la carpeta "segaproyectos" desde la carpeta usb a la direccion /var/www: sudo cp -r /media/usb/segaproyectos /var/www
+5. Abrir el archivo para la configuración del servidor web: sudo nano /etc/apache2/sites-available/000-default.conf
+6. Agregar antes de </VirtualHost> la siguiente línea: 
+   Alias /segaproyectos "/var/www/segaproyectos/web/"
+   Luego cerrar el archivo con Ctrl+X y guardar.
+7. Reiniciar servidor web: sudo /etc/init.d/apache2 restart
+8. Dar permisos:    
+   sudo chmod -R 2775 /var/www/segaproyectos/
+   sudo chmod -R 755 /var/www/segaproyectos/
+   sudo chmod 777 /var/www/segaproyectos/cache/ 
+                  /var/www/segaproyectos/web/ 
+                  /var/www/segaproyectos/web/documentos/ 
+                  /var/www/segaproyectos/web/productos/ 
+                  /var/www/segaproyectos/web/proyectos/
+9. Verificar en el archivo variablesGenerales.php ubicada en config la siguiente línea:
+   $urlWeb = '/segaproyectos/';
+10. Ejecutar la aplicacion: http://direccion_ip/segaproyetos
+11. Desmontar la memoria usb: sudo umount /media/usb
+
+Base de Datos:
+1. Abrir phpmyadmin: http://direccion_ip/phpmyadmin
+2. Crear base de datos con el nombre "segaproyectos"
+3. Registrar el host, el nombre de la base de datos, el nombre de usuario y la contrasena:
+   sudo nano /var/www/segaproyectos/config/databases.yml
+3. Ejecutar el script para la creación de la base de datos:
+   sudo php /var/www/segaproyectos/symfony propel:insert-sql
+4. Registrar los datos iniciales ubicados en /segaproyectos/model/instalacion.sql desde la interfaz de phpmyadmin
+5. Asignar desde la interfaz de phpmyadmin en la tabla persona el usuario con código 1 para la persona con código 1.
+5. Ejecutar la aplicacion: http://direccion_ip/segaproyetos
+6. Loguearse con los siguientes datos:
+   nombre: administrador
+   contrasena: administrador
+
+Correo Electrónico:
+1. Modificar Username, Password, From, Fromname y Subject de correo electrónico en los archivos:
+   /var/www/segaproyectos/cronjobs/index.php
+   /var/www/segaproyectos/apps/principal/modules/alarmas/actions/actions.class.php
+
+Cronjobs:
+1. Editar los valores de host, usuario y contrasena del archivo /var/www/segaproyectos/cronjobs/index.php
+2. Crear el crontab: crontab -e
+3. Seleccionar el editor nano pulsando el número 2.
+4. Verificar que la tarea programada funciona ingresando al final la siguiente línea de acuerdo a la hora más cercana:
+   minutos hora * * * php /var/www/segaproyectos/cronjobs/index.php
+5. Eliminar el anterior crontab: crontab -r
+6. Crar el crontab: crontab -e
+7. Seleccionar el editor nano pulsando el número 2.
+8. Ingresar la siguiente línea al final del archivo:
+   0 0 * * * php /var/www/segaproyectos/cronjobs/index.php
+9. Mostrar el crontab: crontab -l
+
+Días pendientes a enviar correo:
+1. Modificar cada cuantos días se deben enviar correos electrónicos por entrega de produto, finalización de proyecto y presupuesto de proyecto.
+
+Contrasena phpmyadmin: sistemas
+
+Cambios realizados:
+- Modificar variablesGenerales.php (Quitar la palabra web)
+- Eliminar los registros para la tabla concepto en datosiniciales.sql
+- Eliminar los archivos de las carpetas ubicadas en web: proyectos, documentos y productos.
+- Cambiar los permisos de 7777 a 0777 en las funciones para guardar archivos en: proyectos, documentos y productos.
+- Quitar utf8_decode de las funciones para guardar archivos en: proyectos, documentos y productos.
+- Quitar el round del calculo de porcentaje de la alarma de presupuesto de proyecto y del cronjob.
