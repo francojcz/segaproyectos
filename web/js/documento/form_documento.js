@@ -3,8 +3,8 @@ var ayuda_doc_tipo='Seleccione el tipo de documento';
 var ayuda_doc_proyecto='Seleccione el proyecto';
 var largo_panel=450;
 
-var crud_documento_datastore = new Ext.data.Store({
-id: 'crud_documento_datastore',
+var crud_documento_datastore_principal = new Ext.data.Store({
+id: 'crud_documento_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('documentos','listarDocumento'),
         method: 'POST'
@@ -26,10 +26,10 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'doc_usuario_nombre', type: 'string'}
         ])
 });
-crud_documento_datastore.load();
+crud_documento_datastore_principal.load();
 
-var crud_tipo_datastore = new Ext.data.Store({
-    id: 'crud_tipo_datastore',
+var crud_tipo_documento_datastore = new Ext.data.Store({
+    id: 'crud_tipo_documento_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('documentos', 'listarTipoDocumento'),
         method: 'POST'
@@ -45,10 +45,10 @@ var crud_tipo_datastore = new Ext.data.Store({
         name: 'tipd_nombre'
     }])
 });
-crud_tipo_datastore.load();
+crud_tipo_documento_datastore.load();
 
-var crud_proyecto_datastore = new Ext.data.JsonStore({
-        id: 'crud_proyecto_datastore',
+var crud_proyecto_documento_datastore = new Ext.data.JsonStore({
+        id: 'crud_proyecto_documento_datastore',
         url: getAbsoluteUrl('documentos', 'listarProyecto'),
         root: 'results',
         totalProperty: 'total',
@@ -61,7 +61,7 @@ var crud_proyecto_datastore = new Ext.data.JsonStore({
                 direction: 'ASC'
         }
 });
-crud_proyecto_datastore.load();
+crud_proyecto_documento_datastore.load();
 
 var doc_codigo=new Ext.form.NumberField({
    xtype: 'numberfield',
@@ -96,7 +96,7 @@ var doc_tipo = new Ext.form.ComboBox({
     hiddenName: 'doc_tipo',
     name: 'doc_tipo',
     fieldLabel: 'Tipo de Documento',
-    store: crud_tipo_datastore,
+    store: crud_tipo_documento_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'tipd_nombre',
@@ -107,9 +107,6 @@ var doc_tipo = new Ext.form.ComboBox({
     listeners: {
         'render': function(){
             ayuda('tipd_nombre', ayuda_doc_tipo);
-        },
-        'change': function() {
-            crud_tipo_datastore.reload();
         }
     }
 });
@@ -134,7 +131,7 @@ var doc_proyecto = new Ext.form.ComboBox({
     hiddenName: 'doc_proyecto',
     name: 'doc_proyecto',
     fieldLabel: 'Nombre del Proyecto',
-    store: crud_proyecto_datastore,
+    store: crud_proyecto_documento_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'proyec_nombre',
@@ -146,8 +143,8 @@ var doc_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('proyec_nombre', ayuda_doc_proyecto);
         },
-        'change': function() {
-            crud_proyecto_datastore.reload();
+        focus: function() {
+            crud_proyecto_documento_datastore.reload();
         }
     }
 });
@@ -238,7 +235,7 @@ var crud_documento_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_documento_datastore,
+            ds: crud_documento_datastore_principal,
             cm: crud_documento_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -252,7 +249,7 @@ var crud_documento_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_documento_datastore,
+                    store: crud_documento_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Documentos {0} - {1} de {2}',
                     emptyMsg: "No hay documentos aun"
@@ -277,8 +274,8 @@ var crud_documento_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Documentos activos',
                             handler:function(){
-                                    crud_documento_datastore.baseParams.doc_eliminado = '0';
-                                    crud_documento_datastore.load({
+                                    crud_documento_datastore_principal.baseParams.doc_eliminado = '0';
+                                    crud_documento_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -290,8 +287,8 @@ var crud_documento_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Documentos eliminados',
                             handler:function(){
-                                    crud_documento_datastore.baseParams.doc_eliminado = '1';
-                                    crud_documento_datastore.load({
+                                    crud_documento_datastore_principal.baseParams.doc_eliminado = '1';
+                                    crud_documento_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -318,7 +315,7 @@ var crud_documento_gridpanel = new Ext.grid.GridPanel({
                                                         doc_codigo:record.get('doc_codigo')
                                                     }, 
                                                     function(){
-                                                            crud_documento_datastore.reload();
+                                                            crud_documento_datastore_principal.reload();
                                                     }, 
                                                     function(){}
                                                     );
@@ -373,7 +370,7 @@ function crud_documento_actualizar(btn){
                         {},
                         function(){
                         crud_documento_formpanel.getForm().reset();
-                        crud_documento_datastore.reload(); 
+                        crud_documento_datastore_principal.reload(); 
                         },
                         function(){}
                         );
@@ -398,7 +395,7 @@ function crud_documento_eliminar()
                                                     doc_codigo:record.get('doc_codigo')
                                                 },
                                                 function(){
-                                                crud_documento_datastore.reload(); 
+                                                crud_documento_datastore_principal.reload(); 
                                                 }
                                         );
                                 }

@@ -164,9 +164,6 @@ var usu_perfil = new Ext.form.ComboBox({
     listeners: {
         'render': function(){
             ayuda('per_nombre', ayuda_usu_perfil);
-        },
-        focus: function() {
-            crud_perfil_datastore.reload();
         }
     }
 });

@@ -5,8 +5,8 @@ var ayuda_ing_fecha='Ingrese la fecha del ingreso';
 var ayuda_ing_proyecto='Seleccione el proyecto';
 var largo_panel=450;
 
-var crud_ingreso_datastore = new Ext.data.Store({
-id: 'crud_ingreso_datastore',
+var crud_ingreso_datastore_principal = new Ext.data.Store({
+id: 'crud_ingreso_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('ingresos','listarIngreso'),
         method: 'POST'
@@ -31,10 +31,10 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'ing_disponible', type: 'string'}
         ])
 });
-crud_ingreso_datastore.load();
+crud_ingreso_datastore_principal.load();
 
-var crud_proyecto_datastore = new Ext.data.Store({
-    id: 'crud_proyecto_datastore',
+var crud_proyecto_ingreso_datastore = new Ext.data.Store({
+    id: 'crud_proyecto_ingreso_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('ingresos', 'listarProyecto'),
         method: 'POST'
@@ -50,10 +50,10 @@ var crud_proyecto_datastore = new Ext.data.Store({
         name: 'pro_ing_nombre'
     }])
 });
-crud_proyecto_datastore.load();
+crud_proyecto_ingreso_datastore.load();
 
-var crud_concepto_datastore = new Ext.data.Store({
-    id: 'crud_concepto_datastore',
+var crud_concepto_ingreso_datastore = new Ext.data.Store({
+    id: 'crud_concepto_ingreso_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('ingresos', 'listarConcepto'),
         method: 'POST'
@@ -69,7 +69,7 @@ var crud_concepto_datastore = new Ext.data.Store({
         name: 'con_ing_nombre'
     }])
 });
-crud_concepto_datastore.load();
+crud_concepto_ingreso_datastore.load();
 
 var registros_conceptos_datastore = new Ext.data.Store(
 {
@@ -185,7 +185,7 @@ var ing_proyecto = new Ext.form.ComboBox({
     hiddenName: 'ing_proyecto',
     name: 'ing_proyecto',
     fieldLabel: 'Nombre del Proyecto',
-    store: crud_proyecto_datastore,
+    store: crud_proyecto_ingreso_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'pro_ing_nombre',
@@ -197,8 +197,8 @@ var ing_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('pro_ing_nombre', ayuda_ing_proyecto);
         },
-        'change': function() {
-            crud_proyecto_datastore.reload();
+        focus: function() {
+            crud_proyecto_ingreso_datastore.reload();
         }
     }
 });
@@ -246,7 +246,7 @@ var concepto_para_agregar_combobox = new Ext.form.ComboBox(
     xtype: 'combobox',
     labelStyle: 'text-align:right;',
     fieldLabel: 'Estado',
-    store: crud_concepto_datastore,
+    store: crud_concepto_ingreso_datastore,
     mode: 'local',
     emptyText: 'Seleccione un Concepto',
     displayField: 'con_ing_nombre',
@@ -429,7 +429,7 @@ var win_ing = new Ext.Window(
 
 var recargarDatosConceptos = function(callback)
 {
-    crud_concepto_datastore.load();   
+    crud_concepto_ingreso_datastore.load();   
     var record = crud_ingreso_gridpanel.getSelectionModel().getSelected();
     registros_conceptos_datastore.load(
     {
@@ -522,7 +522,7 @@ var crud_ingreso_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_ingreso_datastore,
+            ds: crud_ingreso_datastore_principal,
             cm: crud_ingreso_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -541,7 +541,7 @@ var crud_ingreso_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_ingreso_datastore,
+                    store: crud_ingreso_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Ingresos {0} - {1} de {2}',
                     emptyMsg: "No hay ingresos aun"
@@ -566,8 +566,8 @@ var crud_ingreso_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Ingresos activos',
                             handler:function(){
-                                    crud_ingreso_datastore.baseParams.ing_eliminado = '0';
-                                    crud_ingreso_datastore.load({
+                                    crud_ingreso_datastore_principal.baseParams.ing_eliminado = '0';
+                                    crud_ingreso_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -579,8 +579,8 @@ var crud_ingreso_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Ingresos eliminados',
                             handler:function(){
-                                    crud_ingreso_datastore.baseParams.ing_eliminado = '1';
-                                    crud_ingreso_datastore.load({
+                                    crud_ingreso_datastore_principal.baseParams.ing_eliminado = '1';
+                                    crud_ingreso_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -607,7 +607,7 @@ var crud_ingreso_gridpanel = new Ext.grid.GridPanel({
                                                         ing_codigo:record.get('ing_codigo')
                                                     }, 
                                                     function(){
-                                                            crud_ingreso_datastore.reload();
+                                                            crud_ingreso_datastore_principal.reload();
                                                     }, 
                                                     function(){}
                                                     );
@@ -662,7 +662,7 @@ function crud_ingreso_actualizar(btn){
                         {},
                         function(){
                         crud_ingreso_formpanel.getForm().reset();
-                        crud_ingreso_datastore.reload(); 
+                        crud_ingreso_datastore_principal.reload(); 
                         },
                         function(){}
                         );
@@ -687,7 +687,7 @@ function crud_ingreso_eliminar()
                                                     ing_codigo:record.get('ing_codigo')
                                                 },
                                                 function(){
-                                                crud_ingreso_datastore.reload(); 
+                                                crud_ingreso_datastore_principal.reload(); 
                                                 }
                                         );
                                 }

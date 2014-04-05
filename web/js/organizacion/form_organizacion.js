@@ -7,10 +7,11 @@ var ayuda_org_correo='Ingrese el correo electrónico de la organización';
 var ayuda_org_nombre_contacto='Ingrese el nombre de la persona de contacto';
 var ayuda_org_telefono='Ingrese el teléfono de la organización';
 var ayuda_org_tipo='Seleccione el tipo de organización';
+
 var largo_panel=450;
 
-var crud_organizacion_datastore = new Ext.data.Store({
-id: 'crud_organizacion_datastore',
+var crud_organizacion_datastore_principal = new Ext.data.Store({
+id: 'crud_organizacion_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('organizaciones','listarOrganizacion'),
         method: 'POST'
@@ -36,10 +37,10 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'org_usuario_nombre', type: 'string'}
         ])
 });
-crud_organizacion_datastore.load();
+crud_organizacion_datastore_principal.load();
 
-var crud_tipo_datastore = new Ext.data.Store({
-    id: 'crud_tipo_datastore',
+var crud_tipo_organizacion_datastore = new Ext.data.Store({
+    id: 'crud_tipo_organizacion_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('organizaciones', 'listarTipo'),
         method: 'POST'
@@ -55,7 +56,7 @@ var crud_tipo_datastore = new Ext.data.Store({
         name: 'tip_nombre'
     }])
 });
-crud_tipo_datastore.load();
+crud_tipo_organizacion_datastore.load();
 
 var organizacionesporproyecto_datastore = new Ext.data.Store({
     id: 'organizacionesporproyecto_datastore',
@@ -74,8 +75,8 @@ var organizacionesporproyecto_datastore = new Ext.data.Store({
 });
 organizacionesporproyecto_datastore.load();
 
-var crud_proyecto_datastore = new Ext.data.JsonStore({
-        id: 'crud_proyecto_datastore',
+var crud_proyecto_organizacion_datastore = new Ext.data.JsonStore({
+        id: 'crud_proyecto_organizacion_datastore',
         url: getAbsoluteUrl('organizaciones', 'listarProyecto'),
         root: 'results',
         totalProperty: 'total',
@@ -88,12 +89,12 @@ var crud_proyecto_datastore = new Ext.data.JsonStore({
                 direction: 'ASC'
         }
 });
-crud_proyecto_datastore.load();
+crud_proyecto_organizacion_datastore.load();
 
 var proyecto_codigo = new Ext.form.ComboBox({
         xtype: 'combo',
         width: 200,
-        store: crud_proyecto_datastore,
+        store: crud_proyecto_organizacion_datastore,
         hiddenName: 'pro_codigo',
         name: 'orgpro_pro_codigo',
         mode: 'local',
@@ -105,8 +106,8 @@ var proyecto_codigo = new Ext.form.ComboBox({
         selectOnFocus: true,
         fieldLabel: 'Proyecto',
         listeners: {
-                'change': function() {
-                        crud_proyecto_datastore.reload();
+                focus: function() {
+                        crud_proyecto_organizacion_datastore.reload();
                 } 
         }
 });
@@ -256,7 +257,7 @@ var org_tipo = new Ext.form.ComboBox({
     hiddenName: 'org_tipo',
     name: 'org_tipo',
     fieldLabel: 'Tipo de organizaci&oacute;n',
-    store: crud_tipo_datastore,
+    store: crud_tipo_organizacion_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'tip_nombre',
@@ -267,9 +268,6 @@ var org_tipo = new Ext.form.ComboBox({
     listeners: {
         'render': function(){
             ayuda('tip_nombre', ayuda_org_tipo);
-        },
-        'change': function() {
-            crud_tipo_datastore.reload();
         }
     }
 });
@@ -418,7 +416,7 @@ var crud_organizacion_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_organizacion_datastore,
+            ds: crud_organizacion_datastore_principal,
             cm: crud_organizacion_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -435,7 +433,7 @@ var crud_organizacion_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_organizacion_datastore,
+                    store: crud_organizacion_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Organizaciones {0} - {1} de {2}',
                     emptyMsg: "No hay organizaciones aun"
@@ -460,8 +458,8 @@ var crud_organizacion_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Organizaciones activas',
                             handler:function(){
-                                    crud_organizacion_datastore.baseParams.org_eliminado = '0';
-                                    crud_organizacion_datastore.load({
+                                    crud_organizacion_datastore_principal.baseParams.org_eliminado = '0';
+                                    crud_organizacion_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -473,8 +471,8 @@ var crud_organizacion_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Organizaciones eliminadas',
                             handler:function(){
-                                    crud_organizacion_datastore.baseParams.org_eliminado = '1';
-                                    crud_organizacion_datastore.load({
+                                    crud_organizacion_datastore_principal.baseParams.org_eliminado = '1';
+                                    crud_organizacion_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -498,10 +496,10 @@ var crud_organizacion_gridpanel = new Ext.grid.GridPanel({
                                                     subirDatosAjax( 
                                                             getAbsoluteUrl('organizaciones', 'restablecerOrganizacion'),
                                                     {
-                                                        org_codigo:record.get('org_codigo'),
+                                                        org_codigo:record.get('org_codigo')
                                                     }, 
                                                     function(){
-                                                            crud_organizacion_datastore.reload();
+                                                            crud_organizacion_datastore_principal.reload();
                                                     }, 
                                                     function(){}
                                                     );
@@ -556,7 +554,7 @@ function crud_organizacion_actualizar(btn){
                         {},
                         function(){
                         crud_organizacion_formpanel.getForm().reset();
-                        crud_organizacion_datastore.reload(); 
+                        crud_organizacion_datastore_principal.reload(); 
                         },
                         function(){}
                         );
@@ -578,10 +576,10 @@ function crud_organizacion_eliminar()
                                         subirDatosAjax(
                                                 getAbsoluteUrl('organizaciones','eliminarOrganizacion'),
                                                 {
-                                                    org_codigo:record.get('org_codigo'),
+                                                    org_codigo:record.get('org_codigo')
                                                 },
                                                 function(){
-                                                crud_organizacion_datastore.reload(); 
+                                                crud_organizacion_datastore_principal.reload(); 
                                                 }
                                         );
                                 }

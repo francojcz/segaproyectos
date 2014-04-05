@@ -14,8 +14,8 @@ var ayuda_pro_otro_tipo='Ingrese otro tipo del proyecto';
 
 var largo_panel=450;
 
-var crud_proyecto_datastore = new Ext.data.Store({
-id: 'crud_proyecto_datastore',
+var crud_proyecto_datastore_principal = new Ext.data.Store({
+id: 'crud_proyecto_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('proyectos','listarProyecto'),
         method: 'POST'
@@ -49,10 +49,10 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'pro_usuario_nombre', type: 'string'}
         ])
 });
-crud_proyecto_datastore.load();
+crud_proyecto_datastore_principal.load();
 
-var crud_persona_datastore = new Ext.data.Store({
-    id: 'crud_persona_datastore',
+var crud_persona_datastore_proyectos = new Ext.data.Store({
+    id: 'crud_persona_datastore_proyectos',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('proyectos', 'listarPersona'),
         method: 'POST'
@@ -68,7 +68,7 @@ var crud_persona_datastore = new Ext.data.Store({
         name: 'persona_pro_nombre'
     }])
 });
-crud_persona_datastore.load();
+crud_persona_datastore_proyectos.load();
 
 var crud_estado_datastore = new Ext.data.Store({
     id: 'crud_estado_datastore',
@@ -108,8 +108,8 @@ var crud_ejecutor_datastore = new Ext.data.Store({
 });
 crud_ejecutor_datastore.load();
 
-var crud_tipo_datastore = new Ext.data.Store({
-    id: 'crud_tipo_datastore',
+var crud_tipo_proyecto_datastore = new Ext.data.Store({
+    id: 'crud_tipo_proyecto_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('proyectos', 'listarTipo'),
         method: 'POST'
@@ -125,7 +125,7 @@ var crud_tipo_datastore = new Ext.data.Store({
         name: 'tipp_nombre'
     }])
 });
-crud_tipo_datastore.load();
+crud_tipo_proyecto_datastore.load();
 	
 var pro_codigo=new Ext.form.NumberField({
    xtype: 'numberfield',
@@ -304,7 +304,7 @@ var pro_usu_persona = new Ext.form.ComboBox({
     hiddenName: 'pro_usu_persona',
     name: 'pro_usu_persona',
     fieldLabel: 'Coordinador del proyecto',
-    store: crud_persona_datastore,
+    store: crud_persona_datastore_proyectos,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'persona_pro_nombre',
@@ -316,8 +316,8 @@ var pro_usu_persona = new Ext.form.ComboBox({
         'render': function(){
             ayuda('persona_pro_nombre', ayuda_pro_usu_persona);
         },
-        'change': function() {
-            crud_persona_datastore.reload();
+        focus: function() {
+            crud_persona_datastore_proyectos.reload();
         }
     }
 });
@@ -340,9 +340,6 @@ var pro_estado = new Ext.form.ComboBox({
     listeners: {
         'render': function(){
             ayuda('est_nombre', ayuda_pro_estado);
-        },
-        'change': function() {
-            crud_estado_datastore.reload();
         }
     }
 });
@@ -365,9 +362,6 @@ var pro_ejecutor = new Ext.form.ComboBox({
     listeners: {
         'render': function(){
             ayuda('eje_nombre', ayuda_pro_ejecutor);
-        },
-        'change': function() {
-            crud_ejecutor_datastore.reload();
         }
     }
 });
@@ -379,7 +373,7 @@ var pro_tipo = new Ext.form.ComboBox({
     hiddenName: 'pro_tipo',
     name: 'pro_tipo',
     fieldLabel: 'Tipo de proyecto',
-    store: crud_tipo_datastore,
+    store: crud_tipo_proyecto_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'tipp_nombre',
@@ -390,9 +384,6 @@ var pro_tipo = new Ext.form.ComboBox({
     listeners: {
         'render': function(){
             ayuda('tipp_nombre', ayuda_pro_tipo);
-        },
-        'change': function() {
-            crud_tipo_datastore.reload();
         },
         select: function() {
            if(pro_tipo.getValue() == '4') {
@@ -539,7 +530,7 @@ var crud_proyecto_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_proyecto_datastore,
+            ds: crud_proyecto_datastore_principal,
             cm: crud_proyecto_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -564,7 +555,7 @@ var crud_proyecto_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_proyecto_datastore,
+                    store: crud_proyecto_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Proyectos {0} - {1} de {2}',
                     emptyMsg: "No hay proyectos aun"
@@ -589,8 +580,8 @@ var crud_proyecto_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Proyectos activos',
                             handler:function(){
-                                    crud_proyecto_datastore.baseParams.pro_eliminado = '0';
-                                    crud_proyecto_datastore.load({
+                                    crud_proyecto_datastore_principal.baseParams.pro_eliminado = '0';
+                                    crud_proyecto_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -602,8 +593,8 @@ var crud_proyecto_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Proyectos eliminados',
                             handler:function(){
-                                    crud_proyecto_datastore.baseParams.pro_eliminado = '1';
-                                    crud_proyecto_datastore.load({
+                                    crud_proyecto_datastore_principal.baseParams.pro_eliminado = '1';
+                                    crud_proyecto_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -630,7 +621,7 @@ var crud_proyecto_gridpanel = new Ext.grid.GridPanel({
                                                         pro_codigo:record.get('pro_codigo')
                                                     }, 
                                                     function(){
-                                                            crud_proyecto_datastore.reload();
+                                                            crud_proyecto_datastore_principal.reload();
                                                     }, 
                                                     function(){}
                                                     );
@@ -685,7 +676,7 @@ function crud_proyecto_actualizar(btn){
                         {},
                         function(){
                         crud_proyecto_formpanel.getForm().reset();
-                        crud_proyecto_datastore.reload(); 
+                        crud_proyecto_datastore_principal.reload(); 
                         },
                         function(){}
                         );
@@ -710,7 +701,7 @@ function crud_proyecto_eliminar()
                                                     pro_codigo:record.get('pro_codigo')
                                                 },
                                                 function(){
-                                                crud_proyecto_datastore.reload(); 
+                                                crud_proyecto_datastore_principal.reload(); 
                                                 }
                                         );
                                 }

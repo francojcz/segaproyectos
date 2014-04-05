@@ -5,8 +5,8 @@ var ayuda_prod_proyecto='Seleccione el proyecto';
 var ayuda_prod_estado='Seleccione el estado del producto';
 var largo_panel=450;
 
-var crud_producto_datastore = new Ext.data.Store({
-id: 'crud_producto_datastore',
+var crud_producto_datastore_principal = new Ext.data.Store({
+id: 'crud_producto_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('productos','listarProducto'),
         method: 'POST'
@@ -30,10 +30,10 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'prod_usuario_nombre', type: 'string'}
         ])
 });
-crud_producto_datastore.load();
+crud_producto_datastore_principal.load();
 
-var crud_proyecto_datastore = new Ext.data.JsonStore({
-        id: 'crud_proyecto_datastore',
+var crud_proyecto_producto_datastore = new Ext.data.JsonStore({
+        id: 'crud_proyecto_producto_datastore',
         url: getAbsoluteUrl('productos', 'listarProyecto'),
         root: 'results',
         totalProperty: 'total',
@@ -46,10 +46,10 @@ var crud_proyecto_datastore = new Ext.data.JsonStore({
                 direction: 'ASC'
         }
 });
-crud_proyecto_datastore.load();
+crud_proyecto_producto_datastore.load();
 
-var crud_estado_datastore = new Ext.data.Store({
-    id: 'crud_estado_datastore',
+var crud_estado_producto_datastore = new Ext.data.Store({
+    id: 'crud_estado_producto_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('productos', 'listarEstado'),
         method: 'POST'
@@ -65,7 +65,7 @@ var crud_estado_datastore = new Ext.data.Store({
         name: 'estd_nombre'
     }])
 });
-crud_estado_datastore.load();
+crud_estado_producto_datastore.load();
 	
 var prod_codigo=new Ext.form.NumberField({
    xtype: 'numberfield',
@@ -106,7 +106,7 @@ var prod_estado = new Ext.form.ComboBox({
     hiddenName: 'prod_estado',
     name: 'prod_estado',
     fieldLabel: 'Estado del producto',
-    store: crud_estado_datastore,
+    store: crud_estado_producto_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'estd_nombre',
@@ -117,9 +117,6 @@ var prod_estado = new Ext.form.ComboBox({
     listeners: {
         'render': function(){
             ayuda('estd_nombre', ayuda_prod_estado);
-        },
-        'change': function() {
-            crud_estado_datastore.reload();
         }
     }
 });
@@ -171,7 +168,7 @@ var prod_proyecto = new Ext.form.ComboBox({
     hiddenName: 'prod_proyecto',
     name: 'prod_proyecto',
     fieldLabel: 'Nombre del Proyecto',
-    store: crud_proyecto_datastore,
+    store: crud_proyecto_producto_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'proye_nombre',
@@ -183,8 +180,8 @@ var prod_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('proye_nombre', ayuda_prod_proyecto);
         },
-        'change': function() {
-            crud_proyecto_datastore.reload();
+        focus: function() {
+            crud_proyecto_producto_datastore.reload();
         }
     }
 });
@@ -278,7 +275,7 @@ var crud_producto_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_producto_datastore,
+            ds: crud_producto_datastore_principal,
             cm: crud_producto_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -292,7 +289,7 @@ var crud_producto_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_producto_datastore,
+                    store: crud_producto_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Productos {0} - {1} de {2}',
                     emptyMsg: "No hay productos aun"
@@ -317,8 +314,8 @@ var crud_producto_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Productos activos',
                             handler:function(){
-                                    crud_producto_datastore.baseParams.prod_eliminado = '0';
-                                    crud_producto_datastore.load({
+                                    crud_producto_datastore_principal.baseParams.prod_eliminado = '0';
+                                    crud_producto_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -330,8 +327,8 @@ var crud_producto_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Productos eliminados',
                             handler:function(){
-                                    crud_producto_datastore.baseParams.prod_eliminado = '1';
-                                    crud_producto_datastore.load({
+                                    crud_producto_datastore_principal.baseParams.prod_eliminado = '1';
+                                    crud_producto_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -358,7 +355,7 @@ var crud_producto_gridpanel = new Ext.grid.GridPanel({
                                                         prod_codigo:record.get('prod_codigo'),
                                                     }, 
                                                     function(){
-                                                            crud_producto_datastore.reload();
+                                                            crud_producto_datastore_principal.reload();
                                                     }, 
                                                     function(){}
                                                     );
@@ -413,7 +410,7 @@ function crud_producto_actualizar(btn){
                         {},
                         function(){
                         crud_producto_formpanel.getForm().reset();
-                        crud_producto_datastore.reload(); 
+                        crud_producto_datastore_principal.reload(); 
                         },
                         function(){}
                         );
@@ -438,7 +435,7 @@ function crud_producto_eliminar()
                                                     prod_codigo:record.get('prod_codigo'),
                                                 },
                                                 function(){
-                                                crud_producto_datastore.reload(); 
+                                                crud_producto_datastore_principal.reload(); 
                                                 }
                                         );
                                 }

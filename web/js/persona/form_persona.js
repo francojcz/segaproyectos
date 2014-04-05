@@ -8,8 +8,8 @@ var ayuda_pers_telefono='Ingrese el teléfono fijo de la persona';
 var ayuda_pers_celular='Ingrese el teléfono celular de la persona'; 
 var largo_panel=450;
 
-var crud_persona_datastore = new Ext.data.Store({
-id: 'crud_persona_datastore',
+var crud_persona_datastore_principal = new Ext.data.Store({
+id: 'crud_persona_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('personas','listarPersona'),
         method: 'POST'
@@ -33,7 +33,7 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'pers_usuario_nombre', type: 'string'},
         ])
 });
-crud_persona_datastore.load();
+crud_persona_datastore_principal.load();
 	
 var pers_codigo=new Ext.form.NumberField({
    xtype: 'numberfield',
@@ -235,7 +235,7 @@ var crud_persona_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_persona_datastore,
+            ds: crud_persona_datastore_principal,
             cm: crud_persona_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -249,7 +249,7 @@ var crud_persona_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_persona_datastore,
+                    store: crud_persona_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Personas {0} - {1} de {2}',
                     emptyMsg: "No hay personas aun"
@@ -274,8 +274,8 @@ var crud_persona_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Personas activas',
                             handler:function(){
-                                    crud_persona_datastore.baseParams.pers_eliminado = '0';
-                                    crud_persona_datastore.load({
+                                    crud_persona_datastore_principal.baseParams.pers_eliminado = '0';
+                                    crud_persona_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -287,8 +287,8 @@ var crud_persona_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Personas eliminadas',
                             handler:function(){
-                                    crud_persona_datastore.baseParams.pers_eliminado = '1';
-                                    crud_persona_datastore.load({
+                                    crud_persona_datastore_principal.baseParams.pers_eliminado = '1';
+                                    crud_persona_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -315,7 +315,7 @@ var crud_persona_gridpanel = new Ext.grid.GridPanel({
                                                         pers_codigo:record.get('pers_codigo')
                                                     }, 
                                                     function(){
-                                                            crud_persona_datastore.reload();
+                                                            crud_persona_datastore_principal.reload();
                                                     }, 
                                                     function(){}
                                                     );
@@ -370,7 +370,7 @@ function crud_persona_actualizar(btn){
                         {},
                         function(){
                         crud_persona_formpanel.getForm().reset();
-                        crud_persona_datastore.load(); 
+                        crud_persona_datastore_principal.load(); 
                         },
                         function(){}
                         );
@@ -395,7 +395,7 @@ function crud_persona_eliminar()
                                                     pers_codigo:record.get('pers_codigo')
                                                 },
                                                 function(){
-                                                crud_persona_datastore.reload(); 
+                                                crud_persona_datastore_principal.reload(); 
                                                 }
                                         );
                                 }

@@ -5,8 +5,8 @@ var ayuda_egr_fecha='Ingrese la fecha del egreso';
 var ayuda_egr_proyecto='Seleccione el proyecto';
 var largo_panel=450;
 
-var crud_egreso_datastore = new Ext.data.Store({
-id: 'crud_egreso_datastore',
+var crud_egreso_datastore_principal = new Ext.data.Store({
+id: 'crud_egreso_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('egresos','listarEgreso'),
         method: 'POST'
@@ -32,10 +32,10 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'egr_disponible', type: 'string'}
         ])
 });
-crud_egreso_datastore.load();
+crud_egreso_datastore_principal.load();
 
-var crud_concepto_datastore = new Ext.data.Store({
-    id: 'crud_concepto_datastore',
+var crud_concepto_egreso_datastore = new Ext.data.Store({
+    id: 'crud_concepto_egreso_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('egresos', 'listarConcepto'),
         method: 'POST'
@@ -51,10 +51,10 @@ var crud_concepto_datastore = new Ext.data.Store({
         name: 'con_egr_nombre'
     }])
 });
-crud_concepto_datastore.load();
+crud_concepto_egreso_datastore.load();
 
-var crud_proyecto_datastore = new Ext.data.Store({
-    id: 'crud_proyecto_datastore',
+var crud_proyecto_egreso_datastore = new Ext.data.Store({
+    id: 'crud_proyecto_egreso_datastore',
     proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('egresos', 'listarProyecto'),
         method: 'POST'
@@ -70,7 +70,7 @@ var crud_proyecto_datastore = new Ext.data.Store({
         name: 'pro_egr_nombre'
     }])
 });
-crud_proyecto_datastore.load();
+crud_proyecto_egreso_datastore.load();
 	
 var egr_codigo=new Ext.form.NumberField({
    xtype: 'numberfield',
@@ -139,7 +139,7 @@ var egr_concepto = new Ext.form.ComboBox({
     hiddenName: 'egr_concepto',
     name: 'egr_concepto',
     fieldLabel: 'Concepto del egreso',
-    store: crud_concepto_datastore,
+    store: crud_concepto_egreso_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'con_egr_nombre',
@@ -151,8 +151,8 @@ var egr_concepto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('con_egr_nombre', ayuda_egr_concepto);
         },
-        'change': function() {
-            crud_concepto_datastore.reload();
+        focus: function() {
+            crud_concepto_egreso_datastore.reload();
         }
     }
 });
@@ -164,7 +164,7 @@ var egr_proyecto = new Ext.form.ComboBox({
     hiddenName: 'egr_proyecto',
     name: 'egr_proyecto',
     fieldLabel: 'Nombre del Proyecto',
-    store: crud_proyecto_datastore,
+    store: crud_proyecto_egreso_datastore,
     mode: 'local',
     emptyText: 'Seleccione ...',
     displayField: 'pro_egr_nombre',
@@ -176,8 +176,8 @@ var egr_proyecto = new Ext.form.ComboBox({
         'render': function(){
             ayuda('pro_egr_nombre', ayuda_egr_proyecto);
         },
-        'change': function() {
-            crud_proyecto_datastore.reload();
+        focus: function() {
+            crud_proyecto_egreso_datastore.reload();
         }
     }
 });
@@ -277,7 +277,7 @@ var crud_egreso_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_egreso_datastore,
+            ds: crud_egreso_datastore_principal,
             cm: crud_egreso_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -295,7 +295,7 @@ var crud_egreso_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_egreso_datastore,
+                    store: crud_egreso_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Egresos {0} - {1} de {2}',
                     emptyMsg: "No hay egresos aun"
@@ -320,8 +320,8 @@ var crud_egreso_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Egresos activos',
                             handler:function(){
-                                    crud_egreso_datastore.baseParams.egr_eliminado = '0';
-                                    crud_egreso_datastore.load({
+                                    crud_egreso_datastore_principal.baseParams.egr_eliminado = '0';
+                                    crud_egreso_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -333,8 +333,8 @@ var crud_egreso_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Egresos eliminados',
                             handler:function(){
-                                    crud_egreso_datastore.baseParams.egr_eliminado = '1';
-                                    crud_egreso_datastore.load({
+                                    crud_egreso_datastore_principal.baseParams.egr_eliminado = '1';
+                                    crud_egreso_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -361,7 +361,7 @@ var crud_egreso_gridpanel = new Ext.grid.GridPanel({
                                                         egr_codigo:record.get('egr_codigo')
                                                     }, 
                                                     function(){
-                                                            crud_egreso_datastore.reload();
+                                                            crud_egreso_datastore_principal.reload();
                                                     }, 
                                                     function(){}
                                                     );
@@ -416,7 +416,7 @@ function crud_egreso_actualizar(btn){
                         {},
                         function(){
                         crud_egreso_formpanel.getForm().reset();
-                        crud_egreso_datastore.reload(); 
+                        crud_egreso_datastore_principal.reload(); 
                         },
                         function(){}
                         );
@@ -441,7 +441,7 @@ function crud_egreso_eliminar()
                                                     egr_codigo:record.get('egr_codigo')
                                                 },
                                                 function(){
-                                                crud_egreso_datastore.reload(); 
+                                                crud_egreso_datastore_principal.reload(); 
                                                 }
                                         );
                                 }

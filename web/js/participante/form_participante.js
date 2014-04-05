@@ -1,7 +1,7 @@
 var largo_panel=450;
 
-var crud_participante_datastore = new Ext.data.Store({
-id: 'crud_participante_datastore',
+var crud_participante_datastore_principal = new Ext.data.Store({
+id: 'crud_participante_datastore_principal',
 proxy: new Ext.data.HttpProxy({
         url: getAbsoluteUrl('participantes','listarProyecto'),
         method: 'POST'
@@ -30,10 +30,10 @@ proxy: new Ext.data.HttpProxy({
                 {name: 'pro_usuario_nombre', type: 'string'}
         ])
 });
-crud_participante_datastore.load();
+crud_participante_datastore_principal.load();
 
-var crud_persona_datastore = new Ext.data.JsonStore({
-        id: 'crud_persona_datastore',
+var crud_persona_participante_datastore = new Ext.data.JsonStore({
+        id: 'crud_persona_participante_datastore',
         url: getAbsoluteUrl('participantes', 'listarPersona'),
         root: 'results',
         totalProperty: 'total',
@@ -46,12 +46,12 @@ var crud_persona_datastore = new Ext.data.JsonStore({
                 direction: 'ASC'
         }
 });
-crud_persona_datastore.load();
+crud_persona_participante_datastore.load();
 
 var persona_codigo = new Ext.form.ComboBox({
         xtype: 'combo',
         width: 200,
-        store: crud_persona_datastore,
+        store: crud_persona_participante_datastore,
         hiddenName: 'per_codigo',
         name: 'proper_per_codigo',
         mode: 'local',
@@ -63,8 +63,8 @@ var persona_codigo = new Ext.form.ComboBox({
         selectOnFocus: true,
         fieldLabel: 'Persona',
         listeners: {
-                'change': function() {
-                        crud_persona_datastore.reload();
+                focus: function() {
+                        crud_persona_participante_datastore.reload();
                 } 
         }
 });
@@ -82,7 +82,7 @@ var generarRenderer = function(colorFondo, colorFuente){
     }
 }
 
-var asignacion_tiempos_datastore = new Ext.data.Store(
+var asignacion_tiempos_datastore_principal = new Ext.data.Store(
 {
     proxy : new Ext.data.HttpProxy(
     {
@@ -123,7 +123,7 @@ var asignacion_tiempos_datastore = new Ext.data.Store(
 
 var grillaAsignacion = new Ext.grid.EditorGridPanel(
 {
-    store : asignacion_tiempos_datastore,
+    store : asignacion_tiempos_datastore_principal,
     autoWidth : true,
     region : 'center',
     stripeRows : true,
@@ -240,7 +240,7 @@ var recargarDatosAsignacion = function(callback)
     var personasSeleccionadas = personaporproyecto_gridpanel.selModel.getSelections();
     var persona = personasSeleccionadas[0].json.pro_per_codigo;
        
-    asignacion_tiempos_datastore.load(
+    asignacion_tiempos_datastore_principal.load(
     {
       params :
       {
@@ -422,7 +422,7 @@ var crud_participante_gridpanel = new Ext.grid.GridPanel({
             region:'center',
             stripeRows:true,
             frame: true,
-            ds: crud_participante_datastore,
+            ds: crud_participante_datastore_principal,
             cm: crud_participante_colmodel,
             selModel: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -438,7 +438,7 @@ var crud_participante_gridpanel = new Ext.grid.GridPanel({
             height: largo_panel,
             bbar: new Ext.PagingToolbar({
                     pageSize: 15,
-                    store: crud_participante_datastore,
+                    store: crud_participante_datastore_principal,
                     displayInfo: true,
                     displayMsg: 'Proyectos {0} - {1} de {2}',
                     emptyMsg: "No hay proyectos aun"
@@ -460,8 +460,8 @@ var crud_participante_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'activos',
                             tooltip:'Proyectos activos',
                             handler:function(){
-                                    crud_participante_datastore.baseParams.pro_eliminado = '0';
-                                    crud_participante_datastore.load({
+                                    crud_participante_datastore_principal.baseParams.pro_eliminado = '0';
+                                    crud_participante_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
@@ -473,8 +473,8 @@ var crud_participante_gridpanel = new Ext.grid.GridPanel({
                             iconCls:'eliminados',
                             tooltip:'Proyectos eliminados',
                             handler:function(){
-                                    crud_participante_datastore.baseParams.pro_eliminado = '1';
-                                    crud_participante_datastore.load({
+                                    crud_participante_datastore_principal.baseParams.pro_eliminado = '1';
+                                    crud_participante_datastore_principal.load({
                                             params: {
                                                     start: 0,
                                                     limit: 20
